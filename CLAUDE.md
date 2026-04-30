@@ -48,6 +48,7 @@ src/
 - Use Next.js <Image> component (next/image) for all images — never bare <img> tags
 - Standard headshot size: width={400} height={400}
 - Project screenshot size: width={1200} height={800}
+- Resume: public/resume/nikhilendra_rathore_resume.pdf
 
 ## Environment Variables
 ANTHROPIC_API_KEY          # Claude API — chatbot
