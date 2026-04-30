@@ -142,12 +142,12 @@ export default function Hero() {
             </h1>
 
             {/* Title */}
-            <motion.p
+            <motion.h2
               {...motionProps(0.2)}
               className="font-display text-[clamp(1rem,2.5vw,1.4rem)] font-semibold text-[#3B5BDB] tracking-tight mb-5 sm:mb-6"
             >
               {personal.title} · {personal.tagline}
-            </motion.p>
+            </motion.h2>
 
             {/* Summary */}
             <motion.p

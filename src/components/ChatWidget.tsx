@@ -186,7 +186,7 @@ export default function ChatWidget() {
                   </div>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                    <span className="text-xs text-zinc-500 font-mono">
+                    <span className="text-xs text-zinc-600 font-mono">
                       AI · Powered by Claude
                     </span>
                   </div>

@@ -69,6 +69,7 @@ export default function About() {
             </p>
 
             {/* Education card */}
+            <h3 className="sr-only">Education</h3>
             <div className="mt-8 p-5 bg-[#EEF2FF] border border-[#C5D0FA] rounded-2xl">
               <div className="flex flex-wrap items-center gap-3">
                 <div
@@ -97,6 +98,8 @@ export default function About() {
             <p className="text-xs font-mono text-zinc-600 uppercase tracking-widest mb-6">
               Career Timeline
             </p>
+
+            <h3 className="sr-only">Career Timeline</h3>
 
             <div className="relative pl-5">
               {/* Vertical line */}
