@@ -55,7 +55,7 @@ export const impactCards = [
   },
 ];
 
-export type ProjectTag = "all" | "backend" | "frontend" | "devops" | "security";
+export type ProjectTag = "all" | "backend" | "frontend" | "devops" | "security" | "ai";
 
 export const projects = [
   {
@@ -117,6 +117,23 @@ export const projects = [
     result:
       "Blocked tens of thousands of cyberattacks, safeguarded PHI for thousands of patients, and prevented millions in potential regulatory restitution — demonstrating that proactive security pays dividends far beyond engineering effort.",
     tech: ["Angular", "AngularJS", "reCAPTCHA v3", "HTTP Security Headers", ".NET"],
+  },
+  {
+    id: "resume-tailor",
+    title: "Resume Tailor",
+    company: "Personal Project · 2025",
+    tags: ["frontend", "backend", "ai"] as ProjectTag[],
+    metric: { value: "0–100", label: "ATS score" },
+    metricColor: "violet",
+    link: "https://resume-tailor-khaki.vercel.app/",
+    github: "https://github.com/nsrathore/resume-tailor",
+    problem:
+      "Job seekers lose out to ATS filters before a human ever reads their resume. Manually tailoring bullets for each job description is slow and it's rarely clear which keyword gaps are actually costing you the match.",
+    approach:
+      "Built a two-stage AI pipeline: /api/analyze calls Claude to score keyword overlap and surface missing terms, then /api/tailor streams Claude-rewritten bullets that incorporate those keywords — without fabricating experience. Validation via Zod, streaming via the Claude API.",
+    result:
+      "End-to-end ATS audit in seconds — a 0–100 match score, a keyword gap list, and Claude-rewritten bullets delivered via real-time streaming. Deployed live on Vercel.",
+    tech: ["Next.js 14", "TypeScript", "Claude API", "Tailwind CSS", "Zod", "Vercel"],
   },
   {
     id: "denial-management",

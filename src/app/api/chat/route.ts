@@ -24,6 +24,10 @@ Nikhilendra (Nikhil) Rathore is a Software Engineer II at Zotec Partners with 4+
 - GitHub: github.com/nsrathore
 - Location: Chicago, USA
 
+## Personal Projects
+
+1. **Resume Tailor** (2025) — An AI-powered resume optimizer built with Next.js 14 + Claude API. Paste a resume and job description to get: a 0–100 ATS match score, a keyword gap analysis, and Claude-rewritten bullets delivered via real-time streaming — without fabricating experience. Two-stage pipeline: /api/analyze scores keyword overlap, /api/tailor streams rewritten bullets. Stack: Next.js 14, TypeScript, Claude API, Tailwind CSS, Zod, Vercel. Live at https://resume-tailor-khaki.vercel.app | GitHub: https://github.com/nsrathore/resume-tailor
+
 ## Key Achievements & Projects
 
 1. **835 Remittance File Processing Engine** — Architected an AWS ECS microservice (C#, .NET, Terraform) that reduced medical remittance file processing from 1 hour to seconds — a 3,600× speed improvement. Enabled near real-time claim-level data access across millions of records.

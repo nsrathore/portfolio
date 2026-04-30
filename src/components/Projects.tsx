@@ -11,6 +11,7 @@ const FILTERS: { label: string; value: ProjectTag }[] = [
   { label: "Frontend", value: "frontend" },
   { label: "DevOps", value: "devops" },
   { label: "Security", value: "security" },
+  { label: "AI", value: "ai" },
 ];
 
 const TAG_COLORS: Record<string, string> = {
@@ -18,6 +19,7 @@ const TAG_COLORS: Record<string, string> = {
   frontend: "bg-violet-50 text-violet-600 border-violet-200",
   devops: "bg-amber-50 text-amber-600 border-amber-200",
   security: "bg-rose-50 text-rose-600 border-rose-200",
+  ai: "bg-emerald-50 text-emerald-600 border-emerald-200",
 };
 
 const METRIC_COLORS: Record<string, string> = {
@@ -117,6 +119,32 @@ export default function Projects() {
                         <p className="text-xs text-zinc-400 font-mono mt-1">
                           {project.company}
                         </p>
+                        {(project.link || project.github) && (
+                          <div className="flex items-center gap-3 mt-2">
+                            {project.link && (
+                              <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs font-mono text-[#3B5BDB] hover:underline"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                Live Demo →
+                              </a>
+                            )}
+                            {project.github && (
+                              <a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xs font-mono text-zinc-400 hover:text-zinc-700 hover:underline"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                GitHub →
+                              </a>
+                            )}
+                          </div>
+                        )}
                       </div>
 
                       {/* Metric badge */}
