@@ -81,9 +81,9 @@ export default function Hero() {
         }}
       />
 
-      {/* Soft accent blob */}
+      {/* Soft accent blob — desktop only, sits behind headshot */}
       <div
-        className="absolute top-1/4 right-0 w-[600px] h-[600px] pointer-events-none"
+        className="absolute top-1/4 right-0 w-[600px] h-[600px] pointer-events-none hidden lg:block"
         style={{
           background:
             "linear-gradient(135deg, #F0F4FF 0%, #F9F8F5 50%, #F9F8F5 100%)",
