@@ -1,41 +1,78 @@
-# CLAUDE.md
+# Portfolio — Claude Code Context
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Overview
+Personal portfolio site for Nikhilendra Rathore (Software Engineer II).
+Single-page scroll layout. Light/clean aesthetic. Slate blue accent (#3B5BDB).
 
-## Commands
+## Tech Stack
+- Next.js 14 (App Router, TypeScript)
+- Tailwind CSS v3
+- Framer Motion (animations)
+- Anthropic SDK (AI chatbot via /api/chat)
+- Formspree (contact form)
 
-```bash
-npm run dev      # Start dev server at localhost:3000
-npm run build    # Production build
-npm run lint     # ESLint via next lint
-npm run start    # Serve production build
-```
+## Project Structure
+src/
+├── app/
+│   ├── api/chat/route.ts     # AI chatbot endpoint — edit SYSTEM_PROMPT here to update bot knowledge
+│   ├── globals.css           # Font imports, base styles
+│   ├── layout.tsx            # Metadata lives here
+│   └── page.tsx              # Composes all section components
+├── components/
+│   ├── Navbar.tsx            # Sticky nav + scroll progress bar
+│   ├── Hero.tsx              # Name, stats, CTA buttons
+│   ├── Impact.tsx            # 4-metric impact grid
+│   ├── Projects.tsx          # Case studies + tag filter
+│   ├── Skills.tsx            # Categorized skill map
+│   ├── About.tsx             # Bio + timeline + terminal card
+│   ├── Contact.tsx           # Formspree form
+│   ├── Footer.tsx
+│   └── ChatWidget.tsx        # Floating AI chat widget
+├── data/
+│   └── portfolio.ts          # ← SINGLE SOURCE OF TRUTH for all content
+└── lib/
+    └── useInView.ts          # IntersectionObserver hook for scroll animations
 
-No test suite is configured.
+## Key Conventions
+- ALL content (text, projects, skills, stats) lives in src/data/portfolio.ts — never hardcode content in components
+- Animations: use useInView hook + Framer Motion. Pattern: `initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}`
+- New components go in src/components/, imported in page.tsx
+- Accent color token: #3B5BDB (hover: #2C44B8) — do not introduce new brand colors
+- Font classes: font-display (Plus Jakarta Sans), font-body (DM Sans), font-mono (JetBrains Mono)
+- Section structure: section tag → container-wide div → section-label p → h2 → content
 
-## Environment
+## Images
+- Personal/project images live in public/images/
+- Headshot: public/images/headshot.jpg
+- Project screenshots: public/images/projects/[project-id].jpg
+- Use Next.js <Image> component (next/image) for all images — never bare <img> tags
+- Standard headshot size: width={400} height={400}
+- Project screenshot size: width={1200} height={800}
 
-Requires `.env.local` with:
-- `ANTHROPIC_API_KEY` — used by the chat API route
-- `NEXT_PUBLIC_FORMSPREE_ID` — used by the Contact form
+## Environment Variables
+ANTHROPIC_API_KEY          # Claude API — chatbot
+NEXT_PUBLIC_FORMSPREE_ID   # Contact form submissions
 
-The site renders without these keys; the chatbot and contact form degrade gracefully.
+## Adding a New Project
+1. Add entry to `projects` array in src/data/portfolio.ts
+2. Add screenshot to public/images/projects/[project-id].jpg
+3. Add project-id to the ProjectTag type if using a new tag
+4. Update SYSTEM_PROMPT in src/app/api/chat/route.ts so the chatbot knows about it
 
-## Architecture
+## Adding a New Section
+1. Create src/components/NewSection.tsx
+2. Import and add <NewSection /> in src/app/page.tsx
+3. Add nav link in Navbar.tsx links array
+4. Follow existing section structure pattern
 
-Next.js 14 App Router, TypeScript, Tailwind CSS, Framer Motion.
+## Common Commands
+npm run dev        # Start dev server (localhost:3000)
+npm run build      # Production build + type check
+npm run lint       # ESLint
 
-**Single source of truth for content:** `src/data/portfolio.ts` exports all copy, stats, projects, skills, and timeline. Components import from here — never hardcode content in components.
-
-**AI chatbot:** `src/app/api/chat/route.ts` is a Next.js route handler that calls the Anthropic SDK (`claude-sonnet-4-6`, `max_tokens: 500`). The `SYSTEM_PROMPT` constant in that file is where the AI's knowledge about Nikhil lives — edit it when updating biographical info. The frontend widget is `src/components/ChatWidget.tsx`.
-
-**Scroll animations:** Components use `src/lib/useInView.ts` (Intersection Observer hook) combined with Framer Motion `AnimatePresence` / `motion.*` for entrance animations.
-
-**Layout:** `src/app/page.tsx` composes all section components in order. `src/app/layout.tsx` sets metadata and loads fonts.
-
-## Key conventions
-
-- Accent color is `#3B5BDB` (hover: `#2C44B8`), aliased as `slate.brand` in `tailwind.config.ts`. Use find-and-replace on both hex values when changing the brand color.
-- Project tag type (`ProjectTag`) is defined in `portfolio.ts`; tag-to-color mapping lives in `Projects.tsx` (`TAG_COLORS`). Both must be updated together when adding a new tag.
-- Impact card `color` prop accepts `"blue" | "indigo" | "violet" | "slate"` — these map to hardcoded Tailwind classes inside `Impact.tsx`.
-- For GitHub Pages static export: set `output: 'export'` and `basePath` in `next.config.js` and remove the chat API route (server-side routes are incompatible with static export).
+## Do Not
+- Do not use bare <img> tags (use next/image)
+- Do not hardcode content in components (use portfolio.ts)
+- Do not introduce new dependencies without checking if Framer Motion or Tailwind already covers it
+- Do not use inline styles for colors — use Tailwind classes or the #3B5BDB token
+- Do not modify globals.css font imports (breaks typography system)
