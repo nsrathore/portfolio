@@ -5,9 +5,7 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useInView } from "@/lib/useInView";
 
-const PDF_PATH = "/resume/nikhilendra_rathore_resume.pdf";
-const PDF_PUBLIC_URL =
-  "https://portfolio-inky-one-22p6o58j1c.vercel.app/resume/nikhilendra_rathore_resume.pdf";
+const PDF_PATH = "https://drive.google.com/file/d/1O70Cp0J2L0tVqm8YFhCIBMOMLjWBIV92/preview";
 const DOWNLOAD_NAME = "Nikhilendra_Rathore_Resume.pdf";
 
 export default function ResumeDownload() {
@@ -162,33 +160,118 @@ export default function ResumeDownload() {
               </div>
             </div>
 
-            {/* PDF body — Google Docs viewer */}
+            {/* Modal body — hybrid: desktop iframe / mobile fallback */}
             <div
-              className="relative w-full bg-zinc-100"
-              style={{ height: isMobile ? "calc(92vh - 130px)" : "calc(90vh - 130px)" }}
+              className="bg-zinc-100"
+              style={{
+                height: isMobile ? "calc(92vh - 130px)" : "calc(90vh - 130px)",
+              }}
             >
-              {/* Loading state */}
-              <div
-                id="pdf-loading"
-                className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-zinc-100"
-              >
-                <div
-                  className="w-8 h-8 border-2 border-[#3B5BDB] border-t-transparent rounded-full animate-spin"
-                  aria-hidden="true"
-                />
-                <p className="text-sm text-zinc-600 font-mono">Loading resume...</p>
-              </div>
+              {isMobile ? (
+                /* Mobile: clean fallback card */
+                <div className="flex flex-col items-center justify-center h-full px-6 gap-6 text-center">
+                  <div
+                    className="w-16 h-16 rounded-2xl bg-[#EEF2FF] border border-[#C5D0FA] flex items-center justify-center"
+                    aria-hidden="true"
+                  >
+                    <svg
+                      width="28"
+                      height="28"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#3B5BDB"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                      <line x1="16" y1="13" x2="8" y2="13" />
+                      <line x1="16" y1="17" x2="8" y2="17" />
+                      <polyline points="10 9 9 9 8 9" />
+                    </svg>
+                  </div>
 
-              <iframe
-                src={`https://docs.google.com/viewer?url=${encodeURIComponent(PDF_PUBLIC_URL)}&embedded=true`}
-                className="absolute inset-0 w-full h-full border-0"
-                title="Nikhilendra Rathore Resume PDF"
-                onLoad={() => {
-                  const loading = document.getElementById("pdf-loading");
-                  if (loading) loading.style.display = "none";
-                }}
-                allow="autoplay"
-              />
+                  <div>
+                    <p className="font-display font-bold text-zinc-900 text-base mb-1">
+                      Nikhilendra Rathore — Resume
+                    </p>
+                    <p className="text-sm text-zinc-600 font-light leading-relaxed max-w-xs">
+                      Tap below to open the resume in your device&apos;s PDF viewer for the best mobile experience.
+                    </p>
+                  </div>
+
+                  <a
+                    href={PDF_PATH}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex items-center gap-2 bg-[#3B5BDB] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#2C44B8] active:bg-[#1D2F8A] transition-colors duration-200 w-full justify-center max-w-xs"
+                    aria-label="Open resume PDF in device viewer"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    Open in PDF Viewer
+                  </a>
+
+                  <a
+                    href={PDF_PATH}
+                    download={DOWNLOAD_NAME}
+                    className="inline-flex items-center gap-2 bg-white text-zinc-700 font-medium text-sm px-6 py-3 rounded-full border border-zinc-300 hover:border-zinc-500 hover:text-zinc-900 transition-all duration-200 w-full justify-center max-w-xs"
+                    aria-label="Download resume PDF"
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download Instead
+                  </a>
+                </div>
+              ) : (
+                /* Desktop: native browser iframe */
+                <iframe
+                  src={PDF_PATH}
+                  className="w-full h-full border-0"
+                  title="Nikhilendra Rathore Resume PDF"
+                  aria-label="Resume PDF preview"
+                >
+                  <div className="flex flex-col items-center justify-center h-full gap-4 p-8 text-center">
+                    <p className="text-zinc-600 text-sm font-light">
+                      Unable to preview PDF inline.
+                    </p>
+                    <a
+                      href={PDF_PATH}
+                      download={DOWNLOAD_NAME}
+                      className="bg-[#3B5BDB] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#2C44B8] transition-colors duration-200"
+                    >
+                      Download Resume
+                    </a>
+                  </div>
+                </iframe>
+              )}
             </div>
           </motion.div>
         </>
