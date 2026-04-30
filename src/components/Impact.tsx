@@ -27,12 +27,7 @@ const colorMap: Record<string, { bg: string; text: string; border: string }> = {
   },
 };
 
-const gridAreas = [
-  { area: "a", colSpan: "lg:col-span-1 lg:row-span-2", featured: true },
-  { area: "b", colSpan: "lg:col-span-1 lg:row-span-1", featured: false },
-  { area: "c", colSpan: "lg:col-span-1 lg:row-span-1", featured: false },
-  { area: "d", colSpan: "lg:col-span-2 lg:row-span-1", featured: false },
-];
+const bentoClasses = ["bento-item-a", "bento-item-b", "bento-item-c", "bento-item-d"];
 
 export default function Impact() {
   const { ref, inView } = useInView();
@@ -61,29 +56,18 @@ export default function Impact() {
             </p>
           </motion.div>
 
-          {/* Bento grid */}
-          <div
-            className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-4"
-            style={{
-              gridTemplateAreas: `
-                "a b"
-                "a c"
-                "d d"
-              `,
-              gridTemplateColumns: "repeat(3, 1fr)",
-            }}
-          >
+          {/* Bento grid: 1 col mobile → 2 col sm → bento lg+ */}
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 bento-impact">
             {impactCards.map((card, i) => {
               const c = colorMap[card.color] || colorMap.blue;
-              const { colSpan, featured } = gridAreas[i];
+              const featured = i === 0;
               return (
                 <motion.div
                   key={card.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className={`bg-white p-8 rounded-2xl border border-zinc-100 hover:bg-zinc-50 transition-colors duration-200 group flex flex-col justify-between ${colSpan}`}
-                  style={{ gridArea: ["a", "b", "c", "d"][i] }}
+                  className={`bg-white p-6 sm:p-8 rounded-2xl border border-zinc-100 hover:bg-zinc-50 transition-colors duration-200 group flex flex-col justify-between min-h-[140px] ${bentoClasses[i]}`}
                 >
                   <div>
                     <div
@@ -92,7 +76,9 @@ export default function Impact() {
                       {card.label}
                     </div>
                     <div
-                      className={`font-display font-extrabold tracking-tight mb-3 ${c.text} ${featured ? "text-6xl" : "text-4xl"}`}
+                      className={`font-display font-extrabold tracking-tight mb-3 ${c.text} ${
+                        featured ? "text-4xl lg:text-6xl" : "text-4xl"
+                      }`}
                     >
                       {card.value}
                     </div>

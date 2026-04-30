@@ -48,8 +48,16 @@ export default function ChatWidget() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     if (open && messages.length === 0) {
@@ -124,6 +132,15 @@ export default function ChatWidget() {
     sendMessage(input);
   };
 
+  // Responsive panel styles
+  const panelStyle: React.CSSProperties = isMobile
+    ? { maxHeight: "70vh" }
+    : { maxHeight: "520px" };
+
+  const panelPositionClass = isMobile
+    ? "fixed bottom-20 left-4 right-4 z-[150] w-auto max-w-full"
+    : "fixed bottom-24 right-6 z-[150] w-[360px] max-w-[calc(100vw-2rem)]";
+
   return (
     <>
       {/* Chat Panel */}
@@ -134,8 +151,8 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.97 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-24 right-6 z-[150] w-[360px] max-w-[calc(100vw-2rem)] bg-white border border-zinc-200 rounded-2xl shadow-xl overflow-hidden flex flex-col"
-            style={{ maxHeight: "520px" }}
+            className={`${panelPositionClass} bg-white border border-zinc-200 rounded-2xl shadow-xl overflow-hidden flex flex-col`}
+            style={panelStyle}
           >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 flex-shrink-0">
@@ -230,7 +247,8 @@ export default function ChatWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask me anything..."
                 disabled={loading}
-                className="flex-1 text-sm bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2.5 outline-none focus:border-[#3B5BDB] focus:bg-white transition-all duration-200 placeholder:text-zinc-400 disabled:opacity-60"
+                style={{ fontSize: "16px" }}
+                className="flex-1 bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2.5 outline-none focus:border-[#3B5BDB] focus:bg-white transition-all duration-200 placeholder:text-zinc-400 disabled:opacity-60"
               />
               <button
                 type="submit"
@@ -238,12 +256,7 @@ export default function ChatWidget() {
                 className="w-9 h-9 bg-[#3B5BDB] hover:bg-[#2C44B8] disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors duration-200 flex-shrink-0"
                 aria-label="Send"
               >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path
                     d="M1 7h12M7 1l6 6-6 6"
                     stroke="white"

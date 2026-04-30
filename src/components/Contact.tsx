@@ -125,7 +125,7 @@ export default function Contact() {
               onSubmit={handleSubmit}
               className="bg-[#FAFAF8] border border-zinc-100 rounded-2xl p-6 md:p-8 space-y-4"
             >
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-mono text-zinc-400 uppercase tracking-widest">
                     Name

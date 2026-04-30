@@ -7,12 +7,20 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   body {
     @apply bg-[#F9F8F5] text-zinc-900 font-body antialiased;
     background-image: radial-gradient(#3B5BDB14 1px, transparent 1px);
     background-size: 28px 28px;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  * {
+    min-width: 0;
   }
 
   body::before {
@@ -44,6 +52,13 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-zinc-400;
   }
+
+  /* Prevent iOS Safari auto-zoom on input focus */
+  @media (max-width: 768px) {
+    input, textarea {
+      font-size: 16px !important;
+    }
+  }
 }
 
 @keyframes marquee {
@@ -51,9 +66,21 @@
   to { transform: translateX(-50%); }
 }
 
+/* Impact bento grid — lg+ only */
+@media (min-width: 1024px) {
+  .bento-impact {
+    grid-template-areas: "a a b" "a a c" "d d d";
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .bento-item-a { grid-area: a; }
+  .bento-item-b { grid-area: b; }
+  .bento-item-c { grid-area: c; }
+  .bento-item-d { grid-area: d; }
+}
+
 @layer utilities {
   .section-padding {
-    @apply py-24 px-6 md:px-12 lg:px-20;
+    @apply py-16 px-5 md:py-24 md:px-12 lg:px-20;
   }
 
   .container-wide {

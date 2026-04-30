@@ -116,7 +116,7 @@ export default function Projects() {
                   {/* Card top bar */}
                   <div className="h-[2px] bg-gradient-to-r from-[#3B5BDB] via-[#818CF8] to-transparent" />
 
-                  <div className="p-6 md:p-8">
+                  <div className="p-4 sm:p-6 md:p-8">
                     {/* Header row */}
                     <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
                       <div className="flex-1">
@@ -169,7 +169,7 @@ export default function Projects() {
 
                       {/* Metric badge */}
                       <div
-                        className={`flex-shrink-0 text-center px-5 py-3 rounded-xl border ${
+                        className={`w-full sm:w-auto flex-shrink-0 text-center px-5 py-3 rounded-xl border ${
                           METRIC_COLORS[project.metricColor] ||
                           METRIC_COLORS.blue
                         }`}
@@ -184,13 +184,13 @@ export default function Projects() {
                     </div>
 
                     {/* Three-column body */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 divide-y divide-zinc-100 md:divide-y-0">
                       {[
                         { label: "The Problem", text: project.problem },
                         { label: "The Approach", text: project.approach },
                         { label: "The Results", text: project.result },
                       ].map((section) => (
-                        <div key={section.label}>
+                        <div key={section.label} className="pt-4 first:pt-0 md:pt-0">
                           <div className="flex items-center gap-2 mb-2">
                             <div className="w-4 h-px bg-zinc-300" />
                             <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest">

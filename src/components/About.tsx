@@ -67,7 +67,7 @@ export default function About() {
 
             {/* Education card */}
             <div className="mt-8 p-5 bg-[#EEF2FF] border border-[#C5D0FA] rounded-2xl">
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-[#3B5BDB] flex items-center justify-center text-white font-display font-bold text-sm flex-shrink-0">
                   PU
                 </div>
@@ -139,7 +139,7 @@ export default function About() {
                   CI/CD · main
                 </span>
               </div>
-              <div className="p-4 space-y-2 font-mono text-xs">
+              <div className="p-4 space-y-2 font-mono text-xs overflow-hidden">
                 {[
                   { icon: "✓", label: "lint & type-check", color: "text-green-400" },
                   { icon: "✓", label: "unit tests · TDD", color: "text-green-400" },

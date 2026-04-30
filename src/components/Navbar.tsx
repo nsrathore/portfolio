@@ -14,6 +14,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -26,16 +34,31 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (scrolled) {
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  // Close mobile menu on hash change
+  useEffect(() => {
+    const close = () => setMenuOpen(false);
+    window.addEventListener("hashchange", close);
+    return () => window.removeEventListener("hashchange", close);
+  }, []);
+
+  const progressBar = (
+    <div
+      className="fixed top-0 left-0 h-[2px] bg-[#3B5BDB] z-[200] transition-all duration-100"
+      style={{ width: `${progress}%` }}
+    />
+  );
+
+  // Floating pill — desktop only when scrolled
+  if (scrolled && !isMobile) {
     return (
       <>
-        {/* Scroll progress */}
-        <div
-          className="fixed top-0 left-0 h-[2px] bg-[#3B5BDB] z-[200] transition-all duration-100"
-          style={{ width: `${progress}%` }}
-        />
-
-        {/* Floating pill nav */}
+        {progressBar}
         <nav
           className="fixed z-[100] transition-all duration-300"
           style={{
@@ -53,7 +76,6 @@ export default function Navbar() {
           }}
         >
           <div className="flex items-center gap-6 h-9">
-            {/* Logo */}
             <a
               href="#"
               className="font-display text-sm tracking-tight text-zinc-900"
@@ -61,8 +83,6 @@ export default function Navbar() {
             >
               N<span className="text-[#3B5BDB]">.</span>R
             </a>
-
-            {/* Links */}
             <ul className="flex items-center gap-5">
               {links.map((link) => (
                 <li key={link.href}>
@@ -89,20 +109,21 @@ export default function Navbar() {
     );
   }
 
+  // Full-width nav — mobile always, desktop when not scrolled
   return (
     <>
-      {/* Scroll progress */}
-      <div
-        className="fixed top-0 left-0 h-[2px] bg-[#3B5BDB] z-[200] transition-all duration-100"
-        style={{ width: `${progress}%` }}
-      />
-
-      <nav className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-transparent">
-        <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between h-16">
-          {/* Logo */}
+      {progressBar}
+      <nav
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+          scrolled
+            ? "bg-white/90 backdrop-blur-xl border-b border-zinc-200/80 shadow-sm"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-6xl mx-auto px-5 md:px-12 lg:px-20 flex items-center justify-between h-16">
           <a
             href="#"
-            className="font-display font-800 text-lg tracking-tight text-zinc-900"
+            className="font-display text-lg tracking-tight text-zinc-900"
             style={{ fontWeight: 800 }}
           >
             N<span className="text-[#3B5BDB]">.</span>Rathore
@@ -130,9 +151,9 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* Mobile menu button */}
+          {/* Hamburger — 44×44 touch target */}
           <button
-            className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-[5px]"
+            className="md:hidden w-11 h-11 flex flex-col items-center justify-center gap-[5px]"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -156,13 +177,13 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div className="md:hidden bg-white border-t border-zinc-100 px-6 py-4 flex flex-col gap-3">
+          <div className="md:hidden bg-white border-t border-zinc-100 px-5 py-3 flex flex-col">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="text-sm text-zinc-600 hover:text-zinc-900 py-1"
+                className="text-sm text-zinc-600 hover:text-zinc-900 flex items-center min-h-[44px] py-3 border-b border-zinc-50 last:border-b-0"
               >
                 {link.label}
               </a>
@@ -170,7 +191,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="text-sm font-medium bg-[#3B5BDB] text-white px-5 py-2.5 rounded-full text-center mt-2"
+              className="text-sm font-medium bg-[#3B5BDB] text-white px-5 py-3 rounded-full text-center mt-3 min-h-[44px] flex items-center justify-center"
             >
               Let&apos;s talk
             </a>
