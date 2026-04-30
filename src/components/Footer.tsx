@@ -6,7 +6,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden border-t border-zinc-100 px-5 md:px-12 lg:px-20 py-6 md:py-8">
+    <footer role="contentinfo" className="relative overflow-hidden border-t border-zinc-100 px-5 md:px-12 lg:px-20 py-6 md:py-8">
       {/* Decorative background name */}
       <div
         aria-hidden="true"
@@ -22,40 +22,43 @@ export default function Footer() {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-        <div className="font-mono text-xs text-zinc-400">
+        <div className="font-mono text-xs text-zinc-500">
           © {year}{" "}
           <span className="text-zinc-700 font-medium">{personal.name}</span>
-          {" · "}Built with Next.js & Tailwind
+          {" · "}Built with Next.js &amp; Tailwind
         </div>
 
         <div className="flex items-center gap-6">
           <a
             href={personal.github}
             target="_blank"
-            rel="noreferrer"
-            className="text-xs font-mono text-zinc-400 hover:text-zinc-700 transition-colors"
+            rel="noreferrer noopener"
+            aria-label="Visit GitHub profile (opens in new tab)"
+            className="text-xs font-mono text-zinc-500 hover:text-zinc-700 transition-colors"
           >
             GitHub
           </a>
           <a
             href={personal.linkedin}
             target="_blank"
-            rel="noreferrer"
-            className="text-xs font-mono text-zinc-400 hover:text-zinc-700 transition-colors"
+            rel="noreferrer noopener"
+            aria-label="Visit LinkedIn profile (opens in new tab)"
+            className="text-xs font-mono text-zinc-500 hover:text-zinc-700 transition-colors"
           >
             LinkedIn
           </a>
           <a
             href={`mailto:${personal.email}`}
-            className="text-xs font-mono text-zinc-400 hover:text-zinc-700 transition-colors"
+            aria-label={`Send email to ${personal.email}`}
+            className="text-xs font-mono text-zinc-500 hover:text-zinc-700 transition-colors"
           >
             {personal.email}
           </a>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] animate-[pulseDot_2s_ease-in-out_infinite]" />
-          <span className="text-xs font-mono text-zinc-400">
+          <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] animate-[pulseDot_2s_ease-in-out_infinite]" />
+          <span className="text-xs font-mono text-zinc-500">
             {personal.location}
           </span>
         </div>

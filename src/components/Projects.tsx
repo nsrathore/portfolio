@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useInView } from "@/lib/useInView";
 import { projects, type ProjectTag } from "@/data/portfolio";
 
@@ -45,23 +45,39 @@ export default function Projects() {
   const [activeFilter, setActiveFilter] = useState<ProjectTag>("all");
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const { ref, inView } = useInView();
+  const prefersReduced = useReducedMotion();
+  const filterRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const filtered =
     activeFilter === "all"
       ? projects
       : projects.filter((p) => p.tags.includes(activeFilter));
 
+  const animateIn = (delay = 0) => ({
+    initial: { opacity: prefersReduced ? 1 : 0, y: prefersReduced ? 0 : 20 },
+    animate: prefersReduced ? { opacity: 1, y: 0 } : (inView ? { opacity: 1, y: 0 } : {}),
+    transition: { duration: prefersReduced ? 0 : 0.5, delay: prefersReduced ? 0 : delay },
+  });
+
+  const handleFilterKeyDown = (e: React.KeyboardEvent, index: number) => {
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      const next = (index + 1) % FILTERS.length;
+      filterRefs.current[next]?.focus();
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      const prev = (index - 1 + FILTERS.length) % FILTERS.length;
+      filterRefs.current[prev]?.focus();
+    }
+  };
+
   return (
-    <section id="projects" className="section-padding bg-[#F9F8F5]">
+    <section id="projects" aria-label="Case studies" className="section-padding bg-[#F9F8F5]">
       <div className="container-wide">
         <div ref={ref}>
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-            >
+            <motion.div {...animateIn()}>
               <p className="font-mono text-xs tracking-widest uppercase text-[#3B5BDB] mb-3">
                 Case Studies
               </p>
@@ -72,19 +88,22 @@ export default function Projects() {
 
             {/* Filter tabs */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              {...animateIn(0.1)}
               className="flex flex-wrap gap-2"
+              role="group"
+              aria-label="Filter projects by category"
             >
-              {FILTERS.map((f) => (
+              {FILTERS.map((f, index) => (
                 <button
                   key={f.value}
+                  ref={(el) => { filterRefs.current[index] = el; }}
                   onClick={() => setActiveFilter(f.value)}
+                  onKeyDown={(e) => handleFilterKeyDown(e, index)}
+                  aria-pressed={activeFilter === f.value}
                   className={`text-sm px-4 py-1.5 rounded-full border transition-all duration-200 font-medium ${
                     activeFilter === f.value
                       ? "bg-[#3B5BDB] text-white border-[#3B5BDB]"
-                      : "bg-white text-zinc-500 border-zinc-200 hover:border-zinc-400 hover:text-zinc-900"
+                      : "bg-white text-zinc-600 border-zinc-300 hover:border-zinc-500 hover:text-zinc-900"
                   }`}
                 >
                   {f.label}
@@ -100,10 +119,10 @@ export default function Projects() {
                 <motion.div
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={prefersReduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.35, delay: i * 0.05 }}
+                  exit={prefersReduced ? { opacity: 1 } : { opacity: 0, scale: 0.98 }}
+                  transition={{ duration: prefersReduced ? 0 : 0.35, delay: prefersReduced ? 0 : i * 0.05 }}
                   className="relative rounded-2xl overflow-hidden group transition-all duration-200"
                   style={
                     hoveredId === project.id
@@ -114,14 +133,14 @@ export default function Projects() {
                   onMouseLeave={() => setHoveredId(null)}
                 >
                   {/* Card top bar */}
-                  <div className="h-[2px] bg-gradient-to-r from-[#3B5BDB] via-[#818CF8] to-transparent" />
+                  <div aria-hidden="true" className="h-[2px] bg-gradient-to-r from-[#3B5BDB] via-[#818CF8] to-transparent" />
 
                   <div className="p-4 sm:p-6 md:p-8">
                     {/* Header row */}
                     <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
                       <div className="flex-1">
                         {/* Tags */}
-                        <div className="flex flex-wrap gap-1.5 mb-3">
+                        <div className="flex flex-wrap gap-1.5 mb-3" aria-label="Project categories">
                           {project.tags.map((tag) => (
                             <span
                               key={tag}
@@ -136,7 +155,7 @@ export default function Projects() {
                         <h3 className="font-display text-xl md:text-2xl font-bold tracking-tight text-zinc-900">
                           {project.title}
                         </h3>
-                        <p className="text-xs text-zinc-400 font-mono mt-1">
+                        <p className="text-xs text-zinc-600 font-mono mt-1">
                           {project.company}
                         </p>
                         {(project.link || project.github) && (
@@ -146,6 +165,7 @@ export default function Projects() {
                                 href={project.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                aria-label={`${project.title} live demo (opens in new tab)`}
                                 className="text-xs font-mono text-[#3B5BDB] hover:underline"
                                 onClick={(e) => e.stopPropagation()}
                               >
@@ -157,7 +177,8 @@ export default function Projects() {
                                 href={project.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs font-mono text-zinc-400 hover:text-zinc-700 hover:underline"
+                                aria-label={`${project.title} GitHub repository (opens in new tab)`}
+                                className="text-xs font-mono text-zinc-600 hover:text-zinc-900 hover:underline"
                                 onClick={(e) => e.stopPropagation()}
                               >
                                 GitHub →
@@ -192,12 +213,12 @@ export default function Projects() {
                       ].map((section) => (
                         <div key={section.label} className="pt-4 first:pt-0 md:pt-0">
                           <div className="flex items-center gap-2 mb-2">
-                            <div className="w-4 h-px bg-zinc-300" />
-                            <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest">
+                            <div aria-hidden="true" className="w-4 h-px bg-zinc-300" />
+                            <span className="text-xs font-mono text-zinc-600 uppercase tracking-widest">
                               {section.label}
                             </span>
                           </div>
-                          <p className="text-sm text-zinc-500 font-light leading-relaxed">
+                          <p className="text-sm text-zinc-600 font-light leading-relaxed">
                             {section.text}
                           </p>
                         </div>
@@ -209,7 +230,7 @@ export default function Projects() {
                       {project.tech.map((t) => (
                         <span
                           key={t}
-                          className="text-xs font-mono text-zinc-400 bg-zinc-50 border border-zinc-100 px-2.5 py-1 rounded-full"
+                          className="text-xs font-mono text-zinc-600 bg-zinc-50 border border-zinc-200 px-2.5 py-1 rounded-full"
                         >
                           {t}
                         </span>
@@ -219,6 +240,7 @@ export default function Projects() {
 
                   {/* Hover accent bar */}
                   <div
+                    aria-hidden="true"
                     className="absolute bottom-0 left-0 right-0 h-[3px] transition-transform duration-300 ease-out origin-left"
                     style={{
                       background: "linear-gradient(90deg, #3B5BDB, #6366f1)",

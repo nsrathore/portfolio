@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { personal } from "@/data/portfolio";
 
 const links = [
@@ -15,6 +15,8 @@ export default function Navbar() {
   const [progress, setProgress] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -47,8 +49,45 @@ export default function Navbar() {
     return () => window.removeEventListener("hashchange", close);
   }, []);
 
+  // Escape closes menu and returns focus to hamburger; Tab traps focus inside menu
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        hamburgerRef.current?.focus();
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusable = menuRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable || focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
+
   const progressBar = (
     <div
+      aria-hidden="true"
       className="fixed top-0 left-0 h-[2px] bg-[#3B5BDB] z-[200] transition-all duration-100"
       style={{ width: `${progress}%` }}
     />
@@ -60,6 +99,8 @@ export default function Navbar() {
       <>
         {progressBar}
         <nav
+          role="navigation"
+          aria-label="Main navigation"
           className="fixed z-[100] transition-all duration-300"
           style={{
             top: "1rem",
@@ -78,17 +119,18 @@ export default function Navbar() {
           <div className="flex items-center gap-6 h-9">
             <a
               href="#"
+              aria-label="Nikhilendra Rathore — back to top"
               className="font-display text-sm tracking-tight text-zinc-900"
               style={{ fontWeight: 800 }}
             >
-              N<span className="text-[#3B5BDB]">.</span>R
+              N<span className="text-[#3B5BDB]" aria-hidden="true">.</span>R
             </a>
-            <ul className="flex items-center gap-5">
+            <ul className="flex items-center gap-5" aria-label="Main menu">
               {links.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200"
+                    className="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-200"
                   >
                     {link.label}
                   </a>
@@ -114,6 +156,8 @@ export default function Navbar() {
     <>
       {progressBar}
       <nav
+        role="navigation"
+        aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
           scrolled
             ? "bg-white/90 backdrop-blur-xl border-b border-zinc-200/80 shadow-sm"
@@ -123,19 +167,20 @@ export default function Navbar() {
         <div className="max-w-6xl mx-auto px-5 md:px-12 lg:px-20 flex items-center justify-between h-16">
           <a
             href="#"
+            aria-label="Nikhilendra Rathore — back to top"
             className="font-display text-lg tracking-tight text-zinc-900"
             style={{ fontWeight: 800 }}
           >
-            N<span className="text-[#3B5BDB]">.</span>Rathore
+            N<span className="text-[#3B5BDB]" aria-hidden="true">.</span>Rathore
           </a>
 
           {/* Desktop links */}
-          <ul className="hidden md:flex items-center gap-8">
+          <ul className="hidden md:flex items-center gap-8" aria-label="Main menu">
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200"
+                  className="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-200"
                 >
                   {link.label}
                 </a>
@@ -153,9 +198,12 @@ export default function Navbar() {
 
           {/* Hamburger — 44×44 touch target */}
           <button
+            ref={hamburgerRef}
             className="md:hidden w-11 h-11 flex flex-col items-center justify-center gap-[5px]"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             <span
               className={`w-5 h-[1.5px] bg-zinc-700 transition-all duration-200 ${
@@ -177,17 +225,24 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div className="md:hidden bg-white border-t border-zinc-100 px-5 py-3 flex flex-col">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="text-sm text-zinc-600 hover:text-zinc-900 flex items-center min-h-[44px] py-3 border-b border-zinc-50 last:border-b-0"
-              >
-                {link.label}
-              </a>
-            ))}
+          <div
+            id="mobile-menu"
+            ref={menuRef}
+            className="md:hidden bg-white border-t border-zinc-100 px-5 py-3 flex flex-col"
+          >
+            <ul aria-label="Mobile menu" className="flex flex-col">
+              {links.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="text-sm text-zinc-600 hover:text-zinc-900 flex items-center min-h-[44px] py-3 border-b border-zinc-50 last:border-b-0"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
             <a
               href="#contact"
               onClick={() => setMenuOpen(false)}

@@ -1,22 +1,28 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "@/lib/useInView";
 import { skills } from "@/data/portfolio";
 
 export default function Skills() {
   const { ref, inView } = useInView();
+  const prefersReduced = useReducedMotion();
+
+  const animateIn = (delay = 0) => ({
+    initial: { opacity: prefersReduced ? 1 : 0, y: prefersReduced ? 0 : 20 },
+    animate: prefersReduced ? { opacity: 1, y: 0 } : (inView ? { opacity: 1, y: 0 } : {}),
+    transition: { duration: prefersReduced ? 0 : 0.5, delay: prefersReduced ? 0 : delay },
+  });
 
   return (
     <section
       id="skills"
+      aria-label="Technical skills"
       className="section-padding bg-[#FFFFFF] border-t border-zinc-100 overflow-hidden"
     >
       <div className="container-wide" ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
+          {...animateIn()}
           className="mb-12"
         >
           <p className="font-mono text-xs tracking-widest uppercase text-[#3B5BDB] mb-3">
@@ -25,7 +31,7 @@ export default function Skills() {
           <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 mb-4">
             Technologies I master
           </h2>
-          <p className="text-zinc-400 font-light max-w-md">
+          <p className="text-zinc-500 font-light max-w-md">
             Curated to reflect what I genuinely use in production — not a
             keyword list.
           </p>
@@ -35,13 +41,11 @@ export default function Skills() {
           {skills.map((category, i) => (
             <motion.div
               key={category.category}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
+              {...animateIn(i * 0.08)}
               className="bg-[#FAFAF8] border border-zinc-100 rounded-2xl p-4 sm:p-6 hover:border-zinc-200 transition-colors duration-200"
             >
               <div className="flex items-center gap-3 mb-5 pb-4 border-b border-zinc-100">
-                <div className="w-9 h-9 rounded-lg bg-[#EEF2FF] flex items-center justify-center text-base">
+                <div className="w-9 h-9 rounded-lg bg-[#EEF2FF] flex items-center justify-center text-base" aria-hidden="true">
                   {category.icon}
                 </div>
                 <h3 className="font-display font-bold text-zinc-900 tracking-tight">
@@ -55,7 +59,7 @@ export default function Skills() {
                     className={`text-xs sm:text-sm font-mono px-3 py-1.5 rounded-full border transition-colors duration-150 ${
                       item.highlight
                         ? "bg-[#EEF2FF] text-[#3B5BDB] border-[#C5D0FA] font-medium"
-                        : "bg-white text-zinc-500 border-zinc-200 hover:border-zinc-300 hover:text-zinc-700"
+                        : "bg-white text-zinc-600 border-zinc-200 hover:border-zinc-300 hover:text-zinc-700"
                     }`}
                   >
                     {item.name}

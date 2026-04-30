@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, Fragment } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 type Message = {
   role: "user" | "assistant";
@@ -51,6 +51,7 @@ export default function ChatWidget() {
   const [isMobile, setIsMobile] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const prefersReduced = useReducedMotion();
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -77,6 +78,18 @@ export default function ChatWidget() {
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
+
+  // Close on Escape key
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open]);
 
   const sendMessage = async (text: string) => {
     if (!text.trim() || loading) return;
@@ -141,23 +154,30 @@ export default function ChatWidget() {
     ? "fixed bottom-20 left-4 right-4 z-[150] w-auto max-w-full"
     : "fixed bottom-24 right-6 z-[150] w-[360px] max-w-[calc(100vw-2rem)]";
 
+  const panelMotion = prefersReduced
+    ? { initial: { opacity: 1 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0 } }
+    : { initial: { opacity: 0, y: 20, scale: 0.97 }, animate: { opacity: 1, y: 0, scale: 1 }, exit: { opacity: 0, y: 20, scale: 0.97 }, transition: { duration: 0.25, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } };
+
   return (
     <>
       {/* Chat Panel */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.97 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            {...panelMotion}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Chat with AI about Nikhil"
             className={`${panelPositionClass} bg-white border border-zinc-200 rounded-2xl shadow-xl overflow-hidden flex flex-col`}
             style={panelStyle}
           >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 flex-shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#3B5BDB] flex items-center justify-center text-white text-xs font-display font-bold">
+                <div
+                  aria-hidden="true"
+                  className="w-8 h-8 rounded-full bg-[#3B5BDB] flex items-center justify-center text-white text-xs font-display font-bold"
+                >
                   NR
                 </div>
                 <div>
@@ -165,8 +185,8 @@ export default function ChatWidget() {
                     Ask about Nikhil
                   </div>
                   <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                    <span className="text-xs text-zinc-400 font-mono">
+                    <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                    <span className="text-xs text-zinc-500 font-mono">
                       AI · Powered by Claude
                     </span>
                   </div>
@@ -174,7 +194,7 @@ export default function ChatWidget() {
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="w-7 h-7 rounded-full bg-zinc-100 hover:bg-zinc-200 flex items-center justify-center text-zinc-500 text-sm transition-colors"
+                className="w-7 h-7 rounded-full bg-zinc-100 hover:bg-zinc-200 flex items-center justify-center text-zinc-600 text-sm transition-colors"
                 aria-label="Close chat"
               >
                 ×
@@ -182,7 +202,7 @@ export default function ChatWidget() {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 min-h-0">
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 min-h-0" aria-live="polite" aria-label="Chat messages">
               {messages.map((msg, i) => (
                 <div
                   key={i}
@@ -194,7 +214,7 @@ export default function ChatWidget() {
                     className={`max-w-[85%] text-sm leading-relaxed px-4 py-2.5 rounded-2xl break-words ${
                       msg.role === "user"
                         ? "bg-[#3B5BDB] text-white rounded-br-sm"
-                        : "bg-zinc-50 border border-zinc-100 text-zinc-700 rounded-bl-sm"
+                        : "bg-zinc-50 border border-zinc-100 text-zinc-800 rounded-bl-sm"
                     }`}
                   >
                     {renderContent(msg.content)}
@@ -204,11 +224,12 @@ export default function ChatWidget() {
 
               {/* Typing indicator */}
               {loading && (
-                <div className="flex justify-start">
+                <div className="flex justify-start" aria-label="AI is typing">
                   <div className="bg-zinc-50 border border-zinc-100 px-4 py-3 rounded-2xl rounded-bl-sm flex gap-1.5 items-center">
                     {[0, 1, 2].map((i) => (
                       <span
                         key={i}
+                        aria-hidden="true"
                         className="w-1.5 h-1.5 rounded-full bg-zinc-400 animate-bounce"
                         style={{ animationDelay: `${i * 0.15}s` }}
                       />
@@ -219,7 +240,7 @@ export default function ChatWidget() {
 
               {/* Suggested questions */}
               {showSuggestions && messages.length === 1 && (
-                <div className="flex flex-col gap-2 pt-1">
+                <div className="flex flex-col gap-2 pt-1" role="group" aria-label="Suggested questions">
                   {SUGGESTED_QUESTIONS.map((q) => (
                     <button
                       key={q}
@@ -247,16 +268,17 @@ export default function ChatWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask me anything..."
                 disabled={loading}
+                aria-label="Type your message"
                 style={{ fontSize: "16px" }}
-                className="flex-1 bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2.5 outline-none focus:border-[#3B5BDB] focus:bg-white transition-all duration-200 placeholder:text-zinc-400 disabled:opacity-60"
+                className="flex-1 bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2.5 focus:border-[#3B5BDB] focus:bg-white transition-all duration-200 placeholder:text-zinc-400 disabled:opacity-60"
               />
               <button
                 type="submit"
                 disabled={!input.trim() || loading}
-                className="w-9 h-9 bg-[#3B5BDB] hover:bg-[#2C44B8] disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors duration-200 flex-shrink-0"
-                aria-label="Send"
+                aria-label="Send message"
+                className="w-9 h-9 bg-[#3B5BDB] hover:bg-[#2C44B8] disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors duration-200 flex-shrink-0 focus-visible:ring-2 focus-visible:ring-[#3B5BDB] focus-visible:ring-offset-2"
               >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                   <path
                     d="M1 7h12M7 1l6 6-6 6"
                     stroke="white"
@@ -279,33 +301,36 @@ export default function ChatWidget() {
             ? "bg-zinc-800 hover:bg-zinc-900"
             : "bg-[#3B5BDB] hover:bg-[#2C44B8]"
         }`}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        aria-label="Open AI chat"
+        whileHover={prefersReduced ? {} : { scale: 1.05 }}
+        whileTap={prefersReduced ? {} : { scale: 0.95 }}
+        aria-label={open ? "Close AI chat" : "Open AI chat"}
+        aria-expanded={open}
       >
         <AnimatePresence mode="wait">
           {open ? (
             <motion.span
               key="close"
-              initial={{ rotate: -90, opacity: 0 }}
+              initial={prefersReduced ? { opacity: 1 } : { rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              exit={prefersReduced ? { opacity: 0 } : { rotate: 90, opacity: 0 }}
+              transition={{ duration: prefersReduced ? 0 : 0.15 }}
               className="text-white text-xl leading-none"
+              aria-hidden="true"
             >
               ×
             </motion.span>
           ) : (
             <motion.svg
               key="chat"
-              initial={{ scale: 0.7, opacity: 0 }}
+              initial={prefersReduced ? { opacity: 1 } : { scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.7, opacity: 0 }}
-              transition={{ duration: 0.15 }}
+              exit={prefersReduced ? { opacity: 0 } : { scale: 0.7, opacity: 0 }}
+              transition={{ duration: prefersReduced ? 0 : 0.15 }}
               width="22"
               height="22"
               viewBox="0 0 24 24"
               fill="none"
+              aria-hidden="true"
             >
               <path
                 d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
@@ -326,10 +351,11 @@ export default function ChatWidget() {
       <AnimatePresence>
         {!open && (
           <motion.div
-            initial={{ opacity: 0, x: 10 }}
+            aria-hidden="true"
+            initial={prefersReduced ? { opacity: 1 } : { opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
-            transition={{ delay: 2, duration: 0.4 }}
+            transition={prefersReduced ? { duration: 0 } : { delay: 2, duration: 0.4 }}
             className="fixed bottom-8 right-24 z-[149] bg-zinc-900 text-white text-xs font-mono px-3 py-2 rounded-xl pointer-events-none whitespace-nowrap"
           >
             Ask me about Nikhil ✨

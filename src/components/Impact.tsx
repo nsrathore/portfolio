@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "@/lib/useInView";
 import { impactCards } from "@/data/portfolio";
 
@@ -31,26 +31,30 @@ const bentoClasses = ["bento-item-a", "bento-item-b", "bento-item-c", "bento-ite
 
 export default function Impact() {
   const { ref, inView } = useInView();
+  const prefersReduced = useReducedMotion();
+
+  const animateIn = (delay = 0) => ({
+    initial: { opacity: prefersReduced ? 1 : 0, y: prefersReduced ? 0 : 20 },
+    animate: prefersReduced ? { opacity: 1, y: 0 } : (inView ? { opacity: 1, y: 0 } : {}),
+    transition: { duration: prefersReduced ? 0 : 0.5, delay: prefersReduced ? 0 : delay },
+  });
 
   return (
     <section
       id="impact"
+      aria-label="Impact metrics"
       className="section-padding bg-[#FFFFFF] border-t border-b border-zinc-100"
     >
       <div className="container-wide">
         <div ref={ref}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-          >
+          <motion.div {...animateIn()}>
             <p className="font-mono text-xs tracking-widest uppercase text-[#3B5BDB] mb-3">
               Measured Impact
             </p>
             <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 mb-4">
               Results that move the needle
             </h2>
-            <p className="text-zinc-400 font-light max-w-lg">
+            <p className="text-zinc-500 font-light max-w-lg">
               Every project I ship is tracked against real business outcomes —
               not just technical milestones.
             </p>
@@ -64,9 +68,7 @@ export default function Impact() {
               return (
                 <motion.div
                   key={card.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  {...animateIn(i * 0.08)}
                   className={`bg-white p-6 sm:p-8 rounded-2xl border border-zinc-100 hover:bg-zinc-50 transition-colors duration-200 group flex flex-col justify-between min-h-[140px] ${bentoClasses[i]}`}
                 >
                   <div>
@@ -83,7 +85,7 @@ export default function Impact() {
                       {card.value}
                     </div>
                   </div>
-                  <p className="text-sm text-zinc-400 font-light leading-relaxed">
+                  <p className="text-sm text-zinc-500 font-light leading-relaxed">
                     {card.description}
                   </p>
                 </motion.div>
