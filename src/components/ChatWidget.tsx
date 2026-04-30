@@ -1,12 +1,39 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Message = {
   role: "user" | "assistant";
   content: string;
 };
+
+const LINK_REGEX = /(https?:\/\/[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+
+function renderContent(content: string) {
+  return content.split(LINK_REGEX).map((part, i) => {
+    if (/^https?:\/\//.test(part)) {
+      const url = part.replace(/[.,!?:;]+$/, "");
+      const trailing = part.slice(url.length);
+      return (
+        <Fragment key={i}>
+          <a href={url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:opacity-75 transition-opacity">
+            {url}
+          </a>
+          {trailing}
+        </Fragment>
+      );
+    }
+    if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(part)) {
+      return (
+        <a key={i} href={`mailto:${part}`} className="underline underline-offset-2 hover:opacity-75 transition-opacity">
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+}
 
 const SUGGESTED_QUESTIONS = [
   "What's your biggest engineering win?",
@@ -153,7 +180,7 @@ export default function ChatWidget() {
                         : "bg-zinc-50 border border-zinc-100 text-zinc-700 rounded-bl-sm"
                     }`}
                   >
-                    {msg.content}
+                    {renderContent(msg.content)}
                   </div>
                 </div>
               ))}
