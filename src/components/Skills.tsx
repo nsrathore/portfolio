@@ -25,13 +25,13 @@ export default function Skills() {
           {...animateIn()}
           className="mb-12"
         >
-          <p className="font-mono text-xs tracking-widest uppercase text-[#3B5BDB] mb-3">
+          <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-3">
             Technical Skills
           </p>
           <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 mb-4">
             Technologies I master
           </h2>
-          <p className="text-zinc-500 font-light max-w-md">
+          <p className="text-zinc-700 font-light max-w-md">
             Curated to reflect what I genuinely use in production — not a
             keyword list.
           </p>
@@ -59,7 +59,7 @@ export default function Skills() {
                     className={`text-xs sm:text-sm font-mono px-3 py-1.5 rounded-full border transition-colors duration-150 ${
                       item.highlight
                         ? "bg-[#EEF2FF] text-[#3B5BDB] border-[#C5D0FA] font-medium"
-                        : "bg-white text-zinc-600 border-zinc-200 hover:border-zinc-300 hover:text-zinc-700"
+                        : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:text-zinc-900"
                     }`}
                   >
                     {item.name}

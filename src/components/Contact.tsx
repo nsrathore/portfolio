@@ -66,13 +66,13 @@ export default function Contact() {
       <div className="container-wide" ref={ref}>
         <div className="max-w-2xl mx-auto text-center mb-12">
           <motion.div {...animateIn()}>
-            <p className="font-mono text-xs tracking-widest uppercase text-[#3B5BDB] mb-3">
+            <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-3">
               Get In Touch
             </p>
             <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 mb-4">
               Let&apos;s build something great
             </h2>
-            <p className="text-zinc-500 font-light">
+            <p className="text-zinc-700 font-light">
               Whether it&apos;s a full-time role, a consulting engagement, or
               just a technical conversation — I&apos;d love to hear from you.
             </p>
@@ -94,7 +94,7 @@ export default function Contact() {
               <h3 className="font-display font-bold text-xl text-zinc-900 mb-2">
                 Contact form is currently offline
               </h3>
-              <p className="text-zinc-500 text-sm">
+              <p className="text-zinc-700 text-sm">
                 You can still reach Nikhil directly at{" "}
                 <a
                   href={`mailto:${personal.email}`}
@@ -113,7 +113,7 @@ export default function Contact() {
               <h3 className="font-display font-bold text-xl text-zinc-900 mb-2">
                 Message sent!
               </h3>
-              <p className="text-zinc-500 text-sm">
+              <p className="text-zinc-700 text-sm">
                 Thanks for reaching out. I&apos;ll get back to you soon.
               </p>
               <button

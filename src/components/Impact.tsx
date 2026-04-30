@@ -48,13 +48,13 @@ export default function Impact() {
       <div className="container-wide">
         <div ref={ref}>
           <motion.div {...animateIn()}>
-            <p className="font-mono text-xs tracking-widest uppercase text-[#3B5BDB] mb-3">
+            <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-3">
               Measured Impact
             </p>
             <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 mb-4">
               Results that move the needle
             </h2>
-            <p className="text-zinc-500 font-light max-w-lg">
+            <p className="text-zinc-700 font-light max-w-lg">
               Every project I ship is tracked against real business outcomes —
               not just technical milestones.
             </p>
@@ -71,13 +71,15 @@ export default function Impact() {
                   {...animateIn(i * 0.08)}
                   className={`bg-white p-6 sm:p-8 rounded-2xl border border-zinc-100 hover:bg-zinc-50 transition-colors duration-200 group flex flex-col justify-between min-h-[140px] ${bentoClasses[i]}`}
                 >
-                  <div>
+                  <div role="group" aria-label={`${card.value} — ${card.label}`}>
                     <div
+                      aria-hidden="true"
                       className={`inline-block text-xs font-mono px-2.5 py-1 rounded-full border mb-4 ${c.bg} ${c.text} ${c.border}`}
                     >
                       {card.label}
                     </div>
                     <div
+                      aria-hidden="true"
                       className={`font-display font-extrabold tracking-tight mb-3 ${c.text} ${
                         featured ? "text-4xl lg:text-6xl" : "text-4xl"
                       }`}
@@ -85,7 +87,7 @@ export default function Impact() {
                       {card.value}
                     </div>
                   </div>
-                  <p className="text-sm text-zinc-500 font-light leading-relaxed">
+                  <p className="text-sm text-zinc-700 font-light leading-relaxed">
                     {card.description}
                   </p>
                 </motion.div>

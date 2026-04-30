@@ -114,12 +114,12 @@ export default function Hero() {
             <motion.div {...motionProps(0)} className="mb-6 sm:mb-8">
               {personal.availableForWork && (
                 <span
-                  className="inline-flex items-center gap-2 bg-[#EEF2FF] border border-[#C5D0FA] text-[#3B5BDB] text-xs font-mono tracking-widest px-4 py-2 rounded-full uppercase"
+                  className="inline-flex items-center gap-2 bg-[#EEF2FF] border border-[#3B5BDB] text-[#1D2F8A] text-xs font-mono tracking-widest px-4 py-2 rounded-full uppercase"
                   aria-label="Currently available for new opportunities"
                 >
                   <span
                     aria-hidden="true"
-                    className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] animate-[pulseDot_2s_ease-in-out_infinite]"
+                    className="w-1.5 h-1.5 rounded-full bg-[#1D2F8A] animate-[pulseDot_2s_ease-in-out_infinite]"
                   />
                   Available for new opportunities
                 </span>
@@ -164,14 +164,15 @@ export default function Hero() {
             >
               {stats.map((stat, i) => (
                 <div key={i} className="flex sm:items-center gap-8">
-                  <div>
+                  <div role="group" aria-label={`${stat.value} ${stat.label}`}>
                     <div
+                      aria-hidden="true"
                       className="font-display text-4xl sm:text-5xl font-extrabold tracking-tighter leading-none"
                       style={gradientStyle}
                     >
                       {stat.value}
                     </div>
-                    <div className="text-xs text-zinc-500 uppercase tracking-widest mt-1 font-mono">
+                    <div aria-hidden="true" className="text-xs text-zinc-600 uppercase tracking-widest mt-1 font-mono">
                       {stat.label}
                     </div>
                   </div>
@@ -233,7 +234,7 @@ export default function Hero() {
         transition={prefersReduced ? { duration: 0 } : { delay: 1.2, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2"
       >
-        <span className="text-xs text-zinc-400 font-mono tracking-widest uppercase">
+        <span className="text-xs text-zinc-500 font-mono tracking-widest uppercase">
           scroll
         </span>
         <div className="w-px h-8 bg-gradient-to-b from-zinc-300 to-transparent" />

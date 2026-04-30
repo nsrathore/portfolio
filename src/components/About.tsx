@@ -22,7 +22,7 @@ export default function About() {
           {...animateIn()}
           className="mb-12"
         >
-          <p className="font-mono text-xs tracking-widest uppercase text-[#3B5BDB] mb-3">
+          <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-3">
             About Me
           </p>
           <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900">
@@ -78,9 +78,9 @@ export default function About() {
                   PU
                 </div>
                 <div>
-                  <div className="font-display font-bold text-zinc-900 text-sm">
+                  <h4 className="font-display font-bold text-zinc-900 text-sm">
                     Purdue University — West Lafayette
-                  </div>
+                  </h4>
                   <div className="text-xs text-zinc-600 font-mono mt-0.5">
                     B.S. Computer Science · GPA 3.4 · May 2021
                   </div>
@@ -108,7 +108,7 @@ export default function About() {
                     {/* Dot */}
                     <div aria-hidden="true" className="absolute -left-5 top-[5px] w-2 h-2 rounded-full bg-[#3B5BDB] border-2 border-white ring-2 ring-[#3B5BDB]" />
 
-                    <div className="font-mono text-xs text-[#3B5BDB] mb-1">
+                    <div className="font-mono text-xs text-[#2C44B8] mb-1">
                       {item.date}
                     </div>
                     <h4 className="font-display font-bold text-zinc-900 text-sm">
@@ -158,7 +158,7 @@ export default function About() {
                 ))}
                 <div className="pt-2 mt-2 border-t border-zinc-800 text-green-400">
                   ● Deploying to production...
-                  <div className="text-zinc-500 mt-1">
+                  <div className="text-zinc-300 mt-1">
                     ECS cluster: prod-healthcare-us-east-1
                   </div>
                 </div>

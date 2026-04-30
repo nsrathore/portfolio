@@ -15,11 +15,11 @@ const FILTERS: { label: string; value: ProjectTag }[] = [
 ];
 
 const TAG_COLORS: Record<string, string> = {
-  backend: "bg-blue-50 text-blue-600 border-blue-200",
-  frontend: "bg-violet-50 text-violet-600 border-violet-200",
-  devops: "bg-amber-50 text-amber-600 border-amber-200",
-  security: "bg-rose-50 text-rose-600 border-rose-200",
-  ai: "bg-emerald-50 text-emerald-600 border-emerald-200",
+  backend: "bg-blue-100 text-blue-800 border-blue-200",
+  frontend: "bg-violet-100 text-violet-800 border-violet-200",
+  devops: "bg-amber-100 text-amber-800 border-amber-200",
+  security: "bg-rose-100 text-rose-800 border-rose-200",
+  ai: "bg-emerald-100 text-emerald-800 border-emerald-200",
 };
 
 const METRIC_COLORS: Record<string, string> = {
@@ -78,7 +78,7 @@ export default function Projects() {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <motion.div {...animateIn()}>
-              <p className="font-mono text-xs tracking-widest uppercase text-[#3B5BDB] mb-3">
+              <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-3">
                 Case Studies
               </p>
               <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900">
@@ -103,7 +103,7 @@ export default function Projects() {
                   className={`text-sm px-4 py-1.5 rounded-full border transition-all duration-200 font-medium ${
                     activeFilter === f.value
                       ? "bg-[#3B5BDB] text-white border-[#3B5BDB]"
-                      : "bg-white text-zinc-600 border-zinc-300 hover:border-zinc-500 hover:text-zinc-900"
+                      : "bg-white text-zinc-800 border-zinc-300 hover:border-zinc-500 hover:text-zinc-900"
                   }`}
                 >
                   {f.label}
@@ -155,7 +155,7 @@ export default function Projects() {
                         <h3 className="font-display text-xl md:text-2xl font-bold tracking-tight text-zinc-900">
                           {project.title}
                         </h3>
-                        <p className="text-xs text-zinc-600 font-mono mt-1">
+                        <p className="text-xs text-zinc-700 font-mono mt-1">
                           {project.company}
                         </p>
                         {(project.link || project.github) && (
@@ -198,7 +198,7 @@ export default function Projects() {
                         <div className="font-display text-2xl font-extrabold tracking-tight leading-none">
                           {project.metric.value}
                         </div>
-                        <div className="text-xs font-mono mt-1 opacity-70">
+                        <div className="text-xs font-mono mt-1">
                           {project.metric.label}
                         </div>
                       </div>
@@ -214,11 +214,11 @@ export default function Projects() {
                         <div key={section.label} className="pt-4 first:pt-0 md:pt-0">
                           <div className="flex items-center gap-2 mb-2">
                             <div aria-hidden="true" className="w-4 h-px bg-zinc-300" />
-                            <span className="text-xs font-mono text-zinc-600 uppercase tracking-widest">
+                            <span className="text-xs font-mono text-zinc-700 uppercase tracking-widest">
                               {section.label}
                             </span>
                           </div>
-                          <p className="text-sm text-zinc-600 font-light leading-relaxed">
+                          <p className="text-sm text-zinc-700 font-light leading-relaxed">
                             {section.text}
                           </p>
                         </div>
@@ -230,7 +230,7 @@ export default function Projects() {
                       {project.tech.map((t) => (
                         <span
                           key={t}
-                          className="text-xs font-mono text-zinc-600 bg-zinc-50 border border-zinc-200 px-2.5 py-1 rounded-full"
+                          className="text-xs font-mono text-zinc-700 bg-zinc-50 border border-zinc-200 px-2.5 py-1 rounded-full"
                         >
                           {t}
                         </span>
