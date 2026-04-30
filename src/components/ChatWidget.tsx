@@ -1,0 +1,302 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+type Message = {
+  role: "user" | "assistant";
+  content: string;
+};
+
+const SUGGESTED_QUESTIONS = [
+  "What's your biggest engineering win?",
+  "What stack do you work with daily?",
+  "What kind of role are you looking for?",
+  "Tell me something fun about Nikhil",
+];
+
+export default function ChatWidget() {
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (open && messages.length === 0) {
+      setMessages([
+        {
+          role: "assistant",
+          content:
+            "Hi! I'm an AI that knows everything about Nikhil. Ask me about his projects, tech stack, career background, or what kind of roles he's looking for. What would you like to know?",
+        },
+      ]);
+    }
+    if (open) {
+      setTimeout(() => inputRef.current?.focus(), 300);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, loading]);
+
+  const sendMessage = async (text: string) => {
+    if (!text.trim() || loading) return;
+
+    const userMessage: Message = { role: "user", content: text.trim() };
+    const newMessages = [...messages, userMessage];
+
+    setMessages(newMessages);
+    setInput("");
+    setLoading(true);
+    setShowSuggestions(false);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: newMessages }),
+      });
+
+      const data = await res.json();
+
+      if (data.message) {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: data.message },
+        ]);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content:
+              "Sorry, I ran into an issue. Feel free to reach out to Nikhil directly at nikhilendra7@gmail.com!",
+          },
+        ]);
+      }
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content:
+            "Oops, something went wrong. You can always reach Nikhil at nikhilendra7@gmail.com.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendMessage(input);
+  };
+
+  return (
+    <>
+      {/* Chat Panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.97 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed bottom-24 right-6 z-[150] w-[360px] max-w-[calc(100vw-2rem)] bg-white border border-zinc-200 rounded-2xl shadow-xl overflow-hidden flex flex-col"
+            style={{ maxHeight: "520px" }}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 flex-shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-[#3B5BDB] flex items-center justify-center text-white text-xs font-display font-bold">
+                  NR
+                </div>
+                <div>
+                  <div className="text-sm font-display font-bold text-zinc-900 leading-none">
+                    Ask about Nikhil
+                  </div>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                    <span className="text-xs text-zinc-400 font-mono">
+                      AI · Powered by Claude
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setOpen(false)}
+                className="w-7 h-7 rounded-full bg-zinc-100 hover:bg-zinc-200 flex items-center justify-center text-zinc-500 text-sm transition-colors"
+                aria-label="Close chat"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 min-h-0">
+              {messages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`flex ${
+                    msg.role === "user" ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  <div
+                    className={`max-w-[85%] text-sm leading-relaxed px-4 py-2.5 rounded-2xl ${
+                      msg.role === "user"
+                        ? "bg-[#3B5BDB] text-white rounded-br-sm"
+                        : "bg-zinc-50 border border-zinc-100 text-zinc-700 rounded-bl-sm"
+                    }`}
+                  >
+                    {msg.content}
+                  </div>
+                </div>
+              ))}
+
+              {/* Typing indicator */}
+              {loading && (
+                <div className="flex justify-start">
+                  <div className="bg-zinc-50 border border-zinc-100 px-4 py-3 rounded-2xl rounded-bl-sm flex gap-1.5 items-center">
+                    {[0, 1, 2].map((i) => (
+                      <span
+                        key={i}
+                        className="w-1.5 h-1.5 rounded-full bg-zinc-400 animate-bounce"
+                        style={{ animationDelay: `${i * 0.15}s` }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Suggested questions */}
+              {showSuggestions && messages.length === 1 && (
+                <div className="flex flex-col gap-2 pt-1">
+                  {SUGGESTED_QUESTIONS.map((q) => (
+                    <button
+                      key={q}
+                      onClick={() => sendMessage(q)}
+                      className="text-left text-xs text-[#3B5BDB] border border-[#C5D0FA] bg-[#EEF2FF] px-3 py-2 rounded-xl hover:bg-[#e0e7ff] transition-colors duration-150 leading-snug"
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              <div ref={bottomRef} />
+            </div>
+
+            {/* Input */}
+            <form
+              onSubmit={handleSubmit}
+              className="flex items-center gap-2 px-4 py-3 border-t border-zinc-100 flex-shrink-0"
+            >
+              <input
+                ref={inputRef}
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask me anything..."
+                disabled={loading}
+                className="flex-1 text-sm bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2.5 outline-none focus:border-[#3B5BDB] focus:bg-white transition-all duration-200 placeholder:text-zinc-400 disabled:opacity-60"
+              />
+              <button
+                type="submit"
+                disabled={!input.trim() || loading}
+                className="w-9 h-9 bg-[#3B5BDB] hover:bg-[#2C44B8] disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors duration-200 flex-shrink-0"
+                aria-label="Send"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                >
+                  <path
+                    d="M1 7h12M7 1l6 6-6 6"
+                    stroke="white"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Button */}
+      <motion.button
+        onClick={() => setOpen((prev) => !prev)}
+        className={`fixed bottom-6 right-6 z-[150] w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-colors duration-200 ${
+          open
+            ? "bg-zinc-800 hover:bg-zinc-900"
+            : "bg-[#3B5BDB] hover:bg-[#2C44B8]"
+        }`}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="Open AI chat"
+      >
+        <AnimatePresence mode="wait">
+          {open ? (
+            <motion.span
+              key="close"
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="text-white text-xl leading-none"
+            >
+              ×
+            </motion.span>
+          ) : (
+            <motion.svg
+              key="chat"
+              initial={{ scale: 0.7, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.7, opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <circle cx="9" cy="11" r="1" fill="white" />
+              <circle cx="12" cy="11" r="1" fill="white" />
+              <circle cx="15" cy="11" r="1" fill="white" />
+            </motion.svg>
+          )}
+        </AnimatePresence>
+      </motion.button>
+
+      {/* Tooltip (first visit) */}
+      <AnimatePresence>
+        {!open && (
+          <motion.div
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ delay: 2, duration: 0.4 }}
+            className="fixed bottom-8 right-24 z-[149] bg-zinc-900 text-white text-xs font-mono px-3 py-2 rounded-xl pointer-events-none whitespace-nowrap"
+          >
+            Ask me about Nikhil ✨
+            <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-l-[6px] border-l-zinc-900 border-y-[5px] border-y-transparent" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
