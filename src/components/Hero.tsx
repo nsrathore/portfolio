@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { personal, stats } from "@/data/portfolio";
 
@@ -35,7 +36,8 @@ export default function Hero() {
       />
 
       <div className="max-w-6xl mx-auto w-full">
-        <div className="max-w-3xl">
+        <div className="flex items-center justify-between gap-12 lg:gap-20">
+        <div className="flex-1 min-w-0">
           {/* Availability badge */}
           <motion.div {...fadeUp(0)} className="mb-8">
             {personal.availableForWork && (
@@ -115,6 +117,27 @@ export default function Hero() {
               ✉ {personal.email}
             </a>
           </motion.div>
+        </div>
+
+        {/* Headshot */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="hidden lg:flex flex-shrink-0 items-center justify-center"
+        >
+          <div className="rounded-full ring-[3px] ring-[#3B5BDB] ring-offset-[6px]">
+            <div className="relative w-72 h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden">
+              <Image
+                src="/images/headshot.jpeg"
+                alt={personal.name}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
+        </motion.div>
         </div>
       </div>
 

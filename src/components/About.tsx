@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "@/lib/useInView";
 import { personal, timeline } from "@/data/portfolio";
@@ -117,8 +118,19 @@ export default function About() {
               </div>
             </div>
 
+            {/* About photo */}
+            <div className="mt-10 rounded-2xl overflow-hidden">
+              <Image
+                src="/images/about.jpeg"
+                alt={personal.name}
+                width={600}
+                height={500}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+
             {/* DevOps terminal card */}
-            <div className="mt-10 bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800">
+            <div className="mt-6 bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800">
               <div className="flex items-center gap-1.5 px-4 py-3 border-b border-zinc-800">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
