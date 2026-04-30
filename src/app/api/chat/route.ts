@@ -86,6 +86,13 @@ He's interested in roles at companies that use AWS/Azure, value infrastructure-a
 - Always sign off with an invitation to connect if the question is about hiring/opportunities.`;
 
 export async function POST(req: NextRequest) {
+  if (process.env.CHATBOT_ENABLED !== "true") {
+    return NextResponse.json({
+      message:
+        "The chatbot is currently offline. You can reach Nikhil directly at nikhilendra7@gmail.com or on LinkedIn at linkedin.com/in/nikhilendrasrathore.",
+    });
+  }
+
   try {
     const { messages } = await req.json();
 
