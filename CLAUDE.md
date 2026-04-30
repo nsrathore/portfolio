@@ -49,6 +49,10 @@ src/
 - Standard headshot size: width={400} height={400}
 - Project screenshot size: width={1200} height={800}
 - Resume: public/resume/nikhilendra_rathore_resume.pdf
+- ResumeDownload.tsx uses Google Docs viewer iframe for PDF preview
+- PDF must be publicly accessible — uses full Vercel production URL in ResumeDownload.tsx
+- No additional dependencies required for PDF preview
+- If Vercel URL changes, update PDF_PUBLIC_URL in src/components/ResumeDownload.tsx
 
 ## Environment Variables
 ANTHROPIC_API_KEY          # Claude API — chatbot
