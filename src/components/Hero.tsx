@@ -30,24 +30,23 @@ function AnimatedWord({
   charDelay?: number;
 }) {
   return (
-    <span className="inline-block overflow-hidden">
-      <span className="inline-flex" style={applyGradient ? gradientStyle : undefined}>
-        {word.split("").map((char, i) => (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: (startIndex + i) * charDelay,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="inline-block"
-          >
-            {char}
-          </motion.span>
-        ))}
-      </span>
+    // No overflow-hidden — it clips letter bottoms when combined with leading-[1.0]
+    <span className="inline-flex" style={applyGradient ? gradientStyle : undefined}>
+      {word.split("").map((char, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.5,
+            delay: (startIndex + i) * charDelay,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="inline-block"
+        >
+          {char}
+        </motion.span>
+      ))}
     </span>
   );
 }
@@ -68,7 +67,9 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center pt-28 pb-8 sm:pb-16 px-5 md:px-12 lg:px-20 relative overflow-hidden bg-[#F9F8F5]"
+      // sm:min-h-screen — no min-h on mobile so section is content-height only,
+      // eliminating the blank void caused by items-center in a full-viewport flex container
+      className="sm:min-h-screen flex items-start sm:items-center pt-24 sm:pt-28 pb-16 px-5 md:px-12 lg:px-20 relative overflow-hidden bg-[#F9F8F5]"
     >
       {/* Subtle background grid */}
       <div
@@ -93,7 +94,7 @@ export default function Hero() {
         <div className="flex items-center justify-between gap-12 lg:gap-20">
           <div className="flex-1 min-w-0">
             {/* Availability badge */}
-            <motion.div {...fadeUp(0)} className="mb-8">
+            <motion.div {...fadeUp(0)} className="mb-6 sm:mb-8">
               {personal.availableForWork && (
                 <span className="inline-flex items-center gap-2 bg-[#EEF2FF] border border-[#C5D0FA] text-[#3B5BDB] text-xs font-mono tracking-widest px-4 py-2 rounded-full uppercase">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] animate-[pulseDot_2s_ease-in-out_infinite]" />
@@ -102,8 +103,8 @@ export default function Hero() {
               )}
             </motion.div>
 
-            {/* Name — staggered letter animation */}
-            <h1 className="font-display text-[clamp(2.2rem,8vw,5.5rem)] font-extrabold leading-[1.0] tracking-[-0.03em] text-zinc-900 mb-4">
+            {/* Name — staggered letter animation, leading-[1.1] gives letters room */}
+            <h1 className="font-display text-[clamp(2.2rem,8vw,5.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-zinc-900 mb-4">
               <span className="block">
                 <AnimatedWord word={firstName} startIndex={0} charDelay={charDelay} />
               </span>
@@ -120,7 +121,7 @@ export default function Hero() {
             {/* Title */}
             <motion.p
               {...fadeUp(0.2)}
-              className="font-display text-[clamp(1rem,2.5vw,1.4rem)] font-semibold text-[#3B5BDB] tracking-tight mb-6"
+              className="font-display text-[clamp(1rem,2.5vw,1.4rem)] font-semibold text-[#3B5BDB] tracking-tight mb-5 sm:mb-6"
             >
               {personal.title} · {personal.tagline}
             </motion.p>
@@ -128,7 +129,7 @@ export default function Hero() {
             {/* Summary */}
             <motion.p
               {...fadeUp(0.3)}
-              className="text-zinc-500 text-lg font-light leading-relaxed max-w-xl mb-10"
+              className="text-zinc-500 text-base sm:text-lg font-light leading-relaxed max-w-xl mb-8 sm:mb-10"
             >
               {personal.summary}
             </motion.p>
@@ -136,13 +137,13 @@ export default function Hero() {
             {/* Stats — vertical on mobile, horizontal on sm+ */}
             <motion.div
               {...fadeUp(0.35)}
-              className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8 mb-10"
+              className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-8 mb-8 sm:mb-10"
             >
               {stats.map((stat, i) => (
                 <div key={i} className="flex sm:items-center gap-8">
                   <div>
                     <div
-                      className="font-display text-5xl font-extrabold tracking-tighter leading-none"
+                      className="font-display text-4xl sm:text-5xl font-extrabold tracking-tighter leading-none"
                       style={gradientStyle}
                     >
                       {stat.value}
@@ -151,7 +152,7 @@ export default function Hero() {
                       {stat.label}
                     </div>
                   </div>
-                  {/* Divider — desktop only */}
+                  {/* Divider — sm+ only */}
                   {i < stats.length - 1 && (
                     <div className="hidden sm:block w-px h-8 bg-zinc-200" />
                   )}
@@ -177,7 +178,7 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Headshot — desktop only */}
+          {/* Headshot — lg+ only, never renders on mobile */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -199,12 +200,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll hint */}
+      {/* Scroll hint — hidden on mobile to avoid overlapping CTAs */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2"
       >
         <span className="text-xs text-zinc-300 font-mono tracking-widest uppercase">
           scroll
