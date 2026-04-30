@@ -6,8 +6,22 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-zinc-100 px-6 md:px-12 lg:px-20 py-8">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <footer className="relative overflow-hidden border-t border-zinc-100 px-6 md:px-12 lg:px-20 py-8">
+      {/* Decorative background name */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 font-display font-extrabold leading-none pointer-events-none select-none whitespace-nowrap"
+        style={{
+          fontSize: "clamp(5rem, 15vw, 12rem)",
+          color: "rgba(59, 91, 219, 0.04)",
+          letterSpacing: "-0.05em",
+          fontWeight: 800,
+        }}
+      >
+        RATHORE
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="font-mono text-xs text-zinc-400">
           © {year}{" "}
           <span className="text-zinc-700 font-medium">{personal.name}</span>

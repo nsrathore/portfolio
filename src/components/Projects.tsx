@@ -29,8 +29,21 @@ const METRIC_COLORS: Record<string, string> = {
   slate: "bg-slate-50 text-slate-600 border-slate-200",
 };
 
+const glassStyle = {
+  background: "rgba(255, 255, 255, 0.7)",
+  backdropFilter: "blur(12px)",
+  WebkitBackdropFilter: "blur(12px)",
+  border: "1px solid rgba(255, 255, 255, 0.8)",
+  boxShadow: "0 4px 24px rgba(59, 91, 219, 0.06), 0 1px 2px rgba(0,0,0,0.04)",
+};
+
+const glassHoverStyle = {
+  boxShadow: "0 8px 32px rgba(59, 91, 219, 0.10), 0 1px 2px rgba(0,0,0,0.04)",
+};
+
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState<ProjectTag>("all");
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const { ref, inView } = useInView();
 
   const filtered =
@@ -91,7 +104,14 @@ export default function Projects() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.35, delay: i * 0.05 }}
-                  className="bg-white border border-zinc-100 rounded-2xl overflow-hidden hover:border-zinc-300 hover:shadow-sm transition-all duration-200 group"
+                  className="relative rounded-2xl overflow-hidden group transition-all duration-200"
+                  style={
+                    hoveredId === project.id
+                      ? { ...glassStyle, ...glassHoverStyle }
+                      : glassStyle
+                  }
+                  onMouseEnter={() => setHoveredId(project.id)}
+                  onMouseLeave={() => setHoveredId(null)}
                 >
                   {/* Card top bar */}
                   <div className="h-[2px] bg-gradient-to-r from-[#3B5BDB] via-[#818CF8] to-transparent" />
@@ -185,7 +205,7 @@ export default function Projects() {
                     </div>
 
                     {/* Tech stack */}
-                    <div className="flex flex-wrap gap-2 mt-6 pt-5 border-t border-zinc-50">
+                    <div className="flex flex-wrap gap-2 mt-6 pt-5 border-t border-zinc-100">
                       {project.tech.map((t) => (
                         <span
                           key={t}
@@ -196,6 +216,15 @@ export default function Projects() {
                       ))}
                     </div>
                   </div>
+
+                  {/* Hover accent bar */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-[3px] transition-transform duration-300 ease-out origin-left"
+                    style={{
+                      background: "linear-gradient(90deg, #3B5BDB, #6366f1)",
+                      transform: hoveredId === project.id ? "scaleX(1)" : "scaleX(0)",
+                    }}
+                  />
                 </motion.div>
               ))}
             </div>

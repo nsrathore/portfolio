@@ -10,7 +10,48 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] },
 });
 
+const gradientStyle = {
+  background: "linear-gradient(135deg, #3B5BDB, #6366f1)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  backgroundClip: "text",
+};
+
+function AnimatedWord({
+  word,
+  startIndex,
+  applyGradient,
+}: {
+  word: string;
+  startIndex: number;
+  applyGradient?: boolean;
+}) {
+  return (
+    <span className="inline-block overflow-hidden">
+      <span className="inline-flex" style={applyGradient ? gradientStyle : undefined}>
+        {word.split("").map((char, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: (startIndex + i) * 0.04,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="inline-block"
+          >
+            {char}
+          </motion.span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
 export default function Hero() {
+  const [firstName, lastName] = personal.name.split(" ");
+
   return (
     <section
       id="hero"
@@ -48,17 +89,15 @@ export default function Hero() {
             )}
           </motion.div>
 
-          {/* Name */}
-          <motion.h1
-            {...fadeUp(0.1)}
-            className="font-display text-[clamp(3rem,8vw,5.5rem)] font-extrabold leading-[1.0] tracking-[-0.03em] text-zinc-900 mb-4"
-          >
-            {personal.name.split(" ").map((word, i) => (
-              <span key={i} className={i === 0 ? "block" : "block"}>
-                {word}
-              </span>
-            ))}
-          </motion.h1>
+          {/* Name — staggered letter animation */}
+          <h1 className="font-display text-[clamp(3rem,8vw,5.5rem)] font-extrabold leading-[1.0] tracking-[-0.03em] text-zinc-900 mb-4">
+            <span className="block">
+              <AnimatedWord word={firstName} startIndex={0} />
+            </span>
+            <span className="block">
+              <AnimatedWord word={lastName} startIndex={firstName.length} applyGradient />
+            </span>
+          </h1>
 
           {/* Title */}
           <motion.p
@@ -84,7 +123,10 @@ export default function Hero() {
             {stats.map((stat, i) => (
               <div key={i} className="flex items-center gap-8">
                 <div>
-                  <div className="font-display text-3xl font-extrabold tracking-tight text-zinc-900 leading-none">
+                  <div
+                    className="font-display text-5xl font-extrabold tracking-tighter leading-none"
+                    style={gradientStyle}
+                  >
                     {stat.value}
                   </div>
                   <div className="text-xs text-zinc-400 uppercase tracking-widest mt-1 font-mono">

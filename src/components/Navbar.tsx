@@ -26,6 +26,69 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  if (scrolled) {
+    return (
+      <>
+        {/* Scroll progress */}
+        <div
+          className="fixed top-0 left-0 h-[2px] bg-[#3B5BDB] z-[200] transition-all duration-100"
+          style={{ width: `${progress}%` }}
+        />
+
+        {/* Floating pill nav */}
+        <nav
+          className="fixed z-[100] transition-all duration-300"
+          style={{
+            top: "1rem",
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "rgba(255,255,255,0.85)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255,255,255,0.9)",
+            borderRadius: "9999px",
+            padding: "0.5rem 1.5rem",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <div className="flex items-center gap-6 h-9">
+            {/* Logo */}
+            <a
+              href="#"
+              className="font-display text-sm tracking-tight text-zinc-900"
+              style={{ fontWeight: 800 }}
+            >
+              N<span className="text-[#3B5BDB]">.</span>R
+            </a>
+
+            {/* Links */}
+            <ul className="flex items-center gap-5">
+              {links.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors duration-200"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="#contact"
+                  className="text-sm font-medium bg-[#3B5BDB] text-white px-4 py-1.5 rounded-full hover:bg-[#2C44B8] transition-colors duration-200"
+                >
+                  Let&apos;s talk
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </>
+    );
+  }
+
   return (
     <>
       {/* Scroll progress */}
@@ -34,13 +97,7 @@ export default function Navbar() {
         style={{ width: `${progress}%` }}
       />
 
-      <nav
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-          scrolled
-            ? "bg-white/90 backdrop-blur-xl border-b border-zinc-200/80 shadow-sm"
-            : "bg-transparent"
-        }`}
-      >
+      <nav className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-transparent">
         <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between h-16">
           {/* Logo */}
           <a

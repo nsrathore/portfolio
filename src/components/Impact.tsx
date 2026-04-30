@@ -27,6 +27,13 @@ const colorMap: Record<string, { bg: string; text: string; border: string }> = {
   },
 };
 
+const gridAreas = [
+  { area: "a", colSpan: "lg:col-span-1 lg:row-span-2", featured: true },
+  { area: "b", colSpan: "lg:col-span-1 lg:row-span-1", featured: false },
+  { area: "c", colSpan: "lg:col-span-1 lg:row-span-1", featured: false },
+  { area: "d", colSpan: "lg:col-span-2 lg:row-span-1", featured: false },
+];
+
 export default function Impact() {
   const { ref, inView } = useInView();
 
@@ -54,26 +61,41 @@ export default function Impact() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-zinc-100 border border-zinc-100 rounded-2xl overflow-hidden mt-12">
+          {/* Bento grid */}
+          <div
+            className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-4"
+            style={{
+              gridTemplateAreas: `
+                "a b"
+                "a c"
+                "d d"
+              `,
+              gridTemplateColumns: "repeat(3, 1fr)",
+            }}
+          >
             {impactCards.map((card, i) => {
               const c = colorMap[card.color] || colorMap.blue;
+              const { colSpan, featured } = gridAreas[i];
               return (
                 <motion.div
                   key={card.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="bg-white p-8 hover:bg-zinc-50 transition-colors duration-200 group"
+                  className={`bg-white p-8 rounded-2xl border border-zinc-100 hover:bg-zinc-50 transition-colors duration-200 group flex flex-col justify-between ${colSpan}`}
+                  style={{ gridArea: ["a", "b", "c", "d"][i] }}
                 >
-                  <div
-                    className={`inline-block text-xs font-mono px-2.5 py-1 rounded-full border mb-4 ${c.bg} ${c.text} ${c.border}`}
-                  >
-                    {card.label}
-                  </div>
-                  <div
-                    className={`font-display text-4xl font-extrabold tracking-tight mb-3 ${c.text}`}
-                  >
-                    {card.value}
+                  <div>
+                    <div
+                      className={`inline-block text-xs font-mono px-2.5 py-1 rounded-full border mb-4 ${c.bg} ${c.text} ${c.border}`}
+                    >
+                      {card.label}
+                    </div>
+                    <div
+                      className={`font-display font-extrabold tracking-tight mb-3 ${c.text} ${featured ? "text-6xl" : "text-4xl"}`}
+                    >
+                      {card.value}
+                    </div>
                   </div>
                   <p className="text-sm text-zinc-400 font-light leading-relaxed">
                     {card.description}
