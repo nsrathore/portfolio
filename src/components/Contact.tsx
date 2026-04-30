@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useInView } from "@/lib/useInView";
 import { personal } from "@/data/portfolio";
 
-type FormState = "idle" | "loading" | "success" | "error";
+type FormState = "idle" | "loading" | "success" | "error" | "disabled";
 
 export default function Contact() {
   const { ref, inView } = useInView();
@@ -17,8 +17,6 @@ export default function Contact() {
     message: "",
   });
 
-  const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -27,24 +25,18 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!formspreeId) {
-      // Demo mode — show success without sending
-      setFormState("loading");
-      setTimeout(() => setFormState("success"), 1000);
-      return;
-    }
-
     setFormState("loading");
 
     try {
-      const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
-      if (res.ok) {
+      if (res.status === 503) {
+        setFormState("disabled");
+      } else if (res.ok) {
         setFormState("success");
         setForm({ name: "", email: "", subject: "", message: "" });
       } else {
@@ -89,7 +81,28 @@ export default function Contact() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="max-w-xl mx-auto"
         >
-          {formState === "success" ? (
+          {formState === "disabled" ? (
+            <div className="text-center py-16">
+              <div className="w-16 h-16 rounded-full bg-zinc-100 flex items-center justify-center mx-auto mb-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="#A1A1AA" strokeWidth="1.5" />
+                  <path d="M12 7v6M12 17h.01" stroke="#A1A1AA" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+              <h3 className="font-display font-bold text-xl text-zinc-900 mb-2">
+                Contact form is currently offline
+              </h3>
+              <p className="text-zinc-400 text-sm">
+                You can still reach Nikhil directly at{" "}
+                <a
+                  href={`mailto:${personal.email}`}
+                  className="text-[#3B5BDB] underline underline-offset-4"
+                >
+                  {personal.email}
+                </a>
+              </p>
+            </div>
+          ) : formState === "success" ? (
             <div className="text-center py-16">
               <div className="w-16 h-16 rounded-full bg-[#EEF2FF] flex items-center justify-center mx-auto mb-4 text-2xl">
                 ✓
@@ -193,11 +206,6 @@ export default function Contact() {
                 {formState === "loading" ? "Sending..." : "Send Message →"}
               </button>
 
-              {!formspreeId && (
-                <p className="text-xs text-center text-zinc-400 font-mono">
-                  Set NEXT_PUBLIC_FORMSPREE_ID in .env.local to enable real submissions
-                </p>
-              )}
             </form>
           )}
 
