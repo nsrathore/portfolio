@@ -10,7 +10,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="section-padding bg-white border-t border-zinc-100"
+      className="section-padding bg-[#FFFFFF] border-t border-zinc-100"
     >
       <div className="container-wide" ref={ref}>
         <motion.div

@@ -9,7 +9,7 @@ export default function About() {
   const { ref, inView } = useInView();
 
   return (
-    <section id="about" className="section-padding">
+    <section id="about" className="section-padding bg-[#F9F8F5]">
       <div className="container-wide" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

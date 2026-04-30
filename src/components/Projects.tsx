@@ -39,7 +39,7 @@ export default function Projects() {
       : projects.filter((p) => p.tags.includes(activeFilter));
 
   return (
-    <section id="projects" className="section-padding">
+    <section id="projects" className="section-padding bg-[#F9F8F5]">
       <div className="container-wide">
         <div ref={ref}>
           {/* Header */}

@@ -33,7 +33,7 @@ export default function Impact() {
   return (
     <section
       id="impact"
-      className="section-padding bg-white border-t border-b border-zinc-100"
+      className="section-padding bg-[#FFFFFF] border-t border-b border-zinc-100"
     >
       <div className="container-wide">
         <div ref={ref}>

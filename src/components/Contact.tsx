@@ -61,7 +61,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="section-padding bg-white border-t border-zinc-100"
+      className="section-padding bg-[#FFFFFF] border-t border-zinc-100"
     >
       <div className="container-wide" ref={ref}>
         <div className="max-w-2xl mx-auto text-center mb-12">

@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center pt-28 pb-16 px-6 md:px-12 lg:px-20 relative overflow-hidden"
+      className="min-h-screen flex items-center pt-28 pb-16 px-6 md:px-12 lg:px-20 relative overflow-hidden bg-[#F9F8F5]"
     >
       {/* Subtle background grid */}
       <div
@@ -31,7 +31,7 @@ export default function Hero() {
         className="absolute top-1/4 right-0 w-[600px] h-[600px] pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle, rgba(59,91,219,0.05) 0%, transparent 70%)",
+            "linear-gradient(135deg, #F0F4FF 0%, #F9F8F5 50%, #F9F8F5 100%)",
         }}
       />
 
