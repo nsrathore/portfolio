@@ -30,28 +30,28 @@ export const impactCards = [
     label: "faster processing",
     description:
       "Reduced 835 remittance file processing from 1 hour to seconds via AWS ECS microservice",
-    color: "blue",
+    color: "primary",
   },
   {
     value: "$10M+",
     label: "annual revenue",
     description:
       "Revenue recovered for healthcare clients through improved claims classification accuracy",
-    color: "indigo",
+    color: "dark",
   },
   {
     value: "200%",
     label: "efficiency gain",
     description:
       "QE testing efficiency increase via real-time insurance eligibility verification service",
-    color: "violet",
+    color: "primary",
   },
   {
     value: "10K+",
     label: "attacks blocked",
     description:
       "Cyberattacks blocked through response header hardening and reCAPTCHA across patient-facing apps",
-    color: "slate",
+    color: "dark",
   },
 ];
 
@@ -64,7 +64,7 @@ export const projects = [
     company: "Zotec Partners · 2024",
     tags: ["backend", "devops"] as ProjectTag[],
     metric: { value: "3,600×", label: "faster processing" },
-    metricColor: "blue",
+    metricColor: "primary",
     problem:
       "Healthcare billing operations relied on a monolithic batch process that parsed 835 medical remittance files — taking over 1 hour to run. Claims teams couldn't get real-time denial visibility, causing revenue delays and manual rework across millions of records.",
     approach:
@@ -79,7 +79,7 @@ export const projects = [
     company: "Zotec Partners · 2024",
     tags: ["backend"] as ProjectTag[],
     metric: { value: "$10M+", label: "annual recovery" },
-    metricColor: "indigo",
+    metricColor: "dark",
     problem:
       "A high-throughput medical claims pipeline had classification accuracy issues that directly translated to misrouted claims and revenue leakage. Even small percentage improvements at this scale cascaded into significant dollar impact for healthcare clients.",
     approach:
@@ -94,7 +94,7 @@ export const projects = [
     company: "Zotec Partners · 2022–2023",
     tags: ["frontend", "backend", "devops"] as ProjectTag[],
     metric: { value: "200%", label: "QE efficiency" },
-    metricColor: "violet",
+    metricColor: "primary",
     problem:
       "The patient payment portal lacked real-time insurance verification — a critical feature for billing workflows. Critical API authentication failures blocked the integration, and the team was without a tech lead during the most sensitive phase of delivery.",
     approach:
@@ -109,7 +109,7 @@ export const projects = [
     company: "Zotec Partners · 2022",
     tags: ["security", "frontend"] as ProjectTag[],
     metric: { value: "10K+", label: "attacks blocked" },
-    metricColor: "slate",
+    metricColor: "dark",
     problem:
       "Patient-facing healthcare apps and billing services were exposed to automated bot attacks and form abuse, threatening PHI (Protected Health Information) and putting the company at risk of millions in HIPAA regulatory penalties.",
     approach:
@@ -124,7 +124,7 @@ export const projects = [
     company: "Personal Project · 2025",
     tags: ["frontend", "backend", "ai"] as ProjectTag[],
     metric: { value: "0–100", label: "ATS score" },
-    metricColor: "violet",
+    metricColor: "dark",
     link: "https://resume-tailor-khaki.vercel.app/",
     github: "https://github.com/nsrathore/resume-tailor",
     problem:
@@ -141,7 +141,7 @@ export const projects = [
     company: "Zotec Partners · 2023",
     tags: ["devops", "backend"] as ProjectTag[],
     metric: { value: "Days→Hrs", label: "resolution time" },
-    metricColor: "blue",
+    metricColor: "primary",
     problem:
       "Claims denial resolution was a black-box process — teams had no real-time visibility into why claims were denied, which insurers were responsible, or how to act quickly. Millions of annual claims moved through the system without operational monitoring.",
     approach:

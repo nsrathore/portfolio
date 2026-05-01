@@ -5,24 +5,14 @@ import { useInView } from "@/lib/useInView";
 import { impactCards } from "@/data/portfolio";
 
 const colorMap: Record<string, { bg: string; text: string; border: string }> = {
-  blue: {
-    bg: "bg-[#F2F5E8]",
-    text: "text-[#6B7C2E]",
+  primary: {
+    bg:     "bg-[#F2F5E8]",
+    text:   "text-[#6B7C2E]",
     border: "border-[#C8D49A]",
   },
-  indigo: {
-    bg: "bg-[#F2F5E8]",
-    text: "text-[#4A5A1E]",
-    border: "border-[#C8D49A]",
-  },
-  violet: {
-    bg: "bg-[#F2F5E8]",
-    text: "text-[#6B7C2E]",
-    border: "border-[#C8D49A]",
-  },
-  slate: {
-    bg: "bg-[#F2F5E8]",
-    text: "text-[#4A5A1E]",
+  dark: {
+    bg:     "bg-[#F2F5E8]",
+    text:   "text-[#4A5A1E]",
     border: "border-[#C8D49A]",
   },
 };
@@ -63,7 +53,7 @@ export default function Impact() {
           {/* Bento grid: 1 col mobile → 2 col sm → bento lg+ */}
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 bento-impact">
             {impactCards.map((card, i) => {
-              const c = colorMap[card.color] || colorMap.blue;
+              const c = colorMap[card.color] || colorMap.primary;
               const featured = i === 0;
               return (
                 <motion.div

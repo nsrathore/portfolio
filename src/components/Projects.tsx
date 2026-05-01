@@ -23,10 +23,8 @@ const TAG_COLORS: Record<string, string> = {
 };
 
 const METRIC_COLORS: Record<string, string> = {
-  blue: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
-  indigo: "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
-  violet: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
-  slate: "bg-slate-50 text-slate-600 border-slate-200",
+  primary: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
+  dark:    "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
 };
 
 const glassStyle = {
