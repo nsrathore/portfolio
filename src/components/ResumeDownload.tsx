@@ -100,8 +100,8 @@ export default function ResumeDownload() {
     margin: "auto",
     width: "calc(100vw - 3rem)",
     maxWidth: "64rem",
-    height: "fit-content",
-    maxHeight: "92vh",
+    height: "97vh",
+    maxHeight: "97vh",
     display: "flex",
     flexDirection: "column",
     overflow: "hidden",
@@ -181,7 +181,7 @@ export default function ResumeDownload() {
             {/* Header */}
             <div
               className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 bg-white"
-              style={{ flexShrink: 0 }}
+              style={{ flexShrink: 0, padding: "0.5rem 1.25rem" }}
             >
               <div className="flex items-center gap-3 min-w-0">
                 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 32 32" fill="none" className="flex-shrink-0">
@@ -225,7 +225,7 @@ export default function ResumeDownload() {
             {/* Modal body — hybrid: desktop iframe / mobile fallback */}
             <div
               className="bg-zinc-100"
-              style={{ flex: 1, minHeight: 0, overflow: "hidden" }}
+              style={{ flex: 1, minHeight: 0, overflow: "hidden", height: "100%" }}
             >
               {isMobile ? (
                 /* Mobile: clean fallback card */
@@ -314,7 +314,7 @@ export default function ResumeDownload() {
                 /* Desktop: native browser iframe */
                 <iframe
                   src={PDF_PATH}
-                  style={{ width: "100%", height: "100%", display: "block", border: "none" }}
+                  style={{ width: "100%", height: "100%", minHeight: "85vh", display: "block", border: "none" }}
                   title="Nikhilendra Rathore Resume PDF"
                   aria-label="Resume PDF preview"
                 >
