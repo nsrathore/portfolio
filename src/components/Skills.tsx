@@ -25,7 +25,7 @@ export default function Skills() {
           {...animateIn()}
           className="mb-12"
         >
-          <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-3">
+          <p className="font-mono text-xs tracking-widest uppercase text-[#4A5A1E] mb-3">
             Technical Skills
           </p>
           <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 mb-4">
@@ -45,7 +45,7 @@ export default function Skills() {
               className="bg-[#FAFAF8] border border-zinc-100 rounded-2xl p-4 sm:p-6 hover:border-zinc-200 transition-colors duration-200"
             >
               <div className="flex items-center gap-3 mb-5 pb-4 border-b border-zinc-100">
-                <div className="w-9 h-9 rounded-lg bg-[#EEF2FF] flex items-center justify-center text-base" aria-hidden="true">
+                <div className="w-9 h-9 rounded-lg bg-[#F2F5E8] flex items-center justify-center text-base" aria-hidden="true">
                   {category.icon}
                 </div>
                 <h3 className="font-display font-bold text-zinc-900 tracking-tight">
@@ -58,7 +58,7 @@ export default function Skills() {
                     key={item.name}
                     className={`text-xs sm:text-sm font-mono px-3 py-1.5 rounded-full border transition-colors duration-150 ${
                       item.highlight
-                        ? "bg-[#EEF2FF] text-[#3B5BDB] border-[#C5D0FA] font-medium"
+                        ? "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A] font-medium"
                         : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:text-zinc-900"
                     }`}
                   >

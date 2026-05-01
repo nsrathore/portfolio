@@ -89,7 +89,7 @@ export default function Navbar() {
   const progressBar = (
     <div
       aria-hidden="true"
-      className="fixed top-0 left-0 h-[2px] bg-[#3B5BDB] z-[200] transition-all duration-100"
+      className="fixed top-0 left-0 h-[2px] bg-[#6B7C2E] z-[200] transition-all duration-100"
       style={{ width: `${progress}%` }}
     />
   );
@@ -124,7 +124,7 @@ export default function Navbar() {
               className="font-display text-sm tracking-tight text-zinc-900"
               style={{ fontWeight: 800 }}
             >
-              N<span className="text-[#3B5BDB]" aria-hidden="true">.</span>R
+              N<span className="text-[#6B7C2E]" aria-hidden="true">.</span>R
             </a>
             <ul className="flex items-center gap-5" aria-label="Main menu">
               {links.map((link) => (
@@ -140,7 +140,7 @@ export default function Navbar() {
               <li>
                 <a
                   href="#contact"
-                  className="text-sm font-medium bg-[#3B5BDB] text-white px-4 py-1.5 rounded-full hover:bg-[#2C44B8] transition-colors duration-200"
+                  className="text-sm font-medium bg-[#6B7C2E] text-white px-4 py-1.5 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200"
                 >
                   Let&apos;s talk
                 </a>
@@ -172,7 +172,7 @@ export default function Navbar() {
             className="font-display text-lg tracking-tight text-zinc-900"
             style={{ fontWeight: 800 }}
           >
-            N<span className="text-[#3B5BDB]" aria-hidden="true">.</span>Rathore
+            N<span className="text-[#6B7C2E]" aria-hidden="true">.</span>Rathore
           </a>
 
           {/* Desktop links */}
@@ -190,7 +190,7 @@ export default function Navbar() {
             <li>
               <a
                 href="#contact"
-                className="text-sm font-medium bg-[#3B5BDB] text-white px-5 py-2 rounded-full hover:bg-[#2C44B8] transition-colors duration-200"
+                className="text-sm font-medium bg-[#6B7C2E] text-white px-5 py-2 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200"
               >
                 Let&apos;s talk
               </a>
@@ -247,7 +247,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="text-sm font-medium bg-[#3B5BDB] text-white px-5 py-3 rounded-full text-center mt-3 min-h-[44px] flex items-center justify-center"
+              className="text-sm font-medium bg-[#6B7C2E] text-white px-5 py-3 rounded-full text-center mt-3 min-h-[44px] flex items-center justify-center"
             >
               Let&apos;s talk
             </a>

@@ -185,9 +185,9 @@ export default function ResumeDownload() {
             >
               <div className="flex items-center gap-3 min-w-0">
                 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 32 32" fill="none" className="flex-shrink-0">
-                  <rect x="4" y="1" width="18" height="24" rx="2" stroke="#3B5BDB" strokeWidth="1.5" fill="none" />
-                  <path d="M18 1v7h6" stroke="#3B5BDB" strokeWidth="1.5" strokeLinejoin="round" />
-                  <path d="M8 13h10M8 17h7" stroke="#3B5BDB" strokeWidth="1.5" strokeLinecap="round" />
+                  <rect x="4" y="1" width="18" height="24" rx="2" stroke="#6B7C2E" strokeWidth="1.5" fill="none" />
+                  <path d="M18 1v7h6" stroke="#6B7C2E" strokeWidth="1.5" strokeLinejoin="round" />
+                  <path d="M8 13h10M8 17h7" stroke="#6B7C2E" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
                 <div className="min-w-0">
                   <h2 className="font-display font-bold text-zinc-900 text-base leading-none truncate">
@@ -203,7 +203,7 @@ export default function ResumeDownload() {
                   href={PDF_PATH}
                   download={DOWNLOAD_NAME}
                   aria-label="Download resume PDF"
-                  className="w-8 h-8 rounded-lg bg-[#3B5BDB] flex items-center justify-center hover:bg-[#2C44B8] transition-colors duration-150"
+                  className="w-8 h-8 rounded-lg bg-[#6B7C2E] flex items-center justify-center hover:bg-[#4A5A1E] transition-colors duration-150"
                 >
                   <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M6 1v7M6 8l-2.5-2.5M6 8l2.5-2.5M1 10.5h10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -231,7 +231,7 @@ export default function ResumeDownload() {
                 /* Mobile: clean fallback card */
                 <div className="flex flex-col items-center justify-center h-full px-6 gap-6 text-center">
                   <div
-                    className="w-16 h-16 rounded-2xl bg-[#EEF2FF] border border-[#C5D0FA] flex items-center justify-center"
+                    className="w-16 h-16 rounded-2xl bg-[#F2F5E8] border border-[#C8D49A] flex items-center justify-center"
                     aria-hidden="true"
                   >
                     <svg
@@ -239,7 +239,7 @@ export default function ResumeDownload() {
                       height="28"
                       viewBox="0 0 24 24"
                       fill="none"
-                      stroke="#3B5BDB"
+                      stroke="#6B7C2E"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -265,7 +265,7 @@ export default function ResumeDownload() {
                     href={PDF_PATH}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="inline-flex items-center gap-2 bg-[#3B5BDB] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#2C44B8] active:bg-[#1D2F8A] transition-colors duration-200 w-full justify-center max-w-xs"
+                    className="inline-flex items-center gap-2 bg-[#6B7C2E] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#4A5A1E] active:bg-[#3A4A15] transition-colors duration-200 w-full justify-center max-w-xs"
                     aria-label="Open resume PDF in device viewer"
                   >
                     <svg
@@ -325,7 +325,7 @@ export default function ResumeDownload() {
                     <a
                       href={PDF_PATH}
                       download={DOWNLOAD_NAME}
-                      className="bg-[#3B5BDB] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#2C44B8] transition-colors duration-200"
+                      className="bg-[#6B7C2E] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200"
                     >
                       Download Resume
                     </a>
@@ -351,10 +351,10 @@ export default function ResumeDownload() {
             initial={{ opacity: prefersReduced ? 1 : 0, y: prefersReduced ? 0 : 20 }}
             animate={prefersReduced ? { opacity: 1, y: 0 } : (inView ? { opacity: 1, y: 0 } : {})}
             transition={{ duration: prefersReduced ? 0 : 0.5 }}
-            className="max-w-3xl mx-auto rounded-2xl overflow-hidden border border-zinc-200 hover:border-zinc-300 hover:shadow-sm transition-all duration-200 border-l-4 border-l-[#3B5BDB]"
+            className="max-w-3xl mx-auto rounded-2xl overflow-hidden border border-zinc-200 hover:border-zinc-300 hover:shadow-sm transition-all duration-200 border-l-4 border-l-[#6B7C2E]"
           >
             {/* Top gradient line */}
-            <div aria-hidden="true" className="h-[2px] bg-gradient-to-r from-[#3B5BDB] via-[#818CF8] to-transparent" />
+            <div aria-hidden="true" className="h-[2px] bg-gradient-to-r from-[#6B7C2E] via-[#9AAD4E] to-transparent" />
 
             <div className="bg-[#F9F8F5] px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
               {/* Left — icon + text */}
@@ -367,15 +367,15 @@ export default function ResumeDownload() {
                   fill="none"
                   className="flex-shrink-0 mt-0.5"
                 >
-                  <rect x="4" y="1" width="18" height="24" rx="2" stroke="#3B5BDB" strokeWidth="1.5" fill="none" />
-                  <path d="M18 1v7h6" stroke="#3B5BDB" strokeWidth="1.5" strokeLinejoin="round" />
-                  <path d="M8 13h10M8 17h7" stroke="#3B5BDB" strokeWidth="1.5" strokeLinecap="round" />
-                  <rect x="4" y="19" width="14" height="9" rx="1.5" fill="#3B5BDB" opacity="0.12" />
-                  <text x="11" y="26" textAnchor="middle" fontFamily="monospace" fontSize="5" fontWeight="700" fill="#3B5BDB">PDF</text>
+                  <rect x="4" y="1" width="18" height="24" rx="2" stroke="#6B7C2E" strokeWidth="1.5" fill="none" />
+                  <path d="M18 1v7h6" stroke="#6B7C2E" strokeWidth="1.5" strokeLinejoin="round" />
+                  <path d="M8 13h10M8 17h7" stroke="#6B7C2E" strokeWidth="1.5" strokeLinecap="round" />
+                  <rect x="4" y="19" width="14" height="9" rx="1.5" fill="#6B7C2E" opacity="0.12" />
+                  <text x="11" y="26" textAnchor="middle" fontFamily="monospace" fontSize="5" fontWeight="700" fill="#6B7C2E">PDF</text>
                 </svg>
 
                 <div>
-                  <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-1">
+                  <p className="font-mono text-xs tracking-widest uppercase text-[#4A5A1E] mb-1">
                     Resume
                   </p>
                   <h2 className="font-display font-extrabold tracking-tight text-zinc-900 text-xl md:text-2xl">
@@ -393,7 +393,7 @@ export default function ResumeDownload() {
                   href={PDF_PATH}
                   download={DOWNLOAD_NAME}
                   aria-label="Download Nikhilendra Rathore resume PDF"
-                  className="inline-flex items-center justify-center gap-2 bg-[#3B5BDB] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#2C44B8] transition-colors duration-200 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 bg-[#6B7C2E] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200 w-full sm:w-auto"
                 >
                   <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path d="M7 1v8M7 9l-3-3M7 9l3-3M1 11h12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

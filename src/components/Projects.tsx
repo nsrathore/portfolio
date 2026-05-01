@@ -23,7 +23,7 @@ const TAG_COLORS: Record<string, string> = {
 };
 
 const METRIC_COLORS: Record<string, string> = {
-  blue: "bg-[#EEF2FF] text-[#3B5BDB] border-[#C5D0FA]",
+  blue: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
   indigo: "bg-indigo-50 text-indigo-600 border-indigo-200",
   violet: "bg-violet-50 text-violet-600 border-violet-200",
   slate: "bg-slate-50 text-slate-600 border-slate-200",
@@ -34,11 +34,11 @@ const glassStyle = {
   backdropFilter: "blur(12px)",
   WebkitBackdropFilter: "blur(12px)",
   border: "1px solid rgba(255, 255, 255, 0.8)",
-  boxShadow: "0 4px 24px rgba(59, 91, 219, 0.06), 0 1px 2px rgba(0,0,0,0.04)",
+  boxShadow: "0 4px 24px rgba(107, 124, 46, 0.06), 0 1px 2px rgba(0,0,0,0.04)",
 };
 
 const glassHoverStyle = {
-  boxShadow: "0 8px 32px rgba(59, 91, 219, 0.10), 0 1px 2px rgba(0,0,0,0.04)",
+  boxShadow: "0 8px 32px rgba(107, 124, 46, 0.10), 0 1px 2px rgba(0,0,0,0.04)",
 };
 
 export default function Projects() {
@@ -78,7 +78,7 @@ export default function Projects() {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <motion.div {...animateIn()}>
-              <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-3">
+              <p className="font-mono text-xs tracking-widest uppercase text-[#4A5A1E] mb-3">
                 Case Studies
               </p>
               <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900">
@@ -102,7 +102,7 @@ export default function Projects() {
                   aria-pressed={activeFilter === f.value}
                   className={`text-sm px-4 py-1.5 rounded-full border transition-all duration-200 font-medium ${
                     activeFilter === f.value
-                      ? "bg-[#3B5BDB] text-white border-[#3B5BDB]"
+                      ? "bg-[#6B7C2E] text-white border-[#6B7C2E]"
                       : "bg-white text-zinc-800 border-zinc-300 hover:border-zinc-500 hover:text-zinc-900"
                   }`}
                 >
@@ -133,7 +133,7 @@ export default function Projects() {
                   onMouseLeave={() => setHoveredId(null)}
                 >
                   {/* Card top bar */}
-                  <div aria-hidden="true" className="h-[2px] bg-gradient-to-r from-[#3B5BDB] via-[#818CF8] to-transparent" />
+                  <div aria-hidden="true" className="h-[2px] bg-gradient-to-r from-[#6B7C2E] via-[#9AAD4E] to-transparent" />
 
                   <div className="p-4 sm:p-6 md:p-8">
                     {/* Header row */}
@@ -158,34 +158,6 @@ export default function Projects() {
                         <p className="text-xs text-zinc-700 font-mono mt-1">
                           {project.company}
                         </p>
-                        {(project.link || project.github) && (
-                          <div className="flex items-center gap-3 mt-2">
-                            {project.link && (
-                              <a
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`${project.title} live demo (opens in new tab)`}
-                                className="text-xs font-mono text-[#3B5BDB] hover:underline"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                Live Demo →
-                              </a>
-                            )}
-                            {project.github && (
-                              <a
-                                href={project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`${project.title} GitHub repository (opens in new tab)`}
-                                className="text-xs font-mono text-zinc-600 hover:text-zinc-900 hover:underline"
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                GitHub →
-                              </a>
-                            )}
-                          </div>
-                        )}
                       </div>
 
                       {/* Metric badge */}
@@ -213,8 +185,8 @@ export default function Projects() {
                       ].map((section) => (
                         <div key={section.label} className="pt-4 first:pt-0 md:pt-0">
                           <div className="flex items-center gap-2 mb-2">
-                            <div aria-hidden="true" className="w-4 h-px bg-zinc-300" />
-                            <span className="text-xs font-mono text-zinc-700 uppercase tracking-widest">
+                            <div aria-hidden="true" className="w-4 h-px bg-zinc-500" />
+                            <span className="text-xs font-bold font-body text-zinc-700">
                               {section.label}
                             </span>
                           </div>
@@ -236,6 +208,42 @@ export default function Projects() {
                         </span>
                       ))}
                     </div>
+
+                    {/* Live Demo / GitHub buttons */}
+                    {(project.link || project.github) && (
+                      <div className="flex items-center gap-3 mt-4 pt-4 border-t border-zinc-100">
+                        {project.link && (
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            aria-label={`View live demo of ${project.title} (opens in new tab)`}
+                            className="inline-flex items-center gap-2 bg-[#6B7C2E] text-white font-medium text-xs px-4 py-2 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <circle cx="12" cy="12" r="10"/>
+                              <line x1="2" y1="12" x2="22" y2="12"/>
+                              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                            Live Demo
+                          </a>
+                        )}
+                        {project.github && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            aria-label={`View source code for ${project.title} on GitHub (opens in new tab)`}
+                            className="inline-flex items-center gap-2 bg-white text-zinc-800 font-medium text-xs px-4 py-2 rounded-full border border-zinc-300 hover:border-[#6B7C2E] hover:text-[#6B7C2E] transition-all duration-200"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                            </svg>
+                            View Code
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   {/* Hover accent bar */}
@@ -243,7 +251,7 @@ export default function Projects() {
                     aria-hidden="true"
                     className="absolute bottom-0 left-0 right-0 h-[3px] transition-transform duration-300 ease-out origin-left"
                     style={{
-                      background: "linear-gradient(90deg, #3B5BDB, #6366f1)",
+                      background: "linear-gradient(90deg, #6B7C2E, #9AAD4E)",
                       transform: hoveredId === project.id ? "scaleX(1)" : "scaleX(0)",
                     }}
                   />

@@ -12,7 +12,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid #3B5BDB;
+    outline: 2px solid #6B7C2E;
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -23,7 +23,7 @@
 
   body {
     @apply bg-[#F9F8F5] text-zinc-900 font-body antialiased;
-    background-image: radial-gradient(#3B5BDB14 1px, transparent 1px);
+    background-image: radial-gradient(#6B7C2E14 1px, transparent 1px);
     background-size: 28px 28px;
     overflow-x: hidden;
     max-width: 100vw;
@@ -44,7 +44,13 @@
   }
 
   ::selection {
-    @apply bg-[#EEF2FF] text-[#2C44B8];
+    @apply bg-[#F2F5E8] text-[#4A5A1E];
+  }
+
+  p, li {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
   }
 
   ::-webkit-scrollbar {

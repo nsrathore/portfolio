@@ -13,7 +13,7 @@ export default function Footer() {
         className="absolute bottom-0 left-1/2 -translate-x-1/2 font-display font-extrabold leading-none pointer-events-none select-none whitespace-nowrap"
         style={{
           fontSize: "clamp(3rem, 12vw, 12rem)",
-          color: "rgba(59, 91, 219, 0.04)",
+          color: "rgba(107, 124, 46, 0.04)",
           letterSpacing: "-0.05em",
           fontWeight: 800,
         }}
@@ -57,7 +57,7 @@ export default function Footer() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] animate-[pulseDot_2s_ease-in-out_infinite]" />
+          <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-[#6B7C2E] animate-[pulseDot_2s_ease-in-out_infinite]" />
           <span className="text-xs font-mono text-zinc-700">
             {personal.location}
           </span>

@@ -20,11 +20,11 @@ const config: Config = {
           200: "#EBEBЕ4",
         },
         slate: {
-          brand: "#3B5BDB",
-          light: "#EEF2FF",
-          mid: "#C5D0FA",
-          dark: "#2C44B8",
-          deeper: "#1D2F8A",
+          brand: "#6B7C2E",
+          light: "#F2F5E8",
+          mid: "#C8D49A",
+          dark: "#4A5A1E",
+          deeper: "#3A4A15",
         },
       },
       animation: {

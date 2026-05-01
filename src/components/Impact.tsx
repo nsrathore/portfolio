@@ -6,9 +6,9 @@ import { impactCards } from "@/data/portfolio";
 
 const colorMap: Record<string, { bg: string; text: string; border: string }> = {
   blue: {
-    bg: "bg-[#EEF2FF]",
-    text: "text-[#3B5BDB]",
-    border: "border-[#C5D0FA]",
+    bg: "bg-[#F2F5E8]",
+    text: "text-[#6B7C2E]",
+    border: "border-[#C8D49A]",
   },
   indigo: {
     bg: "bg-indigo-50",
@@ -48,7 +48,7 @@ export default function Impact() {
       <div className="container-wide">
         <div ref={ref}>
           <motion.div {...animateIn()}>
-            <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-3">
+            <p className="font-mono text-xs tracking-widest uppercase text-[#4A5A1E] mb-3">
               Measured Impact
             </p>
             <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 mb-4">

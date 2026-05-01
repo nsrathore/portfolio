@@ -12,7 +12,7 @@ const fadeUp = (delay = 0) => ({
 });
 
 const gradientStyle = {
-  background: "linear-gradient(135deg, #3B5BDB, #6366f1)",
+  background: "linear-gradient(135deg, #6B7C2E, #9AAD4E)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",
@@ -92,7 +92,7 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(59,91,219,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(59,91,219,0.03) 1px, transparent 1px)",
+            "linear-gradient(rgba(107,124,46,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(107,124,46,0.03) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }}
       />
@@ -103,7 +103,7 @@ export default function Hero() {
         className="absolute top-1/4 right-0 w-[600px] h-[600px] pointer-events-none hidden lg:block"
         style={{
           background:
-            "linear-gradient(135deg, #F0F4FF 0%, #F9F8F5 50%, #F9F8F5 100%)",
+            "linear-gradient(135deg, #F2F5E8 0%, #F9F8F5 50%, #F9F8F5 100%)",
         }}
       />
 
@@ -114,12 +114,12 @@ export default function Hero() {
             <motion.div {...motionProps(0)} className="mb-6 sm:mb-8">
               {personal.availableForWork && (
                 <span
-                  className="inline-flex items-center gap-2 bg-[#EEF2FF] border border-[#3B5BDB] text-[#1D2F8A] text-xs font-mono tracking-widest px-4 py-2 rounded-full uppercase"
+                  className="inline-flex items-center gap-2 bg-[#F2F5E8] border border-[#6B7C2E] text-[#3A4A15] text-xs font-mono tracking-widest px-4 py-2 rounded-full uppercase"
                   aria-label="Currently available for new opportunities"
                 >
                   <span
                     aria-hidden="true"
-                    className="w-1.5 h-1.5 rounded-full bg-[#1D2F8A] animate-[pulseDot_2s_ease-in-out_infinite]"
+                    className="w-1.5 h-1.5 rounded-full bg-[#3A4A15] animate-[pulseDot_2s_ease-in-out_infinite]"
                   />
                   Available for new opportunities
                 </span>
@@ -144,7 +144,7 @@ export default function Hero() {
             {/* Title */}
             <motion.h2
               {...motionProps(0.2)}
-              className="font-display text-[clamp(1rem,2.5vw,1.4rem)] font-semibold text-[#3B5BDB] tracking-tight mb-5 sm:mb-6"
+              className="font-display text-[clamp(1rem,2.5vw,1.4rem)] font-semibold text-[#6B7C2E] tracking-tight mb-5 sm:mb-6"
             >
               {personal.title} · {personal.tagline}
             </motion.h2>
@@ -185,22 +185,98 @@ export default function Hero() {
             </motion.div>
 
             {/* CTAs — stacked on mobile, row on sm+ */}
-            <motion.div {...motionProps(0.4)} className="flex flex-col sm:flex-row gap-3">
-              <a
-                href="#projects"
-                className="inline-flex items-center justify-center gap-2 bg-[#3B5BDB] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#2C44B8] transition-colors duration-200 w-full sm:w-auto"
-              >
-                View Case Studies
-                <span aria-hidden="true">→</span>
-              </a>
-              <a
-                href={`mailto:${personal.email}`}
-                aria-label={`Send email to ${personal.email}`}
-                className="inline-flex items-center justify-center gap-2 bg-white text-zinc-700 font-medium text-sm px-6 py-3 rounded-full border border-zinc-400 hover:border-zinc-600 hover:text-zinc-900 transition-all duration-200 w-full sm:w-auto overflow-hidden"
-              >
-                <span aria-hidden="true">✉</span>
-                <span className="truncate">{personal.email}</span>
-              </a>
+            <motion.div {...motionProps(0.4)} className="flex flex-col gap-3">
+              {/* Primary CTAs + desktop icon row */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                <a
+                  href="#projects"
+                  className="inline-flex items-center justify-center gap-2 bg-[#6B7C2E] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200 w-full sm:w-auto"
+                >
+                  View Case Studies
+                  <span aria-hidden="true">→</span>
+                </a>
+                <a
+                  href={`mailto:${personal.email}`}
+                  aria-label={`Send email to ${personal.email}`}
+                  className="inline-flex items-center justify-center gap-2 bg-white text-zinc-700 font-medium text-sm px-6 py-3 rounded-full border border-zinc-400 hover:border-zinc-600 hover:text-zinc-900 transition-all duration-200 w-full sm:w-auto overflow-hidden"
+                >
+                  <span aria-hidden="true">✉</span>
+                  <span className="truncate">{personal.email}</span>
+                </a>
+                {/* Divider + icon buttons — desktop only */}
+                <div className="hidden sm:flex items-center gap-3">
+                  <div aria-hidden="true" className="w-px h-5 bg-zinc-300" />
+                  <a
+                    href={personal.linkedin}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Visit LinkedIn profile (opens in new tab)"
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-zinc-200 text-zinc-600 hover:border-[#6B7C2E] hover:text-[#6B7C2E] transition-all duration-200"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                      <rect x="2" y="9" width="4" height="12"/>
+                      <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                  </a>
+                  <a
+                    href={personal.github}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label="Visit GitHub profile (opens in new tab)"
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-zinc-200 text-zinc-600 hover:border-[#6B7C2E] hover:text-[#6B7C2E] transition-all duration-200"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                    </svg>
+                  </a>
+                  <a
+                    href={`tel:${personal.phone.replace(/\D/g, "")}`}
+                    aria-label={`Call ${personal.phone}`}
+                    className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-zinc-200 text-zinc-600 hover:border-[#6B7C2E] hover:text-[#6B7C2E] transition-all duration-200"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              {/* Icon buttons — mobile only, centered below CTAs */}
+              <div className="flex sm:hidden items-center justify-center gap-3">
+                <a
+                  href={personal.linkedin}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label="Visit LinkedIn profile (opens in new tab)"
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-zinc-200 text-zinc-600 hover:border-[#6B7C2E] hover:text-[#6B7C2E] transition-all duration-200"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                    <rect x="2" y="9" width="4" height="12"/>
+                    <circle cx="4" cy="4" r="2"/>
+                  </svg>
+                </a>
+                <a
+                  href={personal.github}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label="Visit GitHub profile (opens in new tab)"
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-zinc-200 text-zinc-600 hover:border-[#6B7C2E] hover:text-[#6B7C2E] transition-all duration-200"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                  </svg>
+                </a>
+                <a
+                  href={`tel:${personal.phone.replace(/\D/g, "")}`}
+                  aria-label={`Call ${personal.phone}`}
+                  className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-zinc-200 text-zinc-600 hover:border-[#6B7C2E] hover:text-[#6B7C2E] transition-all duration-200"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                </a>
+              </div>
             </motion.div>
           </div>
 
@@ -211,7 +287,7 @@ export default function Hero() {
             transition={prefersReduced ? { duration: 0 } : { duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="hidden lg:flex flex-shrink-0 items-center justify-center"
           >
-            <div className="rounded-full ring-[3px] ring-[#3B5BDB] ring-offset-[6px]">
+            <div className="rounded-full ring-[3px] ring-[#6B7C2E] ring-offset-[6px]">
               <div className="relative w-72 h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden">
                 <Image
                   src="/images/headshot.jpeg"

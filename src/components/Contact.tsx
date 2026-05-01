@@ -49,7 +49,7 @@ export default function Contact() {
   };
 
   const inputClass =
-    "w-full bg-[#FAFAF8] border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#3B5BDB] focus:ring-2 focus:ring-[#EEF2FF] transition-all duration-200 font-body";
+    "w-full bg-[#FAFAF8] border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#6B7C2E] focus:ring-2 focus:ring-[#F2F5E8] transition-all duration-200 font-body";
 
   const animateIn = (delay = 0) => ({
     initial: { opacity: prefersReduced ? 1 : 0, y: prefersReduced ? 0 : 20 },
@@ -66,7 +66,7 @@ export default function Contact() {
       <div className="container-wide" ref={ref}>
         <div className="max-w-2xl mx-auto text-center mb-12">
           <motion.div {...animateIn()}>
-            <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-3">
+            <p className="font-mono text-xs tracking-widest uppercase text-[#4A5A1E] mb-3">
               Get In Touch
             </p>
             <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 mb-4">
@@ -99,7 +99,7 @@ export default function Contact() {
                 <a
                   href={`mailto:${personal.email}`}
                   aria-label={`Send email to ${personal.email}`}
-                  className="text-[#3B5BDB] underline underline-offset-4"
+                  className="text-[#6B7C2E] underline underline-offset-4"
                 >
                   {personal.email}
                 </a>
@@ -107,7 +107,7 @@ export default function Contact() {
             </div>
           ) : formState === "success" ? (
             <div role="status" aria-live="polite" className="text-center py-16">
-              <div className="w-16 h-16 rounded-full bg-[#EEF2FF] flex items-center justify-center mx-auto mb-4 text-2xl" aria-hidden="true">
+              <div className="w-16 h-16 rounded-full bg-[#F2F5E8] flex items-center justify-center mx-auto mb-4 text-2xl" aria-hidden="true">
                 ✓
               </div>
               <h3 className="font-display font-bold text-xl text-zinc-900 mb-2">
@@ -118,7 +118,7 @@ export default function Contact() {
               </p>
               <button
                 onClick={() => setFormState("idle")}
-                className="mt-6 text-sm text-[#3B5BDB] underline underline-offset-4"
+                className="mt-6 text-sm text-[#6B7C2E] underline underline-offset-4"
               >
                 Send another message
               </button>
@@ -225,7 +225,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={formState === "loading"}
-                className="w-full bg-[#3B5BDB] text-white font-medium text-sm py-3.5 rounded-xl hover:bg-[#2C44B8] transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full bg-[#6B7C2E] text-white font-medium text-sm py-3.5 rounded-xl hover:bg-[#4A5A1E] transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {formState === "loading" ? "Sending..." : "Send Message →"}
               </button>
@@ -267,7 +267,7 @@ export default function Contact() {
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noreferrer noopener" : undefined}
                 aria-label={link.ariaLabel}
-                className="text-sm text-zinc-600 border border-zinc-300 px-4 py-2 rounded-full hover:border-[#3B5BDB] hover:text-[#3B5BDB] transition-all duration-200"
+                className="text-sm text-zinc-600 border border-zinc-300 px-4 py-2 rounded-full hover:border-[#6B7C2E] hover:text-[#6B7C2E] transition-all duration-200"
               >
                 {link.display}
               </a>

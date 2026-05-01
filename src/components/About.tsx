@@ -22,7 +22,7 @@ export default function About() {
           {...animateIn()}
           className="mb-12"
         >
-          <p className="font-mono text-xs tracking-widest uppercase text-[#2C44B8] mb-3">
+          <p className="font-mono text-xs tracking-widest uppercase text-[#4A5A1E] mb-3">
             About Me
           </p>
           <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900">
@@ -70,11 +70,11 @@ export default function About() {
 
             {/* Education card */}
             <h3 className="sr-only">Education</h3>
-            <div className="mt-8 p-5 bg-[#EEF2FF] border border-[#C5D0FA] rounded-2xl">
+            <div className="mt-8 p-5 bg-[#F2F5E8] border border-[#C8D49A] rounded-2xl">
               <div className="flex flex-wrap items-center gap-3">
                 <div
                   aria-hidden="true"
-                  className="w-10 h-10 rounded-full bg-[#3B5BDB] flex items-center justify-center text-white font-display font-bold text-sm flex-shrink-0"
+                  className="w-10 h-10 rounded-full bg-[#6B7C2E] flex items-center justify-center text-white font-display font-bold text-sm flex-shrink-0"
                 >
                   PU
                 </div>
@@ -109,9 +109,9 @@ export default function About() {
                 {timeline.map((item, i) => (
                   <div key={i} className="relative">
                     {/* Dot */}
-                    <div aria-hidden="true" className="absolute -left-5 top-[5px] w-2 h-2 rounded-full bg-[#3B5BDB] border-2 border-white ring-2 ring-[#3B5BDB]" />
+                    <div aria-hidden="true" className="absolute -left-5 top-[5px] w-2 h-2 rounded-full bg-[#6B7C2E] border-2 border-white ring-2 ring-[#6B7C2E]" />
 
-                    <div className="font-mono text-xs text-[#2C44B8] mb-1">
+                    <div className="font-mono text-xs text-[#4A5A1E] mb-1">
                       {item.date}
                     </div>
                     <h4 className="font-display font-bold text-zinc-900 text-sm">

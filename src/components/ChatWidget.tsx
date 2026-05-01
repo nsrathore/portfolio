@@ -176,7 +176,7 @@ export default function ChatWidget() {
               <div className="flex items-center gap-3">
                 <div
                   aria-hidden="true"
-                  className="w-8 h-8 rounded-full bg-[#3B5BDB] flex items-center justify-center text-white text-xs font-display font-bold"
+                  className="w-8 h-8 rounded-full bg-[#6B7C2E] flex items-center justify-center text-white text-xs font-display font-bold"
                 >
                   NR
                 </div>
@@ -213,7 +213,7 @@ export default function ChatWidget() {
                   <div
                     className={`max-w-[85%] text-sm leading-relaxed px-4 py-2.5 rounded-2xl break-words ${
                       msg.role === "user"
-                        ? "bg-[#3B5BDB] text-white rounded-br-sm"
+                        ? "bg-[#6B7C2E] text-white rounded-br-sm"
                         : "bg-zinc-50 border border-zinc-100 text-zinc-800 rounded-bl-sm"
                     }`}
                   >
@@ -245,7 +245,7 @@ export default function ChatWidget() {
                     <button
                       key={q}
                       onClick={() => sendMessage(q)}
-                      className="text-left text-xs text-[#3B5BDB] border border-[#C5D0FA] bg-[#EEF2FF] px-3 py-2 rounded-xl hover:bg-[#e0e7ff] transition-colors duration-150 leading-snug"
+                      className="text-left text-xs text-[#6B7C2E] border border-[#C8D49A] bg-[#F2F5E8] px-3 py-2 rounded-xl hover:bg-[#e8edce] transition-colors duration-150 leading-snug"
                     >
                       {q}
                     </button>
@@ -270,13 +270,13 @@ export default function ChatWidget() {
                 disabled={loading}
                 aria-label="Type your message"
                 style={{ fontSize: "16px" }}
-                className="flex-1 bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2.5 focus:border-[#3B5BDB] focus:bg-white transition-all duration-200 placeholder:text-zinc-400 disabled:opacity-60"
+                className="flex-1 bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2.5 focus:border-[#6B7C2E] focus:bg-white transition-all duration-200 placeholder:text-zinc-400 disabled:opacity-60"
               />
               <button
                 type="submit"
                 disabled={!input.trim() || loading}
                 aria-label="Send message"
-                className="w-9 h-9 bg-[#3B5BDB] hover:bg-[#2C44B8] disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors duration-200 flex-shrink-0 focus-visible:ring-2 focus-visible:ring-[#3B5BDB] focus-visible:ring-offset-2"
+                className="w-9 h-9 bg-[#6B7C2E] hover:bg-[#4A5A1E] disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors duration-200 flex-shrink-0 focus-visible:ring-2 focus-visible:ring-[#6B7C2E] focus-visible:ring-offset-2"
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                   <path
@@ -299,7 +299,7 @@ export default function ChatWidget() {
         className={`fixed bottom-6 right-6 z-[150] w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-colors duration-200 ${
           open
             ? "bg-zinc-800 hover:bg-zinc-900"
-            : "bg-[#3B5BDB] hover:bg-[#2C44B8]"
+            : "bg-[#6B7C2E] hover:bg-[#4A5A1E]"
         }`}
         whileHover={prefersReduced ? {} : { scale: 1.05 }}
         whileTap={prefersReduced ? {} : { scale: 0.95 }}
