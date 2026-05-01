@@ -5,8 +5,12 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useInView } from "@/lib/useInView";
 
-const PREVIEW_PATH = "https://drive.google.com/file/d/1O70Cp0J2L0tVqm8YFhCIBMOMLjWBIV92/preview";
-const DOWNLOAD_PATH = "https://drive.google.com/file/d/1O70Cp0J2L0tVqm8YFhCIBMOMLjWBIV92/download"
+const fileId = process.env.NEXT_PUBLIC_RESUME_FILEID;
+if (!fileId) 
+  throw new Error("Missing the appropriate resume fileid");
+
+const PREVIEW_PATH = `https://drive.google.com/file/d/${fileId}/preview`;
+const DOWNLOAD_PATH = "/api/resume";
 const DOWNLOAD_NAME = "Nikhilendra_Rathore_Resume.pdf";
 
 export default function ResumeDownload() {
