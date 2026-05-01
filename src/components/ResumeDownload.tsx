@@ -20,7 +20,31 @@ export default function ResumeDownload() {
   const previewButtonRef = useRef<HTMLButtonElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const [portalEl] = useState<HTMLDivElement | null>(() => {
+    if (typeof document === "undefined") return null;
+    const el = document.createElement("div");
+    el.setAttribute("id", "resume-modal-portal");
+    el.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 200;
+      pointer-events: none;
+    `;
+    return el;
+  });
+
   useEffect(() => { setMounted(true); }, []);
+
+  useEffect(() => {
+    if (!portalEl) return;
+    document.body.appendChild(portalEl);
+    return () => {
+      if (document.body.contains(portalEl)) document.body.removeChild(portalEl);
+    };
+  }, [portalEl]);
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 640);
@@ -32,13 +56,15 @@ export default function ResumeDownload() {
   useEffect(() => {
     if (previewOpen) {
       document.body.style.overflow = "hidden";
+      if (portalEl) portalEl.style.pointerEvents = "all";
       setTimeout(() => closeButtonRef.current?.focus(), 50);
     } else {
       document.body.style.overflow = "";
+      if (portalEl) portalEl.style.pointerEvents = "none";
       previewButtonRef.current?.focus();
     }
     return () => { document.body.style.overflow = ""; };
-  }, [previewOpen]);
+  }, [previewOpen, portalEl]);
 
   const handleModalKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") { setPreviewOpen(false); return; }
@@ -65,6 +91,39 @@ export default function ResumeDownload() {
     return () => document.removeEventListener("keydown", handleModalKeyDown);
   }, [previewOpen, handleModalKeyDown]);
 
+  const desktopPanelStyle: React.CSSProperties = {
+    position: "fixed",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    margin: "auto",
+    width: "calc(100vw - 3rem)",
+    maxWidth: "64rem",
+    height: "fit-content",
+    maxHeight: "92vh",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    backgroundColor: "white",
+    borderRadius: "1rem",
+    zIndex: 201,
+  };
+
+  const mobilePanelStyle: React.CSSProperties = {
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    maxHeight: "92vh",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    backgroundColor: "white",
+    borderRadius: "1rem 1rem 0 0",
+    zIndex: 201,
+  };
+
   const modal = (
     <AnimatePresence>
       {previewOpen && (
@@ -76,8 +135,16 @@ export default function ResumeDownload() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: prefersReduced ? 0 : 0.2 }}
-            className="fixed inset-0 bg-zinc-900/80 backdrop-blur-sm"
-            style={{ zIndex: 200 }}
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              backgroundColor: "rgba(24, 24, 27, 0.8)",
+              backdropFilter: "blur(4px)",
+              zIndex: 200,
+            }}
             onClick={() => setPreviewOpen(false)}
           />
 
@@ -101,15 +168,7 @@ export default function ResumeDownload() {
               isMobile ? { y: "100%" } : { y: 20, opacity: 0 }
             }
             transition={{ duration: prefersReduced ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className={`fixed bg-white overflow-hidden flex flex-col ${
-              isMobile
-                ? "bottom-0 left-0 right-0 rounded-t-2xl"
-                : "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl rounded-2xl"
-            }`}
-            style={{
-              zIndex: 201,
-              maxHeight: isMobile ? "92vh" : "90vh",
-            }}
+            style={isMobile ? mobilePanelStyle : desktopPanelStyle}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile drag handle */}
@@ -120,7 +179,10 @@ export default function ResumeDownload() {
             )}
 
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 flex-shrink-0 bg-white">
+            <div
+              className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 bg-white"
+              style={{ flexShrink: 0 }}
+            >
               <div className="flex items-center gap-3 min-w-0">
                 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 32 32" fill="none" className="flex-shrink-0">
                   <rect x="4" y="1" width="18" height="24" rx="2" stroke="#3B5BDB" strokeWidth="1.5" fill="none" />
@@ -163,9 +225,7 @@ export default function ResumeDownload() {
             {/* Modal body — hybrid: desktop iframe / mobile fallback */}
             <div
               className="bg-zinc-100"
-              style={{
-                height: isMobile ? "calc(92vh - 130px)" : "calc(90vh - 130px)",
-              }}
+              style={{ flex: 1, minHeight: 0, overflow: "hidden" }}
             >
               {isMobile ? (
                 /* Mobile: clean fallback card */
@@ -254,7 +314,7 @@ export default function ResumeDownload() {
                 /* Desktop: native browser iframe */
                 <iframe
                   src={PDF_PATH}
-                  className="w-full h-full border-0"
+                  style={{ width: "100%", height: "100%", display: "block", border: "none" }}
                   title="Nikhilendra Rathore Resume PDF"
                   aria-label="Resume PDF preview"
                 >
@@ -359,7 +419,7 @@ export default function ResumeDownload() {
         </div>
       </section>
 
-      {mounted && createPortal(modal, document.body)}
+      {mounted && portalEl && createPortal(modal, portalEl)}
     </>
   );
 }
