@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { personal } from "@/data/portfolio";
 
 const links = [
-  { href: "#impact", label: "Impact" },
   { href: "#resume", label: "Resume" },
+  { href: "#impact", label: "Impact" },
   { href: "#projects", label: "Projects" },
   { href: "#skills", label: "Skills" },
   { href: "#about", label: "About" },

@@ -11,19 +11,19 @@ const colorMap: Record<string, { bg: string; text: string; border: string }> = {
     border: "border-[#C8D49A]",
   },
   indigo: {
-    bg: "bg-indigo-50",
-    text: "text-indigo-600",
-    border: "border-indigo-200",
+    bg: "bg-[#F2F5E8]",
+    text: "text-[#4A5A1E]",
+    border: "border-[#C8D49A]",
   },
   violet: {
-    bg: "bg-violet-50",
-    text: "text-violet-600",
-    border: "border-violet-200",
+    bg: "bg-[#F2F5E8]",
+    text: "text-[#6B7C2E]",
+    border: "border-[#C8D49A]",
   },
   slate: {
-    bg: "bg-slate-50",
-    text: "text-slate-600",
-    border: "border-slate-200",
+    bg: "bg-[#F2F5E8]",
+    text: "text-[#4A5A1E]",
+    border: "border-[#C8D49A]",
   },
 };
 

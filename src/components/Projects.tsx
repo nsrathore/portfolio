@@ -15,17 +15,17 @@ const FILTERS: { label: string; value: ProjectTag }[] = [
 ];
 
 const TAG_COLORS: Record<string, string> = {
-  backend: "bg-blue-100 text-blue-800 border-blue-200",
-  frontend: "bg-violet-100 text-violet-800 border-violet-200",
-  devops: "bg-amber-100 text-amber-800 border-amber-200",
-  security: "bg-rose-100 text-rose-800 border-rose-200",
-  ai: "bg-emerald-100 text-emerald-800 border-emerald-200",
+  backend:  "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
+  frontend: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
+  devops:   "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
+  security: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
+  ai:       "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
 };
 
 const METRIC_COLORS: Record<string, string> = {
   blue: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
-  indigo: "bg-indigo-50 text-indigo-600 border-indigo-200",
-  violet: "bg-violet-50 text-violet-600 border-violet-200",
+  indigo: "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
+  violet: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
   slate: "bg-slate-50 text-slate-600 border-slate-200",
 };
 

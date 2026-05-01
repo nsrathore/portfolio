@@ -302,19 +302,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll hint — hidden on mobile to avoid overlapping CTAs */}
-      <motion.div
-        aria-hidden="true"
-        initial={prefersReduced ? { opacity: 1 } : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={prefersReduced ? { duration: 0 } : { delay: 1.2, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2"
-      >
-        <span className="text-xs text-zinc-500 font-mono tracking-widest uppercase">
-          scroll
-        </span>
-        <div className="w-px h-8 bg-gradient-to-b from-zinc-300 to-transparent" />
-      </motion.div>
     </section>
   );
 }
