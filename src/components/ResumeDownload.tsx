@@ -5,7 +5,8 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useInView } from "@/lib/useInView";
 
-const PDF_PATH = "https://drive.google.com/file/d/1O70Cp0J2L0tVqm8YFhCIBMOMLjWBIV92/preview";
+const PREVIEW_PATH = "https://drive.google.com/file/d/1O70Cp0J2L0tVqm8YFhCIBMOMLjWBIV92/preview";
+const DOWNLOAD_PATH = "https://drive.google.com/file/d/1O70Cp0J2L0tVqm8YFhCIBMOMLjWBIV92/download"
 const DOWNLOAD_NAME = "Nikhilendra_Rathore_Resume.pdf";
 
 export default function ResumeDownload() {
@@ -35,6 +36,23 @@ export default function ResumeDownload() {
     `;
     return el;
   });
+
+  const handleDownload = useCallback(async () => {
+    try {
+      const response = await fetch(DOWNLOAD_PATH);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = DOWNLOAD_NAME;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Download failed:", err);
+    }
+  }, []);
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -180,7 +198,7 @@ export default function ResumeDownload() {
 
             {/* Header */}
             <div
-              className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 bg-white"
+              className="flex items-center justify-between border-b border-zinc-100 bg-white"
               style={{ flexShrink: 0, padding: "0.5rem 1.25rem" }}
             >
               <div className="flex items-center gap-3 min-w-0">
@@ -198,17 +216,16 @@ export default function ResumeDownload() {
               </div>
 
               <div className="flex items-center gap-2 flex-shrink-0">
-                {/* Download */}
-                <a
-                  href={PDF_PATH}
-                  download={DOWNLOAD_NAME}
+                {/* Download button — triggers blob download, not preview */}
+                <button
+                  onClick={handleDownload}
                   aria-label="Download resume PDF"
                   className="w-8 h-8 rounded-lg bg-[#6B7C2E] flex items-center justify-center hover:bg-[#4A5A1E] transition-colors duration-150"
                 >
                   <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M6 1v7M6 8l-2.5-2.5M6 8l2.5-2.5M1 10.5h10" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </a>
+                </button>
 
                 {/* Close */}
                 <button
@@ -262,7 +279,7 @@ export default function ResumeDownload() {
                   </div>
 
                   <a
-                    href={PDF_PATH}
+                    href={PREVIEW_PATH}
                     target="_blank"
                     rel="noreferrer noopener"
                     className="inline-flex items-center gap-2 bg-[#6B7C2E] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#4A5A1E] active:bg-[#3A4A15] transition-colors duration-200 w-full justify-center max-w-xs"
@@ -286,9 +303,9 @@ export default function ResumeDownload() {
                     Open in PDF Viewer
                   </a>
 
-                  <a
-                    href={PDF_PATH}
-                    download={DOWNLOAD_NAME}
+                  {/* Mobile download — blob approach */}
+                  <button
+                    onClick={handleDownload}
                     className="inline-flex items-center gap-2 bg-white text-zinc-700 font-medium text-sm px-6 py-3 rounded-full border border-zinc-300 hover:border-zinc-500 hover:text-zinc-900 transition-all duration-200 w-full justify-center max-w-xs"
                     aria-label="Download resume PDF"
                   >
@@ -308,12 +325,12 @@ export default function ResumeDownload() {
                       <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
                     Download Instead
-                  </a>
+                  </button>
                 </div>
               ) : (
-                /* Desktop: native browser iframe */
+                /* Desktop: Google Drive preview iframe */
                 <iframe
-                  src={PDF_PATH}
+                  src={PREVIEW_PATH}
                   style={{ width: "100%", height: "100%", minHeight: "85vh", display: "block", border: "none" }}
                   title="Nikhilendra Rathore Resume PDF"
                   aria-label="Resume PDF preview"
@@ -322,13 +339,12 @@ export default function ResumeDownload() {
                     <p className="text-zinc-600 text-sm font-light">
                       Unable to preview PDF inline.
                     </p>
-                    <a
-                      href={PDF_PATH}
-                      download={DOWNLOAD_NAME}
+                    <button
+                      onClick={handleDownload}
                       className="bg-[#6B7C2E] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200"
                     >
                       Download Resume
-                    </a>
+                    </button>
                   </div>
                 </iframe>
               )}
@@ -389,9 +405,9 @@ export default function ResumeDownload() {
 
               {/* Right — buttons */}
               <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                <a
-                  href={PDF_PATH}
-                  download={DOWNLOAD_NAME}
+                {/* Download — blob fetch, forces true download */}
+                <button
+                  onClick={handleDownload}
                   aria-label="Download Nikhilendra Rathore resume PDF"
                   className="inline-flex items-center justify-center gap-2 bg-[#6B7C2E] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200 w-full sm:w-auto"
                 >
@@ -399,8 +415,9 @@ export default function ResumeDownload() {
                     <path d="M7 1v8M7 9l-3-3M7 9l3-3M1 11h12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   Download Resume
-                </a>
+                </button>
 
+                {/* Preview — opens modal with Google Drive iframe */}
                 <button
                   ref={previewButtonRef}
                   onClick={() => setPreviewOpen(true)}
