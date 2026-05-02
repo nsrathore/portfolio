@@ -250,9 +250,9 @@ export default function Projects() {
                             }
                             aria-expanded={expandedSystemDesign === project.id}
                             aria-controls={`system-design-${project.id}`}
-                            className="inline-flex items-center gap-2 bg-white text-zinc-700 font-medium text-xs px-4 py-2 rounded-full border border-zinc-300 hover:border-[#6B7C2E] hover:text-[#6B7C2E] transition-all duration-200 ml-auto"
+                            className="inline-flex items-center gap-2 bg-[#6B7C2E] text-white font-medium text-xs px-4 py-2 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200 ml-auto"
                           >
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                               <rect x="3" y="3" width="7" height="7" rx="1"/>
                               <rect x="14" y="3" width="7" height="7" rx="1"/>
                               <rect x="3" y="14" width="7" height="7" rx="1"/>
@@ -264,7 +264,7 @@ export default function Projects() {
                               height="10"
                               viewBox="0 0 24 24"
                               fill="none"
-                              stroke="currentColor"
+                              stroke="white"
                               strokeWidth="2.5"
                               strokeLinecap="round"
                               strokeLinejoin="round"
@@ -292,8 +292,7 @@ export default function Projects() {
                           className="overflow-hidden"
                         >
                           <div className="mt-4 pt-4 border-t border-zinc-100">
-                            <p className="text-xs font-mono text-zinc-500 mb-3 flex items-center gap-2">
-                              <span aria-hidden="true" className="w-4 h-px bg-zinc-400 inline-block" />
+                            <p className="text-xs font-mono text-zinc-500 mb-3">
                               Architecture Overview
                             </p>
                             <div className="rounded-xl overflow-auto bg-zinc-50 border border-zinc-100 p-4">
