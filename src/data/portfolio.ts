@@ -9,7 +9,7 @@ export const personal = {
   title: "Software Engineer II",
   tagline: "Cloud-Native & Full-Stack",
   summary:
-    "I build scalable, high-stakes systems at the intersection of healthcare and technology. Nearly 5 years architecting microservices, real-time pipelines, and secure patient-facing platforms that process millions of records and generate measurable revenue impact.",
+    "Engineered for scale. I build cloud-native microservices, real-time data pipelines, and secure healthcare platforms - designing systems that don't just work, but perform under load, scale with demand, and drive meaningful business outcomes when the stakes are highest.",
   email: "nikhilendra7@gmail.com",
   phone: "(765) 775-3273",
   location: "Chicago, USA",
