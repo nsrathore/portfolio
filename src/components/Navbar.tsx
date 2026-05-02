@@ -5,7 +5,7 @@ import { personal } from "@/data/portfolio";
 
 const links = [
   { id: "resume", label: "Resume" },
-  { id: "impact", label: "Impact" },
+  // { id: "impact", label: "Impact" },
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "about", label: "About" },
