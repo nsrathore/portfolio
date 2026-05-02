@@ -15,7 +15,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <ResumeDownload />
-      <Impact />
+      {/* <Impact /> */}
       <Projects />
       <Skills />
       <About />
