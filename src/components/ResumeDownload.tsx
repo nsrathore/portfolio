@@ -24,6 +24,7 @@ export default function ResumeDownload() {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previewButtonRef = useRef<HTMLButtonElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const modalWasOpened = useRef(false);
 
   const [portalEl] = useState<HTMLDivElement | null>(() => {
     if (typeof document === "undefined") return null;
@@ -77,13 +78,14 @@ export default function ResumeDownload() {
 
   useEffect(() => {
     if (previewOpen) {
+      modalWasOpened.current = true;
       document.body.style.overflow = "hidden";
       if (portalEl) portalEl.style.pointerEvents = "all";
       setTimeout(() => closeButtonRef.current?.focus(), 50);
     } else {
       document.body.style.overflow = "";
       if (portalEl) portalEl.style.pointerEvents = "none";
-      previewButtonRef.current?.focus();
+      if (modalWasOpened.current) previewButtonRef.current?.focus();
     }
     return () => { document.body.style.overflow = ""; };
   }, [previewOpen, portalEl]);

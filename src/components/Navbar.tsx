@@ -4,12 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import { personal } from "@/data/portfolio";
 
 const links = [
-  { href: "#resume", label: "Resume" },
-  { href: "#impact", label: "Impact" },
-  { href: "#projects", label: "Projects" },
-  { href: "#skills", label: "Skills" },
-  { href: "#about", label: "About" },
+  { id: "resume", label: "Resume" },
+  { id: "impact", label: "Impact" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "about", label: "About" },
 ];
+
+const scrollTo = (id: string) => {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+};
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -19,10 +23,7 @@ export default function Navbar() {
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    history.scrollRestoration = "manual";
-    window.scrollTo(0, 0);
-  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, []);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -133,9 +134,10 @@ export default function Navbar() {
             </a>
             <ul className="flex items-center gap-5" aria-label="Main menu">
               {links.map((link) => (
-                <li key={link.href}>
+                <li key={link.id}>
                   <a
-                    href={link.href}
+                    href={`#${link.id}`}
+                    onClick={(e) => { e.preventDefault(); scrollTo(link.id); }}
                     className="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-200"
                   >
                     {link.label}
@@ -183,9 +185,10 @@ export default function Navbar() {
           {/* Desktop links */}
           <ul className="hidden md:flex items-center gap-8" aria-label="Main menu">
             {links.map((link) => (
-              <li key={link.href}>
+              <li key={link.id}>
                 <a
-                  href={link.href}
+                  href={`#${link.id}`}
+                  onClick={(e) => { e.preventDefault(); scrollTo(link.id); }}
                   className="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-200"
                 >
                   {link.label}
@@ -238,10 +241,10 @@ export default function Navbar() {
           >
             <ul aria-label="Mobile menu" className="flex flex-col">
               {links.map((link) => (
-                <li key={link.href}>
+                <li key={link.id}>
                   <a
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
+                    href={`#${link.id}`}
+                    onClick={(e) => { e.preventDefault(); setMenuOpen(false); scrollTo(link.id); }}
                     className="text-sm text-zinc-600 hover:text-zinc-900 flex items-center min-h-[44px] py-3 border-b border-zinc-50 last:border-b-0"
                   >
                     {link.label}

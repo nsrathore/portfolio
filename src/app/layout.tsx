@@ -32,7 +32,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body>
-        {/* Runs synchronously before hydration — prevents browser scroll restoration on refresh */}
         <script dangerouslySetInnerHTML={{ __html: "history.scrollRestoration='manual';" }} />
         <a
           href="#main-content"
