@@ -116,7 +116,7 @@ export const projects = [
     problem:
       "The patient payment portal lacked real-time insurance verification - a critical feature for billing workflows. Critical API authentication failures blocked the integration, and the team was without a tech lead during the most sensitive phase of delivery.",
     approach:
-      "Stepped in as interim tech lead, diagnosed the authentication root cause, and built the full eligibility service in Next.js with AWS and GitHub Actions. Integrated directly into the patient payment portal with real-time data flow and automated CI/CD pipelines.",
+      "Stepped in as Interim Tech Lead, diagnosed the authentication root cause, and built the full eligibility service in Next.js with AWS and GitHub Actions. Integrated directly into the patient payment portal with real-time data flow and automated CI/CD pipelines.",
     result:
       "Delivered the integration, yielding a 200% increase in QE testing efficiency and enabling real-time insurance verification at scale - unblocking downstream billing and payment workflows across the patient-facing platform.",
     tech: ["Next.js", "AWS Lambda", "GitHub Actions", "REST APIs", "Node.js"],

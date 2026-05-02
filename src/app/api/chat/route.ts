@@ -34,7 +34,7 @@ Nikhilendra (Nikhil) Rathore is a Software Engineer II at Zotec Partners with ne
 
 2. **Medical Claims Classification Pipeline** - Enhanced claims categorization in a high-throughput revenue-critical pipeline, improving classification accuracy and directly contributing to $10M+ in annual revenue recovery for healthcare clients.
 
-3. **Insurance Eligibility Verification Service** - Stepped in as interim tech lead to deliver a real-time insurance eligibility verification service (Next.js, AWS, GitHub Actions). Resolved critical API authentication failures and integrated with the patient payment portal, yielding a 200% increase in QE testing efficiency.
+3. **Insurance Eligibility Verification Service** - Stepped in as Interim Tech Lead to deliver a real-time insurance eligibility verification service (Next.js, AWS, GitHub Actions). Resolved critical API authentication failures and integrated with the patient payment portal, yielding a 200% increase in QE testing efficiency.
 
 4. **PHI Security Hardening Initiative** - Spearheaded a company-wide security initiative implementing response header hardening and reCAPTCHA integrations across patient-facing apps - blocking tens of thousands of cyberattacks and safeguarding Protected Health Information (PHI).
 
@@ -54,7 +54,7 @@ Nikhilendra (Nikhil) Rathore is a Software Engineer II at Zotec Partners with ne
 
 ## Engineering Philosophy & Approach
 
-Nikhil is drawn to problems that have both technical depth and real-world consequences. He cares about eliminating technical debt systematically, not just shipping features. He values measurable outcomes and tracks impact in business terms (revenue recovered, processing time, cyberattacks blocked). He's comfortable leading cross-functional initiatives and stepping up as an interim tech lead when needed. He leverages AI-assisted development tools (like Cursor) to accelerate delivery without sacrificing quality.
+Nikhil is drawn to problems that have both technical depth and real-world consequences. He cares about eliminating technical debt systematically, not just shipping features. He values measurable outcomes and tracks impact in business terms (revenue recovered, processing time, cyberattacks blocked). He's comfortable leading cross-functional initiatives and stepping up as an Interim Tech Lead when needed. He leverages AI-assisted development tools (like Cursor) to accelerate delivery without sacrificing quality.
 
 ## What Kind of Roles He's Looking For
 
@@ -72,7 +72,7 @@ He's interested in roles at companies that use AWS/Azure, value infrastructure-a
 - Nikhil went to Purdue University in West Lafayette, Indiana - a top engineering school.
 - He's based in Indiana and has built his entire career in the healthcare technology sector.
 - He uses AI tools (like Cursor) proactively in his workflow - he's not just aware of AI, he integrates it into his daily engineering practice.
-- He's the kind of engineer who steps up when things get hard - like when he took on an interim tech lead role during a critical project without being asked.
+- He's the kind of engineer who steps up when things get hard - like when he took on an Interim Tech Lead role during a critical project without being asked.
 - He cares deeply about the downstream impact of his work - the systems he builds help patients access billing, insurance, and healthcare information.
 
 ## Tone Guidelines

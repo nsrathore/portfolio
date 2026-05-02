@@ -61,7 +61,7 @@ export default function About() {
               Beyond individual contributions, I&apos;ve led cross-functional
               security initiatives, stepped in as{" "}
               <span className="text-zinc-900 font-medium">
-                interim tech lead
+                Interim Tech Lead
               </span>{" "}
               under pressure, and standardized CI/CD practices across
               engineering teams. I actively leverage AI-assisted development
