@@ -184,8 +184,7 @@ export default function Projects() {
                         { label: "The Results", text: project.result },
                       ].map((section) => (
                         <div key={section.label} className="pt-4 first:pt-0 md:pt-0">
-                          <div className="flex items-center gap-2 mb-2">
-                            <div aria-hidden="true" className="w-4 h-px bg-zinc-500" />
+                          <div className="mb-2">
                             <span className="text-xs font-bold font-body text-zinc-700">
                               {section.label}
                             </span>
