@@ -75,7 +75,7 @@ export const projects = [
   },
   {
     id: "resume-tailor",
-    title: "Resume Tailor",
+    title: "AI-Powered Resume Optimization for ATS",
     company: "Personal Project · 2026",
     tags: ["frontend", "backend", "ai"] as ProjectTag[],
     metric: { value: "0–100", label: "ATS score" },
