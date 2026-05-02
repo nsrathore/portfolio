@@ -21,46 +21,18 @@ export default function Footer() {
         RATHORE
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <div className="relative z-10 max-w-6xl mx-auto flex items-center justify-center">
+        <div className="absolute left-0 flex items-center gap-2">
+          <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-[#6B7C2E] animate-[pulseDot_2s_ease-in-out_infinite]" />
+          <span className="text-xs font-mono font-semibold text-[#6B7C2E]">
+            {personal.location}
+          </span>
+        </div>
+
         <div className="font-mono text-xs text-zinc-700">
           © {year}{" "}
           <span className="text-zinc-700 font-medium">{personal.name}</span>
           {" · "}Built with Next.js &amp; Tailwind
-        </div>
-
-        <div className="flex items-center gap-6">
-          <a
-            href={personal.github}
-            target="_blank"
-            rel="noreferrer noopener"
-            aria-label="Visit GitHub profile (opens in new tab)"
-            className="text-xs font-mono text-zinc-700 hover:text-zinc-700 transition-colors"
-          >
-            GitHub
-          </a>
-          <a
-            href={personal.linkedin}
-            target="_blank"
-            rel="noreferrer noopener"
-            aria-label="Visit LinkedIn profile (opens in new tab)"
-            className="text-xs font-mono text-zinc-700 hover:text-zinc-700 transition-colors"
-          >
-            LinkedIn
-          </a>
-          <a
-            href={`mailto:${personal.email}`}
-            aria-label={`Send email to ${personal.email}`}
-            className="text-xs font-mono text-zinc-700 hover:text-zinc-700 transition-colors"
-          >
-            {personal.email}
-          </a>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-[#6B7C2E] animate-[pulseDot_2s_ease-in-out_infinite]" />
-          <span className="text-xs font-mono text-zinc-700">
-            {personal.location}
-          </span>
         </div>
       </div>
     </footer>
