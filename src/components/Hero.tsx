@@ -144,10 +144,21 @@ export default function Hero() {
             {/* Title */}
             <motion.h2
               {...motionProps(0.2)}
-              className="font-display text-[clamp(1rem,2.5vw,1.4rem)] font-semibold text-[#6B7C2E] tracking-tight mb-5 sm:mb-6"
+              className="font-display text-[clamp(1rem,2.5vw,1.4rem)] font-semibold text-[#6B7C2E] tracking-tight mb-2"
             >
               {personal.title} · {personal.tagline}
             </motion.h2>
+
+            {/* Location */}
+            <motion.div {...motionProps(0.25)} className="mb-5 sm:mb-6">
+              <span className="inline-flex items-center gap-2 bg-[#F2F5E8] border border-[#6B7C2E] text-[#3A4A15] text-xs font-mono tracking-widest px-4 py-2 rounded-full uppercase">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                {personal.location}
+              </span>
+            </motion.div>
 
             {/* Summary */}
             <motion.p
