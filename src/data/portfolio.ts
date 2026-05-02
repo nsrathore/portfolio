@@ -9,7 +9,7 @@ export const personal = {
   title: "Software Engineer II",
   tagline: "Cloud-Native & Full-Stack",
   summary:
-    "I build scalable, high-stakes systems at the intersection of healthcare and technology. 4+ years architecting microservices, real-time pipelines, and secure patient-facing platforms that process millions of records and generate measurable revenue impact.",
+    "I build scalable, high-stakes systems at the intersection of healthcare and technology. Nearly 5 years architecting microservices, real-time pipelines, and secure patient-facing platforms that process millions of records and generate measurable revenue impact.",
   email: "nikhilendra7@gmail.com",
   phone: "(765) 775-3273",
   location: "Indiana, USA",
@@ -61,7 +61,7 @@ export const projects = [
   {
     id: "remittance-engine",
     title: "835 Remittance File Processing Engine",
-    company: "Zotec Partners · 2024",
+    company: "Zotec Partners · 2024 - 2025",
     tags: ["backend", "devops"] as ProjectTag[],
     metric: { value: "3,600×", label: "faster processing" },
     metricColor: "primary",
@@ -91,7 +91,7 @@ export const projects = [
   {
     id: "eligibility-verification",
     title: "Insurance Eligibility Verification Service",
-    company: "Zotec Partners · 2022–2023",
+    company: "Zotec Partners · 2023–2024",
     tags: ["frontend", "backend", "devops"] as ProjectTag[],
     metric: { value: "200%", label: "QE efficiency" },
     metricColor: "primary",
@@ -121,7 +121,7 @@ export const projects = [
   {
     id: "resume-tailor",
     title: "Resume Tailor",
-    company: "Personal Project · 2025",
+    company: "Personal Project · 2026",
     tags: ["frontend", "backend", "ai"] as ProjectTag[],
     metric: { value: "0–100", label: "ATS score" },
     metricColor: "dark",

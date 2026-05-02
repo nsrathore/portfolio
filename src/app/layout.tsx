@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Nikhilendra Rathore - Software Engineer II",
   description:
-    "Software Engineer II with 4+ years building scalable, cloud-native systems in healthcare and billing. Specializing in C#/.NET, Angular, AWS, and Terraform.",
+    "Software Engineer II with nearly 5 years building scalable, cloud-native systems in healthcare and billing. Specializing in C#/.NET, Angular, AWS, and Terraform.",
   keywords: [
     "Software Engineer",
     "C#",

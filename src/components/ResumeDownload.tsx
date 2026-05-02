@@ -404,7 +404,7 @@ export default function ResumeDownload() {
                     Nikhilendra Rathore
                   </h2>
                   <p className="font-light text-zinc-600 text-sm mt-0.5">
-                    Software Engineer II · Updated 2025
+                    Software Engineer II · Updated 2026
                   </p>
                 </div>
               </div>

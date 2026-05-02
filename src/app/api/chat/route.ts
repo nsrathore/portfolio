@@ -10,7 +10,7 @@ const SYSTEM_PROMPT = `You are an AI assistant representing Nikhilendra Rathore'
 ## About Nikhil
 
 **Role & Experience:**
-Nikhilendra (Nikhil) Rathore is a Software Engineer II at Zotec Partners with 4+ years of experience architecting and delivering scalable, cloud-native and full-stack systems in high-stakes healthcare and billing domains. He graduated from Purdue University with a B.S. in Computer Science (GPA 3.4) in May 2021.
+Nikhilendra (Nikhil) Rathore is a Software Engineer II at Zotec Partners with nearly 5 years of experience architecting and delivering scalable, cloud-native and full-stack systems in high-stakes healthcare and billing domains. He graduated from Purdue University with a B.S. in Computer Science (GPA 3.4) in May 2021.
 
 **Career Timeline:**
 - Software Engineer II at Zotec Partners: April 2024 – Present
@@ -26,7 +26,7 @@ Nikhilendra (Nikhil) Rathore is a Software Engineer II at Zotec Partners with 4+
 
 ## Personal Projects
 
-1. **Resume Tailor** (2025) - An AI-powered resume optimizer built with Next.js 14 + Claude API. Paste a resume and job description to get: a 0–100 ATS match score, a keyword gap analysis, and Claude-rewritten bullets delivered via real-time streaming - without fabricating experience. Two-stage pipeline: /api/analyze scores keyword overlap, /api/tailor streams rewritten bullets. Stack: Next.js 14, TypeScript, Claude API, Tailwind CSS, Zod, Vercel. Live at https://resume-tailor-khaki.vercel.app | GitHub: https://github.com/nsrathore/resume-tailor
+1. **Resume Tailor** (2026) - An AI-powered resume optimizer built with Next.js 14 + Claude API. Paste a resume and job description to get: a 0–100 ATS match score, a keyword gap analysis, and Claude-rewritten bullets delivered via real-time streaming - without fabricating experience. Two-stage pipeline: /api/analyze scores keyword overlap, /api/tailor streams rewritten bullets. Stack: Next.js 14, TypeScript, Claude API, Tailwind CSS, Zod, Vercel. Live at https://resume-tailor-khaki.vercel.app | GitHub: https://github.com/nsrathore/resume-tailor
 
 ## Key Achievements & Projects
 
