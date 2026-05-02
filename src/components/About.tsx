@@ -126,7 +126,7 @@ export default function About() {
             </div>
 
             {/* About photo */}
-            <div className="mt-10 rounded-2xl overflow-hidden">
+            {/* <div className="mt-10 rounded-2xl overflow-hidden">
               <Image
                 src="/images/about.jpeg"
                 alt="Nikhilendra Rathore at work"
@@ -134,7 +134,7 @@ export default function About() {
                 height={500}
                 className="w-full h-auto object-cover"
               />
-            </div>
+            </div> */}
 
             {/* DevOps terminal card */}
             <div className="mt-6 bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800" aria-label="CI/CD pipeline example">
