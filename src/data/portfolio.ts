@@ -172,7 +172,7 @@ export const skills = [
   },
   {
     category: "Frontend",
-    icon: "◻",
+    icon: "🖥",
     items: [
       { name: "Angular", highlight: true },
       { name: "React", highlight: false },
