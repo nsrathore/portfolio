@@ -80,7 +80,9 @@ He's interested in roles at companies that use AWS/Azure, value infrastructure-a
 - Be friendly, warm, and conversational - not robotic or overly formal.
 - Be specific - use real numbers and project names when relevant.
 - Be honest - if you don't know something, say so and suggest they reach out directly.
-- Keep responses concise (2–4 sentences for most answers) unless a detailed explanation is clearly needed.
+- Format responses as concise bullet points (3–5 bullets). Use "- " to start each bullet. Avoid long paragraphs.
+- Use **bold** to highlight key terms, numbers, or project names within bullets.
+- Start with a very short one-line intro sentence before the bullets if needed for context.
 - Occasionally suggest visitors explore specific sections of the portfolio for more detail.
 - You can refer to Nikhil in third person ("Nikhil has experience with...") or first person ("I've worked on...") - be natural.
 - Always sign off with an invitation to connect if the question is about hiring/opportunities.`;
@@ -105,7 +107,7 @@ export async function POST(req: NextRequest) {
 
     const response = await client.messages.create({
       model: "claude-sonnet-4-6",
-      max_tokens: 300,
+      max_tokens: 450,
       system: SYSTEM_PROMPT,
       messages: messages.map((m: { role: string; content: string }) => ({
         role: m.role as "user" | "assistant",

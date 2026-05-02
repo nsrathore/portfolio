@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, Fragment } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 type Message = {
@@ -8,31 +8,68 @@ type Message = {
   content: string;
 };
 
-const LINK_REGEX = /(https?:\/\/[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+const INLINE_REGEX = /(\*\*[^*]+\*\*)|(https?:\/\/[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+
+function parseInline(text: string, key: string): React.ReactNode[] {
+  const nodes: React.ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  const re = new RegExp(INLINE_REGEX.source, "g");
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) nodes.push(text.slice(last, m.index));
+    if (m[1]) {
+      nodes.push(<strong key={`${key}-${m.index}`}>{m[1].slice(2, -2)}</strong>);
+    } else {
+      const p = m[2];
+      if (/^https?:\/\//.test(p)) {
+        const url = p.replace(/[.,!?:;]+$/, "");
+        nodes.push(<a key={`${key}-${m.index}`} href={url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:opacity-75 transition-opacity">{url}</a>);
+        const trailing = p.slice(url.length);
+        if (trailing) nodes.push(trailing);
+      } else {
+        nodes.push(<a key={`${key}-${m.index}`} href={`mailto:${p}`} className="underline underline-offset-2 hover:opacity-75 transition-opacity">{p}</a>);
+      }
+    }
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+}
 
 function renderContent(content: string) {
-  return content.split(LINK_REGEX).map((part, i) => {
-    if (/^https?:\/\//.test(part)) {
-      const url = part.replace(/[.,!?:;]+$/, "");
-      const trailing = part.slice(url.length);
-      return (
-        <Fragment key={i}>
-          <a href={url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:opacity-75 transition-opacity">
-            {url}
-          </a>
-          {trailing}
-        </Fragment>
-      );
+  const lines = content.split("\n");
+  const output: React.ReactNode[] = [];
+  let bullets: React.ReactNode[] = [];
+  let bulletKey = 0;
+
+  const flush = () => {
+    if (bullets.length) {
+      output.push(<ul key={`ul-${bulletKey++}`} className="space-y-1 my-1">{bullets}</ul>);
+      bullets = [];
     }
-    if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(part)) {
-      return (
-        <a key={i} href={`mailto:${part}`} className="underline underline-offset-2 hover:opacity-75 transition-opacity">
-          {part}
-        </a>
+  };
+
+  lines.forEach((raw, i) => {
+    const line = raw.trim();
+    const bm = line.match(/^[-*]\s+(.+)/);
+    if (bm) {
+      bullets.push(
+        <li key={i} className="flex gap-1.5 items-start">
+          <span className="mt-[3px] shrink-0 text-[8px]">●</span>
+          <span>{parseInline(bm[1], String(i))}</span>
+        </li>
       );
+    } else {
+      flush();
+      if (line) {
+        if (output.length > 0) output.push(<br key={`br-${i}`} />);
+        output.push(<span key={i}>{parseInline(line, String(i))}</span>);
+      }
     }
-    return part;
   });
+  flush();
+
+  return output;
 }
 
 const SUGGESTED_QUESTIONS = [
