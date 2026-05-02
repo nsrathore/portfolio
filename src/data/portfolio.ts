@@ -127,6 +127,7 @@ export const projects = [
     metricColor: "dark",
     link: "https://resume-tailor-khaki.vercel.app/",
     github: "https://github.com/nsrathore/resume-tailor",
+    systemDesign: "/images/projects/resume-tailor/resume_tailor_system_design.svg",
     problem:
       "Job seekers lose out to ATS filters before a human ever reads their resume. Manually tailoring bullets for each job description is slow and it's rarely clear which keyword gaps are actually costing you the match.",
     approach:

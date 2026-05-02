@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useInView } from "@/lib/useInView";
 import { projects, type ProjectTag } from "@/data/portfolio";
@@ -42,6 +43,7 @@ const glassHoverStyle = {
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState<ProjectTag>("all");
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [expandedSystemDesign, setExpandedSystemDesign] = useState<string | null>(null);
   const { ref, inView } = useInView();
   const prefersReduced = useReducedMotion();
   const filterRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -207,9 +209,9 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    {/* Live Demo / GitHub buttons */}
-                    {(project.link || project.github) && (
-                      <div className="flex items-center gap-3 mt-4 pt-4 border-t border-zinc-100">
+                    {/* Live Demo / GitHub / System Design buttons */}
+                    {(project.link || project.github || project.systemDesign) && (
+                      <div className="flex flex-wrap items-center gap-3 mt-4 pt-4 border-t border-zinc-100">
                         {project.link && (
                           <a
                             href={project.link}
@@ -240,8 +242,75 @@ export default function Projects() {
                             View Code
                           </a>
                         )}
+                        {project.systemDesign && (
+                          <button
+                            onClick={() =>
+                              setExpandedSystemDesign(
+                                expandedSystemDesign === project.id ? null : project.id
+                              )
+                            }
+                            aria-expanded={expandedSystemDesign === project.id}
+                            aria-controls={`system-design-${project.id}`}
+                            className="inline-flex items-center gap-2 bg-white text-zinc-700 font-medium text-xs px-4 py-2 rounded-full border border-zinc-300 hover:border-[#6B7C2E] hover:text-[#6B7C2E] transition-all duration-200 ml-auto"
+                          >
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <rect x="3" y="3" width="7" height="7" rx="1"/>
+                              <rect x="14" y="3" width="7" height="7" rx="1"/>
+                              <rect x="3" y="14" width="7" height="7" rx="1"/>
+                              <path d="M17.5 17.5h.01M14 17.5h3.5M17.5 14v3.5"/>
+                            </svg>
+                            {expandedSystemDesign === project.id ? "Hide Diagram" : "System Design"}
+                            <svg
+                              width="10"
+                              height="10"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
+                              className="transition-transform duration-200"
+                              style={{ transform: expandedSystemDesign === project.id ? "rotate(180deg)" : "rotate(0deg)" }}
+                            >
+                              <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                          </button>
+                        )}
                       </div>
                     )}
+
+                    {/* System design diagram — animated expand */}
+                    <AnimatePresence initial={false}>
+                      {expandedSystemDesign === project.id && project.systemDesign && (
+                        <motion.div
+                          id={`system-design-${project.id}`}
+                          key="system-design"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.35, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="mt-4 pt-4 border-t border-zinc-100">
+                            <p className="text-xs font-mono text-zinc-500 mb-3 flex items-center gap-2">
+                              <span aria-hidden="true" className="w-4 h-px bg-zinc-400 inline-block" />
+                              Architecture Overview
+                            </p>
+                            <div className="rounded-xl overflow-auto bg-zinc-50 border border-zinc-100 p-4">
+                              <Image
+                                src={project.systemDesign}
+                                alt={`${project.title} system architecture diagram`}
+                                width={1200}
+                                height={700}
+                                className="w-full h-auto"
+                                unoptimized
+                              />
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
                   {/* Hover accent bar */}
