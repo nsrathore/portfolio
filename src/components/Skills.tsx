@@ -31,7 +31,7 @@ export default function Skills() {
           <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 mb-4">
             Technologies I master
           </h2>
-          <p className="text-zinc-700 font-light max-w-md">
+          <p className="text-zinc-700 font-light max-w-md hyphens-none">
             Curated to reflect what I genuinely use in production - not a
             keyword list.
           </p>

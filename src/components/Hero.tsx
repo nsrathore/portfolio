@@ -163,7 +163,7 @@ export default function Hero() {
             {/* Summary */}
             <motion.p
               {...motionProps(0.3)}
-              className="text-zinc-600 text-base sm:text-lg font-light leading-relaxed max-w-xl mb-8 sm:mb-10"
+              className="text-zinc-600 text-base sm:text-lg font-light leading-relaxed max-w-xl mb-8 sm:mb-10 hyphens-none"
             >
               {personal.summary}
             </motion.p>

@@ -44,7 +44,7 @@ export default function Impact() {
             <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 mb-4">
               Results that move the needle
             </h2>
-            <p className="text-zinc-700 font-light max-w-lg">
+            <p className="text-zinc-700 font-light max-w-lg hyphens-none">
               Every project I ship is tracked against real business outcomes -
               not just technical milestones.
             </p>
@@ -77,7 +77,7 @@ export default function Impact() {
                       {card.value}
                     </div>
                   </div>
-                  <p className="text-sm text-zinc-700 font-light leading-relaxed">
+                  <p className="text-sm text-zinc-700 font-light leading-relaxed hyphens-none">
                     {card.description}
                   </p>
                 </motion.div>

@@ -189,7 +189,7 @@ export default function Projects() {
                               {section.label}
                             </span>
                           </div>
-                          <p className="text-sm text-zinc-700 font-light leading-relaxed">
+                          <p className="text-sm text-zinc-700 font-light leading-relaxed hyphens-none">
                             {section.text}
                           </p>
                         </div>

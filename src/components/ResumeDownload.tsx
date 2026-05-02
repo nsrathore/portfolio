@@ -279,7 +279,7 @@ export default function ResumeDownload() {
                     <p className="font-display font-bold text-zinc-900 text-base mb-1">
                       Nikhilendra Rathore - Resume
                     </p>
-                    <p className="text-sm text-zinc-600 font-light leading-relaxed max-w-xs">
+                    <p className="text-sm text-zinc-600 font-light leading-relaxed max-w-xs hyphens-none">
                       Tap below to open the resume in your device&apos;s PDF viewer for the best mobile experience.
                     </p>
                   </div>
@@ -342,7 +342,7 @@ export default function ResumeDownload() {
                   aria-label="Resume PDF preview"
                 >
                   <div className="flex flex-col items-center justify-center h-full gap-4 p-8 text-center">
-                    <p className="text-zinc-600 text-sm font-light">
+                    <p className="text-zinc-600 text-sm font-light hyphens-none">
                       Unable to preview PDF inline.
                     </p>
                     <button

@@ -36,7 +36,7 @@ export default function About() {
             {...animateIn(0.1)}
             className="lg:col-span-3 space-y-5"
           >
-            <p className="text-zinc-600 font-light leading-relaxed">
+            <p className="text-zinc-600 font-light leading-relaxed hyphens-none">
               I&apos;m a Software Engineer II at{" "}
               <span className="text-zinc-900 font-medium">Zotec Partners</span>,
               where I build the systems that power healthcare billing for some of
@@ -47,7 +47,7 @@ export default function About() {
               </span>{" "}
               - where reliability isn&apos;t optional.
             </p>
-            <p className="text-zinc-600 font-light leading-relaxed">
+            <p className="text-zinc-600 font-light leading-relaxed hyphens-none">
               I&apos;m drawn to problems that have both technical depth and
               real-world consequences: processing millions of insurance claims,
               accelerating denial resolution, securing PHI at scale. I care
@@ -57,7 +57,7 @@ export default function About() {
               </span>
               , not just shipping features.
             </p>
-            <p className="text-zinc-600 font-light leading-relaxed">
+            <p className="text-zinc-600 font-light leading-relaxed hyphens-none">
               Beyond individual contributions, I&apos;ve led cross-functional
               security initiatives, stepped in as{" "}
               <span className="text-zinc-900 font-medium">

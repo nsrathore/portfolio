@@ -37,9 +37,10 @@ src/
 - ALL content (text, projects, skills, stats) lives in src/data/portfolio.ts - never hardcode content in components
 - Animations: use useInView hook + Framer Motion. Pattern: `initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}`
 - New components go in src/components/, imported in page.tsx
-- Accent color token: #3B5BDB (hover: #2C44B8) - do not introduce new brand colors
+- Accent color token: #6B7C2E (hover: #4A5A1E) - do not introduce new brand colors
 - Font classes: font-display (Plus Jakarta Sans), font-body (DM Sans), font-mono (JetBrains Mono)
 - Section structure: section tag → container-wide div → section-label p → h2 → content
+- All body text paragraphs (`<p>`, `<motion.p>`) must include `hyphens-none` to prevent justified text from auto-hyphenating words across line breaks. Apply to any element with multi-line prose content. Skip single-line labels (section-label, font-mono metadata, badges).
 
 ## Images
 - Personal/project images live in public/images/
