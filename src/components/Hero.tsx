@@ -144,7 +144,7 @@ export default function Hero() {
             {/* Title */}
             <motion.h2
               {...motionProps(0.2)}
-              className="font-display text-[clamp(1rem,2.5vw,1.4rem)] font-semibold text-[#6B7C2E] tracking-tight mb-2"
+              className="font-display text-[clamp(1rem,2.5vw,1.4rem)] font-semibold text-[#4A5A1E] tracking-tight mb-2"
             >
               {personal.title} · {personal.tagline}
             </motion.h2>

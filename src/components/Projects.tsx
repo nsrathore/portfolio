@@ -17,14 +17,14 @@ const FILTERS: { label: string; value: ProjectTag }[] = [
 
 const TAG_COLORS: Record<string, string> = {
   backend:  "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
-  frontend: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
+  frontend: "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
   devops:   "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
-  security: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
+  security: "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
   ai:       "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
 };
 
 const METRIC_COLORS: Record<string, string> = {
-  primary: "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A]",
+  primary: "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
   dark:    "bg-[#F2F5E8] text-[#4A5A1E] border-[#C8D49A]",
 };
 

@@ -213,7 +213,7 @@ export default function ChatWidget() {
               <div className="flex items-center gap-3">
                 <div
                   aria-hidden="true"
-                  className="w-8 h-8 rounded-full bg-[#6B7C2E] flex items-center justify-center text-white text-xs font-display font-bold"
+                  className="w-8 h-8 rounded-full bg-[#4A5A1E] flex items-center justify-center text-white text-xs font-display font-bold"
                 >
                   NR
                 </div>
@@ -282,7 +282,7 @@ export default function ChatWidget() {
                     <button
                       key={q}
                       onClick={() => sendMessage(q)}
-                      className="text-left text-xs text-[#6B7C2E] border border-[#C8D49A] bg-[#F2F5E8] px-3 py-2 rounded-xl hover:bg-[#e8edce] transition-colors duration-150 leading-snug"
+                      className="text-left text-xs text-[#4A5A1E] border border-[#C8D49A] bg-[#F2F5E8] px-3 py-2 rounded-xl hover:bg-[#e8edce] transition-colors duration-150 leading-snug"
                     >
                       {q}
                     </button>
