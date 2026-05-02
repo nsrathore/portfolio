@@ -26,7 +26,7 @@ export default function About() {
             About Me
           </p>
           <h2 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900">
-            Engineering with intention
+            Engineering With Intention
           </h2>
         </motion.div>
 
