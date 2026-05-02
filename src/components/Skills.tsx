@@ -56,11 +56,7 @@ export default function Skills() {
                 {category.items.map((item) => (
                   <span
                     key={item.name}
-                    className={`text-xs sm:text-sm font-mono px-3 py-1.5 rounded-full border transition-colors duration-150 ${
-                      item.highlight
-                        ? "bg-[#F2F5E8] text-[#6B7C2E] border-[#C8D49A] font-medium"
-                        : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:text-zinc-900"
-                    }`}
+                    className="text-xs sm:text-sm font-mono px-3 py-1.5 rounded-full border bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300 hover:text-zinc-900 transition-colors duration-150"
                   >
                     {item.name}
                   </span>
