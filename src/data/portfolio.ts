@@ -74,6 +74,24 @@ export const projects = [
     tech: ["C#", ".NET", "AWS ECS", "Terraform", "Splunk", "GitHub Actions", "AWS Secrets Manager"],
   },
   {
+    id: "resume-tailor",
+    title: "Resume Tailor",
+    company: "Personal Project · 2026",
+    tags: ["frontend", "backend", "ai"] as ProjectTag[],
+    metric: { value: "0–100", label: "ATS score" },
+    metricColor: "dark",
+    link: "https://resume-tailor-khaki.vercel.app/",
+    github: "https://github.com/nsrathore/resume-tailor",
+    systemDesign: "/images/projects/resume-tailor/resume_tailor_system_design.svg",
+    problem:
+      "Job seekers lose out to ATS filters before a human ever reads their resume. Manually tailoring bullets for each job description is slow and it's rarely clear which keyword gaps are actually costing you the match.",
+    approach:
+      "Built a two-stage AI pipeline: /api/analyze calls Claude to score keyword overlap and surface missing terms, then /api/tailor streams Claude-rewritten bullets that incorporate those keywords - without fabricating experience. Validation via Zod, streaming via the Claude API.",
+    result:
+      "End-to-end ATS audit in seconds - a 0–100 match score, a keyword gap list, and Claude-rewritten bullets delivered via real-time streaming. Deployed live on Vercel.",
+    tech: ["Next.js 14", "TypeScript", "Claude API", "Tailwind CSS", "Zod", "Vercel"],
+  },
+  {
     id: "claims-classification",
     title: "Medical Claims Classification Pipeline",
     company: "Zotec Partners · 2024",
@@ -104,39 +122,6 @@ export const projects = [
     tech: ["Next.js", "AWS Lambda", "GitHub Actions", "REST APIs", "Node.js"],
   },
   {
-    id: "phi-security",
-    title: "PHI Security Hardening Initiative",
-    company: "Zotec Partners · 2022",
-    tags: ["security", "frontend"] as ProjectTag[],
-    metric: { value: "10K+", label: "attacks blocked" },
-    metricColor: "dark",
-    problem:
-      "Patient-facing healthcare apps and billing services were exposed to automated bot attacks and form abuse, threatening PHI (Protected Health Information) and putting the company at risk of millions in HIPAA regulatory penalties.",
-    approach:
-      "Spearheaded a company-wide security initiative: implemented HTTP response header hardening (HSTS, CSP, X-Frame-Options) and deployed reCAPTCHA v3 across all patient-facing apps and healthcare billing services through a coordinated rollout.",
-    result:
-      "Blocked tens of thousands of cyberattacks, safeguarded PHI for thousands of patients, and prevented millions in potential regulatory restitution - demonstrating that proactive security pays dividends far beyond engineering effort.",
-    tech: ["Angular", "AngularJS", "reCAPTCHA v3", "HTTP Security Headers", ".NET"],
-  },
-  {
-    id: "resume-tailor",
-    title: "Resume Tailor",
-    company: "Personal Project · 2026",
-    tags: ["frontend", "backend", "ai"] as ProjectTag[],
-    metric: { value: "0–100", label: "ATS score" },
-    metricColor: "dark",
-    link: "https://resume-tailor-khaki.vercel.app/",
-    github: "https://github.com/nsrathore/resume-tailor",
-    systemDesign: "/images/projects/resume-tailor/resume_tailor_system_design.svg",
-    problem:
-      "Job seekers lose out to ATS filters before a human ever reads their resume. Manually tailoring bullets for each job description is slow and it's rarely clear which keyword gaps are actually costing you the match.",
-    approach:
-      "Built a two-stage AI pipeline: /api/analyze calls Claude to score keyword overlap and surface missing terms, then /api/tailor streams Claude-rewritten bullets that incorporate those keywords - without fabricating experience. Validation via Zod, streaming via the Claude API.",
-    result:
-      "End-to-end ATS audit in seconds - a 0–100 match score, a keyword gap list, and Claude-rewritten bullets delivered via real-time streaming. Deployed live on Vercel.",
-    tech: ["Next.js 14", "TypeScript", "Claude API", "Tailwind CSS", "Zod", "Vercel"],
-  },
-  {
     id: "denial-management",
     title: "Denial Management Observability Platform",
     company: "Zotec Partners · 2023",
@@ -150,6 +135,21 @@ export const projects = [
     result:
       "Denial resolution time dropped from days to hours - operational blind spots eliminated across millions of annual claims. Automated email pipelines accelerated revenue collection cycles and reduced escalations to third-party collections.",
     tech: ["Splunk", "AWS Lambda", "GitHub Actions", "C#", ".NET"],
+  },
+  {
+    id: "phi-security",
+    title: "PHI Security Hardening Initiative",
+    company: "Zotec Partners · 2022",
+    tags: ["security", "frontend"] as ProjectTag[],
+    metric: { value: "10K+", label: "attacks blocked" },
+    metricColor: "dark",
+    problem:
+      "Patient-facing healthcare apps and billing services were exposed to automated bot attacks and form abuse, threatening PHI (Protected Health Information) and putting the company at risk of millions in HIPAA regulatory penalties.",
+    approach:
+      "Spearheaded a company-wide security initiative: implemented HTTP response header hardening (HSTS, CSP, X-Frame-Options) and deployed reCAPTCHA v3 across all patient-facing apps and healthcare billing services through a coordinated rollout.",
+    result:
+      "Blocked tens of thousands of cyberattacks, safeguarded PHI for thousands of patients, and prevented millions in potential regulatory restitution - demonstrating that proactive security pays dividends far beyond engineering effort.",
+    tech: ["Angular", "AngularJS", "reCAPTCHA v3", "HTTP Security Headers", ".NET"],
   },
 ];
 
