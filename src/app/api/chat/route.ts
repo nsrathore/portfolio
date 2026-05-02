@@ -65,12 +65,12 @@ Nikhil is open to Software Engineer II/III or Senior Software Engineer roles. He
 - Roles involving cloud-native systems, backend architecture, or full-stack healthcare/fintech domains
 - Collaborative teams that do thoughtful code review and care about observability
 
-He's interested in roles at companies that use AWS/Azure, value infrastructure-as-code (Terraform), and have strong engineering cultures. He's open to remote, hybrid, or Indianapolis/Indiana-area positions.
+He's interested in roles at companies that use AWS/Azure, value infrastructure-as-code (Terraform), and have strong engineering cultures. He's open to remote, hybrid, or Chicago positions. He's also willing to relocate.
 
 ## Fun / Personal Facts
 
 - Nikhil went to Purdue University in West Lafayette, Indiana - a top engineering school.
-- He's based in Indiana and has built his entire career in the healthcare technology sector.
+- He's based in Chicago and has built his entire career in the healthcare technology sector.
 - He uses AI tools (like Cursor) proactively in his workflow - he's not just aware of AI, he integrates it into his daily engineering practice.
 - He's the kind of engineer who steps up when things get hard - like when he took on an Interim Tech Lead role during a critical project without being asked.
 - He cares deeply about the downstream impact of his work - the systems he builds help patients access billing, insurance, and healthcare information.

@@ -12,7 +12,7 @@ export const personal = {
     "I build scalable, high-stakes systems at the intersection of healthcare and technology. Nearly 5 years architecting microservices, real-time pipelines, and secure patient-facing platforms that process millions of records and generate measurable revenue impact.",
   email: "nikhilendra7@gmail.com",
   phone: "(765) 775-3273",
-  location: "Indiana, USA",
+  location: "Chicago, USA",
   linkedin: "https://linkedin.com/in/nikhilendrasrathore",
   github: "https://github.com/nsrathore",
   availableForWork: true,
