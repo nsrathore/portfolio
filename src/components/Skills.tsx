@@ -32,7 +32,7 @@ export default function Skills() {
             Technologies I master
           </h2>
           <p className="text-zinc-700 font-light max-w-md">
-            Curated to reflect what I genuinely use in production — not a
+            Curated to reflect what I genuinely use in production - not a
             keyword list.
           </p>
         </motion.div>

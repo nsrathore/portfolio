@@ -45,7 +45,7 @@ export default function About() {
               <span className="text-zinc-900 font-medium">
                 revenue operations, patient experience, and cloud infrastructure
               </span>{" "}
-              — where reliability isn&apos;t optional.
+              - where reliability isn&apos;t optional.
             </p>
             <p className="text-zinc-600 font-light leading-relaxed">
               I&apos;m drawn to problems that have both technical depth and
@@ -80,7 +80,7 @@ export default function About() {
                 </div>
                 <div>
                   <h4 className="font-display font-bold text-zinc-900 text-sm">
-                    Purdue University — West Lafayette
+                    Purdue University - West Lafayette
                   </h4>
                   <div className="text-xs text-zinc-600 font-mono mt-0.5">
                     B.S. Computer Science · GPA 3.4 · May 2021

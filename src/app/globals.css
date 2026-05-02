@@ -93,7 +93,7 @@
   }
 }
 
-/* Impact bento grid — lg+ only */
+/* Impact bento grid - lg+ only */
 @media (min-width: 1024px) {
   .bento-impact {
     grid-template-areas: "a a b" "a a c" "d d d";

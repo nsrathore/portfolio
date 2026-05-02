@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Nikhilendra Rathore — Software Engineer II",
+  title: "Nikhilendra Rathore - Software Engineer II",
   description:
     "Software Engineer II with 4+ years building scalable, cloud-native systems in healthcare and billing. Specializing in C#/.NET, Angular, AWS, and Terraform.",
   keywords: [
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Nikhilendra Rathore" }],
   openGraph: {
-    title: "Nikhilendra Rathore — Software Engineer II",
+    title: "Nikhilendra Rathore - Software Engineer II",
     description:
       "Building scalable, high-stakes systems at the intersection of healthcare and technology.",
     type: "website",

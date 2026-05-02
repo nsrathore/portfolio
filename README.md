@@ -1,4 +1,4 @@
-# Nikhilendra Rathore — Portfolio
+# Nikhilendra Rathore - Portfolio
 
 A modern, interactive personal portfolio built with **Next.js 14**, **Tailwind CSS**, and **Framer Motion**. Features an AI chatbot powered by Claude that answers questions about your background, projects, and experience.
 
@@ -6,9 +6,9 @@ A modern, interactive personal portfolio built with **Next.js 14**, **Tailwind C
 
 - **Next.js 14** (App Router)
 - **Tailwind CSS v3**
-- **Framer Motion** — scroll animations & chat transitions
-- **Anthropic Claude API** — AI chatbot
-- **Formspree** — contact form (no backend required)
+- **Framer Motion** - scroll animations & chat transitions
+- **Anthropic Claude API** - AI chatbot
+- **Formspree** - contact form (no backend required)
 - **TypeScript**
 
 ---
@@ -39,7 +39,7 @@ ANTHROPIC_API_KEY=your_anthropic_api_key_here
 NEXT_PUBLIC_FORMSPREE_ID=your_formspree_form_id_here
 ```
 
-> **Note:** The site works without these keys — the chatbot will show an error message and the contact form will run in demo mode.
+> **Note:** The site works without these keys - the chatbot will show an error message and the contact form will run in demo mode.
 
 ### 3. Run locally
 
@@ -127,24 +127,24 @@ export const timeline = [
 ```
 
 ### AI Chatbot context
-The chatbot's knowledge lives in `src/app/api/chat/route.ts` in the `SYSTEM_PROMPT` constant. Edit this to update what the AI knows about you — your background, projects, personality, and what roles you're targeting.
+The chatbot's knowledge lives in `src/app/api/chat/route.ts` in the `SYSTEM_PROMPT` constant. Edit this to update what the AI knows about you - your background, projects, personality, and what roles you're targeting.
 
 ---
 
 ## Deployment
 
-### Option A: Vercel (recommended — easiest)
+### Option A: Vercel (recommended - easiest)
 
 1. Push your code to GitHub
 2. Go to [vercel.com](https://vercel.com) → Import your repo
 3. Add environment variables in the Vercel dashboard
-4. Deploy — done. Vercel handles everything automatically.
+4. Deploy - done. Vercel handles everything automatically.
 
 ### Option B: GitHub Pages (static export)
 
 Since the AI chatbot uses a server-side API route, GitHub Pages requires a workaround. You have two options:
 
-**Option B1 — Remove the chatbot** and use static export:
+**Option B1 - Remove the chatbot** and use static export:
 ```js
 // next.config.js
 const nextConfig = {
@@ -155,12 +155,12 @@ const nextConfig = {
 ```
 Then run `npm run build` and push the `out/` folder.
 
-**Option B2 — Keep the chatbot, host on Vercel, point your GitHub Pages domain to it.**
+**Option B2 - Keep the chatbot, host on Vercel, point your GitHub Pages domain to it.**
 This is the recommended path if you want the AI feature.
 
 ### Option C: Netlify
 
-Similar to Vercel — connect your GitHub repo, add env vars, and deploy. Supports Next.js API routes natively.
+Similar to Vercel - connect your GitHub repo, add env vars, and deploy. Supports Next.js API routes natively.
 
 ---
 
@@ -211,11 +211,11 @@ Then add `"yournewtag"` to the `ProjectTag` type in `portfolio.ts`.
 
 ### Change accent color
 The accent color (`#3B5BDB` slate blue) appears in:
-- `Navbar.tsx` — CTA button, logo dot
-- `Hero.tsx` — badge, title, buttons
-- `globals.css` — selection color
+- `Navbar.tsx` - CTA button, logo dot
+- `Hero.tsx` - badge, title, buttons
+- `globals.css` - selection color
 - All section label text (`text-[#3B5BDB]`)
-- `tailwind.config.ts` — `slate.brand` token
+- `tailwind.config.ts` - `slate.brand` token
 
 Do a find-and-replace for `#3B5BDB` and `#2C44B8` (hover) across the project.
 
@@ -234,4 +234,4 @@ npm run lint     # Run ESLint
 
 ## License
 
-MIT — feel free to use this as a base for your own portfolio.
+MIT - feel free to use this as a base for your own portfolio.

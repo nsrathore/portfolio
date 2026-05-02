@@ -213,14 +213,14 @@ export default function ResumeDownload() {
                 </svg>
                 <div className="min-w-0">
                   <h2 className="font-display font-bold text-zinc-900 text-base leading-none truncate">
-                    Nikhilendra Rathore — Resume
+                    Nikhilendra Rathore - Resume
                   </h2>
                   <p className="font-mono text-xs text-zinc-600 mt-0.5">PDF Preview</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 flex-shrink-0">
-                {/* Download button — triggers blob download, not preview */}
+                {/* Download button - triggers blob download, not preview */}
                 <button
                   onClick={handleDownload}
                   aria-label="Download resume PDF"
@@ -243,7 +243,7 @@ export default function ResumeDownload() {
               </div>
             </div>
 
-            {/* Modal body — hybrid: desktop iframe / mobile fallback */}
+            {/* Modal body - hybrid: desktop iframe / mobile fallback */}
             <div
               className="bg-zinc-100"
               style={{ flex: 1, minHeight: 0, overflow: "hidden", height: "100%" }}
@@ -275,7 +275,7 @@ export default function ResumeDownload() {
 
                   <div>
                     <p className="font-display font-bold text-zinc-900 text-base mb-1">
-                      Nikhilendra Rathore — Resume
+                      Nikhilendra Rathore - Resume
                     </p>
                     <p className="text-sm text-zinc-600 font-light leading-relaxed max-w-xs">
                       Tap below to open the resume in your device&apos;s PDF viewer for the best mobile experience.
@@ -307,7 +307,7 @@ export default function ResumeDownload() {
                     Open in PDF Viewer
                   </a>
 
-                  {/* Mobile download — blob approach */}
+                  {/* Mobile download - blob approach */}
                   <button
                     onClick={handleDownload}
                     className="inline-flex items-center gap-2 bg-white text-zinc-700 font-medium text-sm px-6 py-3 rounded-full border border-zinc-300 hover:border-zinc-500 hover:text-zinc-900 transition-all duration-200 w-full justify-center max-w-xs"
@@ -377,7 +377,7 @@ export default function ResumeDownload() {
             <div aria-hidden="true" className="h-[2px] bg-gradient-to-r from-[#6B7C2E] via-[#9AAD4E] to-transparent" />
 
             <div className="bg-[#F9F8F5] px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
-              {/* Left — icon + text */}
+              {/* Left - icon + text */}
               <div className="flex flex-col sm:flex-row items-center sm:items-start md:items-start gap-4 text-center sm:text-left">
                 <svg
                   aria-hidden="true"
@@ -407,9 +407,9 @@ export default function ResumeDownload() {
                 </div>
               </div>
 
-              {/* Right — buttons */}
+              {/* Right - buttons */}
               <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                {/* Download — blob fetch, forces true download */}
+                {/* Download - blob fetch, forces true download */}
                 <button
                   onClick={handleDownload}
                   aria-label="Download Nikhilendra Rathore resume PDF"
@@ -421,7 +421,7 @@ export default function ResumeDownload() {
                   Download Resume
                 </button>
 
-                {/* Preview — opens modal with Google Drive iframe */}
+                {/* Preview - opens modal with Google Drive iframe */}
                 <button
                   ref={previewButtonRef}
                   onClick={() => setPreviewOpen(true)}

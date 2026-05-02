@@ -280,7 +280,7 @@ export default function Projects() {
                       </div>
                     )}
 
-                    {/* System design diagram — animated expand */}
+                    {/* System design diagram - animated expand */}
                     <AnimatePresence initial={false}>
                       {expandedSystemDesign === project.id && project.systemDesign && (
                         <motion.div

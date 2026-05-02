@@ -74,7 +74,7 @@ export default function Contact() {
             </h2>
             <p className="text-zinc-700 font-light">
               Whether it&apos;s a full-time role, a consulting engagement, or
-              just a technical conversation — I&apos;d love to hear from you.
+              just a technical conversation - I&apos;d love to hear from you.
             </p>
           </motion.div>
         </div>

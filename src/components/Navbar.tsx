@@ -94,7 +94,7 @@ export default function Navbar() {
     />
   );
 
-  // Floating pill — desktop only when scrolled
+  // Floating pill - desktop only when scrolled
   if (scrolled && !isMobile) {
     return (
       <>
@@ -120,7 +120,7 @@ export default function Navbar() {
           <div className="flex items-center gap-6 h-9">
             <a
               href="#"
-              aria-label="Nikhilendra Rathore — back to top"
+              aria-label="Nikhilendra Rathore - back to top"
               className="font-display text-sm tracking-tight text-zinc-900"
               style={{ fontWeight: 800 }}
             >
@@ -152,7 +152,7 @@ export default function Navbar() {
     );
   }
 
-  // Full-width nav — mobile always, desktop when not scrolled
+  // Full-width nav - mobile always, desktop when not scrolled
   return (
     <>
       {progressBar}
@@ -168,7 +168,7 @@ export default function Navbar() {
         <div className="max-w-6xl mx-auto px-5 md:px-12 lg:px-20 flex items-center justify-between h-16">
           <a
             href="#"
-            aria-label="Nikhilendra Rathore — back to top"
+            aria-label="Nikhilendra Rathore - back to top"
             className="font-display text-lg tracking-tight text-zinc-900"
             style={{ fontWeight: 800 }}
           >
@@ -197,7 +197,7 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* Hamburger — 44×44 touch target */}
+          {/* Hamburger - 44×44 touch target */}
           <button
             ref={hamburgerRef}
             className="md:hidden w-11 h-11 flex flex-col items-center justify-center gap-[5px]"

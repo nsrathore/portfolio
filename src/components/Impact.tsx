@@ -45,7 +45,7 @@ export default function Impact() {
               Results that move the needle
             </h2>
             <p className="text-zinc-700 font-light max-w-lg">
-              Every project I ship is tracked against real business outcomes —
+              Every project I ship is tracked against real business outcomes -
               not just technical milestones.
             </p>
           </motion.div>
@@ -61,7 +61,7 @@ export default function Impact() {
                   {...animateIn(i * 0.08)}
                   className={`bg-white p-6 sm:p-8 rounded-2xl border border-zinc-100 hover:bg-zinc-50 transition-colors duration-200 group flex flex-col justify-between min-h-[140px] ${bentoClasses[i]}`}
                 >
-                  <div role="group" aria-label={`${card.value} — ${card.label}`}>
+                  <div role="group" aria-label={`${card.value} - ${card.label}`}>
                     <div
                       aria-hidden="true"
                       className={`inline-block text-xs font-mono px-2.5 py-1 rounded-full border mb-4 ${c.bg} ${c.text} ${c.border}`}

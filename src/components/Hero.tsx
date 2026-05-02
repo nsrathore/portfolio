@@ -38,7 +38,7 @@ function AnimatedWord({
   }
 
   return (
-    // No overflow-hidden — it clips letter bottoms when combined with leading-[1.0]
+    // No overflow-hidden - it clips letter bottoms when combined with leading-[1.0]
     <span className="inline-flex" style={applyGradient ? gradientStyle : undefined}>
       {word.split("").map((char, i) => (
         <motion.span
@@ -82,7 +82,7 @@ export default function Hero() {
     <section
       id="hero"
       aria-label="Introduction"
-      // sm:min-h-screen — no min-h on mobile so section is content-height only,
+      // sm:min-h-screen - no min-h on mobile so section is content-height only,
       // eliminating the blank void caused by items-center in a full-viewport flex container
       className="sm:min-h-screen flex items-start sm:items-center pt-24 sm:pt-28 pb-16 px-5 md:px-12 lg:px-20 relative overflow-hidden bg-[#F9F8F5]"
     >
@@ -97,7 +97,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Soft accent blob — desktop only, sits behind headshot */}
+      {/* Soft accent blob - desktop only, sits behind headshot */}
       <div
         aria-hidden="true"
         className="absolute top-1/4 right-0 w-[600px] h-[600px] pointer-events-none hidden lg:block"
@@ -126,7 +126,7 @@ export default function Hero() {
               )}
             </motion.div>
 
-            {/* Name — staggered letter animation, leading-[1.1] gives letters room */}
+            {/* Name - staggered letter animation, leading-[1.1] gives letters room */}
             <h1 className="font-display text-[clamp(2.2rem,8vw,5.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-zinc-900 mb-4">
               <span className="block">
                 <AnimatedWord word={firstName} startIndex={0} charDelay={charDelay} />
@@ -157,7 +157,7 @@ export default function Hero() {
               {personal.summary}
             </motion.p>
 
-            {/* Stats — vertical on mobile, horizontal on sm+ */}
+            {/* Stats - vertical on mobile, horizontal on sm+ */}
             <motion.div
               {...motionProps(0.35)}
               className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-8 mb-8 sm:mb-10"
@@ -176,7 +176,7 @@ export default function Hero() {
                       {stat.label}
                     </div>
                   </div>
-                  {/* Divider — sm+ only */}
+                  {/* Divider - sm+ only */}
                   {i < stats.length - 1 && (
                     <div aria-hidden="true" className="hidden sm:block w-px h-8 bg-zinc-200" />
                   )}
@@ -184,7 +184,7 @@ export default function Hero() {
               ))}
             </motion.div>
 
-            {/* CTAs — stacked on mobile, row on sm+ */}
+            {/* CTAs - stacked on mobile, row on sm+ */}
             <motion.div {...motionProps(0.4)} className="flex flex-col gap-3">
               {/* Primary CTAs + desktop icon row */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-3">
@@ -203,7 +203,7 @@ export default function Hero() {
                   <span aria-hidden="true">✉</span>
                   <span className="truncate">{personal.email}</span>
                 </a>
-                {/* Divider + icon buttons — desktop only */}
+                {/* Divider + icon buttons - desktop only */}
                 <div className="hidden sm:flex items-center gap-3">
                   <div aria-hidden="true" className="w-px h-5 bg-zinc-300" />
                   <a
@@ -241,7 +241,7 @@ export default function Hero() {
                   </a>
                 </div>
               </div>
-              {/* Icon buttons — mobile only, centered below CTAs */}
+              {/* Icon buttons - mobile only, centered below CTAs */}
               <div className="flex sm:hidden items-center justify-center gap-3">
                 <a
                   href={personal.linkedin}
@@ -280,7 +280,7 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Headshot — lg+ only, never renders on mobile */}
+          {/* Headshot - lg+ only, never renders on mobile */}
           <motion.div
             initial={prefersReduced ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
