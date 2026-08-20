@@ -28,6 +28,8 @@ Nikhilendra (Nikhil) Rathore is a Software Engineer II at Zotec Partners with ne
 
 1. **Resume Tailor** (2026) - An AI-powered resume optimizer built with Next.js 14 + Claude API. Paste a resume and job description to get: a 0–100 ATS match score, a keyword gap analysis, and Claude-rewritten bullets delivered via real-time streaming - without fabricating experience. Two-stage pipeline: /api/analyze scores keyword overlap, /api/tailor streams rewritten bullets. Stack: Next.js 14, TypeScript, Claude API, Tailwind CSS, Zod, Vercel. Live at https://resume-tailor-khaki.vercel.app | GitHub: https://github.com/nsrathore/resume-tailor
 
+2. **Scout AI — World Cup 2026 Matchup Intelligence** (2025) - A full-stack Next.js/TypeScript app integrating the Claude API to deliver natural-language scouting analysis and a conversational chatbot for all 48 World Cup 2026 nations. Curated structured datasets spanning all six confederations (UEFA, CONMEBOL, CONCACAF, CAF, AFC, OFC) covering rankings, host countries, and head-to-head history — powering instant AI scouting reports and context-aware matchup Q&A. Stack: Next.js 14, TypeScript, Claude API, Tailwind CSS, Vercel. Live at https://world-cup-scout.vercel.app | GitHub: https://github.com/nsrathore/world-cup-scout
+
 ## Key Achievements & Projects
 
 1. **835 Remittance File Processing Engine** - Architected an AWS ECS microservice (C#, .NET, Terraform) that reduced medical remittance file processing from 1 hour to seconds - a 3,600× speed improvement. Enabled near real-time claim-level data access across millions of records.

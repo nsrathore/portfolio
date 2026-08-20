@@ -59,6 +59,24 @@ export type ProjectTag = "all" | "backend" | "frontend" | "devops" | "security" 
 
 export const projects = [
   {
+    id: "world-cup-scout",
+    title: "Scout AI — World Cup 2026 Matchup Intelligence",
+    company: "Personal Project · 2026",
+    tags: ["frontend", "backend", "ai"] as ProjectTag[],
+    metric: { value: "48", label: "nations analyzed" },
+    metricColor: "primary",
+    link: "https://world-cup-scout.vercel.app",
+    github: "https://github.com/nsrathore/world-cup-scout",
+    systemDesign: "/images/projects/world-cup-scout/scout_ai_architecture.svg",
+    problem:
+      "World Cup 2026 spans 48 teams across six confederations — more nations than any prior tournament. Fans and analysts had no single tool to quickly understand team form, head-to-head records, and matchup dynamics in natural language, forcing manual research across fragmented sources.",
+    approach:
+      "Built a full-stack Next.js/TypeScript application integrating the Claude API in two modes: a structured scouting report generator that produces natural-language matchup analysis from curated team datasets, and a conversational chatbot grounded in rankings, host-country status, and head-to-head history for all 48 nations across all six confederations (UEFA, CONMEBOL, CONCACAF, CAF, AFC, OFC).",
+    result:
+      "End-to-end matchup intelligence for every World Cup 2026 pairing — instant AI-generated scouting reports and a context-aware chatbot that turns a full tournament's worth of structured data into actionable answers in seconds.",
+    tech: ["Next.js 14", "TypeScript", "Claude API", "Tailwind CSS", "Vercel"],
+  },
+  {
     id: "remittance-engine",
     title: "835 Remittance File Processing Engine",
     company: "Zotec Partners · 2024 - 2025",
