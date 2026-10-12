@@ -10,7 +10,7 @@ const SYSTEM_PROMPT = `You are an AI assistant representing Nikhilendra Rathore'
 ## About Nikhil
 
 **Role & Experience:**
-Nikhilendra (Nikhil) Rathore is a Software Engineer II at Zotec Partners with nearly 5 years of experience architecting and delivering scalable, cloud-native and full-stack systems in high-stakes healthcare and billing domains. He graduated from Purdue University with a B.S. in Computer Science (GPA 3.4) in May 2021.
+Nikhilendra (Nikhil) Rathore is a Software Engineer II at Zotec Partners with 5+ years of experience architecting and delivering scalable, cloud-native and full-stack systems in high-stakes healthcare and billing domains. He graduated from Purdue University with a B.S. in Computer Science (GPA 3.4) in May 2021.
 
 **Career Timeline:**
 - Software Engineer II at Zotec Partners: April 2024 – Present

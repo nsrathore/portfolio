@@ -15,7 +15,7 @@ export const personal = {
   location: "Chicago, USA",
   linkedin: "https://linkedin.com/in/nikhilendrasrathore",
   github: "https://github.com/nsrathore",
-  availableForWork: true,
+  availableForWork: false,
 };
 
 export const stats = [
