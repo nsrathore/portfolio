@@ -1,6 +1,17 @@
-# Nikhilendra Rathore - Portfolio
+# Nikhilendra Rathore — Portfolio
 
-A modern, interactive personal portfolio built with **Next.js 14**, **Tailwind CSS**, and **Framer Motion**. Features an AI chatbot powered by Claude that answers questions about background, projects, and experience.
+[![CI](https://github.com/nsrathore/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/nsrathore/portfolio/actions/workflows/ci.yml)
+
+> Personal site for a backend and cloud engineer: case studies with measurable outcomes, a resume viewer, and an AI assistant that answers questions about my experience.
+
+**[nikkirathore.com →](https://nikkirathore.com)**
+
+## Highlights
+
+- **AI chat assistant** grounded in a curated profile prompt, served from a Next.js API route with the Claude API and a feature flag to switch it off.
+- **Case studies** written as problem → approach → result, filterable by backend, frontend, DevOps, security and AI, with optional system design diagrams.
+- **Resume viewer** that proxies the latest PDF through an API route, so the site never needs a redeploy when the resume changes.
+- **Single source of content.** Every word on the page lives in `src/data/portfolio.ts`; components only render it.
 
 ## Tech Stack
 
@@ -12,7 +23,7 @@ A modern, interactive personal portfolio built with **Next.js 14**, **Tailwind C
 
 ---
 
-## Getting Started
+## Running locally
 
 ### 1. Clone the repo
 
@@ -39,6 +50,12 @@ NEXT_PUBLIC_FORMSPREE_ID=your_formspree_form_id_here
 
 # Set to "true" to enable the AI chat widget, anything else disables it
 CHATBOT_ENABLED=true
+
+# Set to "true" to send contact-form messages through Formspree
+CONTACT_FORM_ENABLED=true
+
+# Google Drive file ID of the resume PDF (required to build)
+NEXT_PUBLIC_RESUME_FILEID=your_google_drive_file_id
 ```
 
 > **Note:** The site works without these keys — the chatbot will show an offline message and the contact form will run in demo mode.
@@ -153,7 +170,7 @@ The chatbot's knowledge lives in `src/app/api/chat/route.ts` in the `SYSTEM_PROM
 
 1. Push your code to GitHub
 2. Go to [vercel.com](https://vercel.com) → Import your repo
-3. Add environment variables in the Vercel dashboard (`ANTHROPIC_API_KEY`, `NEXT_PUBLIC_FORMSPREE_ID`, `CHATBOT_ENABLED`)
+3. Add environment variables in the Vercel dashboard (`ANTHROPIC_API_KEY`, `NEXT_PUBLIC_FORMSPREE_ID`, `CHATBOT_ENABLED`, `CONTACT_FORM_ENABLED`, `NEXT_PUBLIC_RESUME_FILEID`)
 4. Deploy — Vercel handles everything automatically
 
 > **PDF resume:** The resume preview uses a hardcoded public URL. If your Vercel project URL changes, update `PDF_PUBLIC_URL` in `src/components/ResumeDownload.tsx`.
