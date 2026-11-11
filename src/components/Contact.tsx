@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "@/lib/useInView";
 import { personal } from "@/data/portfolio";
@@ -18,6 +18,14 @@ export default function Contact() {
     message: "",
   });
 
+  // Spam protection (checked server-side in /api/contact): a hidden honeypot
+  // field and the time since the form was shown.
+  const [honeypot, setHoneypot] = useState("");
+  const formShownAt = useRef(0);
+  useEffect(() => {
+    if (formState === "idle") formShownAt.current = Date.now();
+  }, [formState]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -32,7 +40,11 @@ export default function Contact() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          website: honeypot,
+          elapsedMs: Date.now() - formShownAt.current,
+        }),
       });
 
       if (res.status === 503) {
@@ -127,7 +139,7 @@ export default function Contact() {
             <form
               onSubmit={handleSubmit}
               noValidate
-              className="bg-[#FAFAF8] border border-zinc-100 rounded-2xl p-6 md:p-8 space-y-4"
+              className="relative bg-[#FAFAF8] border border-zinc-100 rounded-2xl p-6 md:p-8 space-y-4"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
@@ -205,6 +217,20 @@ export default function Contact() {
                   aria-required="true"
                   rows={5}
                   className={inputClass + " resize-none"}
+                />
+              </div>
+
+              {/* Honeypot - hidden from people and assistive tech; bots tend to fill it */}
+              <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                <label htmlFor="website">Website</label>
+                <input
+                  id="website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
                 />
               </div>
 

@@ -22,6 +22,7 @@ export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -42,6 +43,38 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Active section: whichever observed section crosses a thin band just above
+  // the middle of the viewport. Hero and contact are observed too so nothing
+  // stays highlighted while they're in view.
+  useEffect(() => {
+    const ids = ["hero", ...links.map((l) => l.id), "contact"];
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveId(entry.target.id);
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const linkProps = (id: string, base: string) => {
+    const active = activeId === id;
+    return {
+      "aria-current": active ? ("true" as const) : undefined,
+      className: `${base} transition-colors duration-200 ${
+        active ? "text-[#4A5A1E] font-medium" : "text-zinc-600 hover:text-zinc-900"
+      }`,
+    };
+  };
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -138,7 +171,7 @@ export default function Navbar() {
                   <a
                     href={`#${link.id}`}
                     onClick={(e) => { e.preventDefault(); scrollTo(link.id); }}
-                    className="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-200"
+                    {...linkProps(link.id, "text-sm")}
                   >
                     {link.label}
                   </a>
@@ -147,6 +180,7 @@ export default function Navbar() {
               <li>
                 <a
                   href="#contact"
+                  aria-current={activeId === "contact" ? "true" : undefined}
                   className="text-sm font-medium bg-[#6B7C2E] text-white px-4 py-1.5 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200"
                 >
                   Let&apos;s talk
@@ -189,7 +223,7 @@ export default function Navbar() {
                 <a
                   href={`#${link.id}`}
                   onClick={(e) => { e.preventDefault(); scrollTo(link.id); }}
-                  className="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-200"
+                  {...linkProps(link.id, "text-sm")}
                 >
                   {link.label}
                 </a>
@@ -198,6 +232,7 @@ export default function Navbar() {
             <li>
               <a
                 href="#contact"
+                aria-current={activeId === "contact" ? "true" : undefined}
                 className="text-sm font-medium bg-[#6B7C2E] text-white px-5 py-2 rounded-full hover:bg-[#4A5A1E] transition-colors duration-200"
               >
                 Let&apos;s talk
@@ -245,7 +280,7 @@ export default function Navbar() {
                   <a
                     href={`#${link.id}`}
                     onClick={(e) => { e.preventDefault(); setMenuOpen(false); scrollTo(link.id); }}
-                    className="text-sm text-zinc-600 hover:text-zinc-900 flex items-center min-h-[44px] py-3 border-b border-zinc-50 last:border-b-0"
+                    {...linkProps(link.id, "text-sm flex items-center min-h-[44px] py-3 border-b border-zinc-50 last:border-b-0")}
                   >
                     {link.label}
                   </a>
@@ -254,6 +289,7 @@ export default function Navbar() {
             </ul>
             <a
               href="#contact"
+              aria-current={activeId === "contact" ? "true" : undefined}
               onClick={() => setMenuOpen(false)}
               className="text-sm font-medium bg-[#6B7C2E] text-white px-5 py-3 rounded-full text-center mt-3 min-h-[44px] flex items-center justify-center"
             >

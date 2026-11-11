@@ -14,8 +14,9 @@ Single-page scroll layout. Light/clean aesthetic. Olive accent (#6B7C2E, hover #
 ## Project Structure
 src/
 ├── app/
-│   ├── api/chat/route.ts     # AI chatbot endpoint - edit SYSTEM_PROMPT here to update bot knowledge
-│   ├── globals.css           # Font imports, base styles
+│   ├── api/chat/route.ts     # AI chatbot endpoint - facts come from portfolio.ts; tone/personality text lives in SYSTEM_PROMPT
+│   ├── fonts.ts              # next/font/google definitions (CSS variables)
+│   ├── globals.css           # Base styles
 │   ├── layout.tsx            # Metadata lives here
 │   └── page.tsx              # Composes all section components
 ├── components/
@@ -38,7 +39,7 @@ src/
 - Animations: use useInView hook + Framer Motion. Pattern: `initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}`
 - New components go in src/components/, imported in page.tsx
 - Accent color token: #6B7C2E (hover: #4A5A1E) - do not introduce new brand colors
-- Font classes: font-display (Plus Jakarta Sans), font-body (DM Sans), font-mono (JetBrains Mono)
+- Font classes: font-display (Plus Jakarta Sans), font-body (DM Sans), font-mono (JetBrains Mono). Fonts load via next/font/google in src/app/fonts.ts, exposed as --font-display/--font-body/--font-mono and wired into tailwind.config.ts fontFamily
 - Section structure: section tag → container-wide div → section-label p → h2 → content
 
 ## Images
@@ -62,7 +63,7 @@ NEXT_PUBLIC_FORMSPREE_ID   # Contact form submissions
 1. Add entry to `projects` array in src/data/portfolio.ts
 2. Add screenshot to public/images/projects/[project-id].jpg
 3. Add project-id to the ProjectTag type if using a new tag
-4. Update SYSTEM_PROMPT in src/app/api/chat/route.ts so the chatbot knows about it
+4. No chatbot change needed: the chat route builds its project, skills, timeline and contact knowledge from portfolio.ts (personal vs professional is decided by `company` starting with "Personal Project"). Only edit SYSTEM_PROMPT in src/app/api/chat/route.ts for personality, tone, or role-preference text
 
 ## Adding a New Section
 1. Create src/components/NewSection.tsx
@@ -80,4 +81,4 @@ npm run lint       # ESLint
 - Do not hardcode content in components (use portfolio.ts)
 - Do not introduce new dependencies without checking if Framer Motion or Tailwind already covers it
 - Do not use inline styles for colors - use Tailwind classes or the #6B7C2E olive accent token
-- Do not modify globals.css font imports (breaks typography system)
+- Do not add Google Fonts @import / <link> tags - add or change fonts in src/app/fonts.ts (next/font) and keep the CSS variable names in sync with tailwind.config.ts

@@ -300,6 +300,7 @@ export default function Hero() {
                   src="/images/headshot.jpeg"
                   alt="Nikhilendra Rathore, Software Engineer II"
                   fill
+                  sizes="(min-width:1280px) 320px, 288px"
                   className="object-cover"
                   priority
                 />

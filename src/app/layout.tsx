@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { fontBody, fontDisplay, fontMono } from "./fonts";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nikkirathore.com"),
   title: "Nikhilendra Rathore - Software Engineer II",
   description:
     "Software Engineer II with 5+ years building scalable, cloud-native systems in healthcare and billing. Specializing in C#/.NET, Angular, AWS, and Terraform.",
@@ -21,6 +23,15 @@ export const metadata: Metadata = {
     description:
       "Building scalable, high-stakes systems at the intersection of healthcare and technology.",
     type: "website",
+    url: "/",
+    siteName: "Nikhilendra Rathore",
+  },
+  // og/twitter images come from src/app/opengraph-image.tsx automatically
+  twitter: {
+    card: "summary_large_image",
+    title: "Nikhilendra Rathore - Software Engineer II",
+    description:
+      "Building scalable, high-stakes systems at the intersection of healthcare and technology.",
   },
 };
 
@@ -30,7 +41,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html
+      lang="en"
+      className={`scroll-smooth ${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable}`}
+    >
       <body>
         <script dangerouslySetInnerHTML={{ __html: "history.scrollRestoration='manual';" }} />
         <a

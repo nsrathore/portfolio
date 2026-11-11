@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { CHAT_MAX_MESSAGE_CHARS, CHAT_MAX_USER_TURNS } from "@/lib/chatLimits";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 type Message = {
@@ -136,8 +137,11 @@ export default function ChatWidget() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open]);
 
+  const turnLimitReached =
+    messages.filter((m) => m.role === "user").length >= CHAT_MAX_USER_TURNS;
+
   const sendMessage = async (text: string) => {
-    if (!text.trim() || loading) return;
+    if (!text.trim() || loading || turnLimitReached) return;
 
     const userMessage: Message = { role: "user", content: text.trim() };
     const newMessages = [...messages, userMessage];
@@ -156,7 +160,10 @@ export default function ChatWidget() {
 
       const data = await res.json();
 
-      if (data.message) {
+      if (!res.ok && typeof data.error === "string" && (res.status === 429 || res.status === 400)) {
+        // Friendly rate-limit / length-cap messages from /api/chat
+        setMessages((prev) => [...prev, { role: "assistant", content: data.error }]);
+      } else if (data.message) {
         setMessages((prev) => [
           ...prev,
           { role: "assistant", content: data.message },
@@ -311,15 +318,16 @@ export default function ChatWidget() {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask me anything..."
-                disabled={loading}
+                placeholder={turnLimitReached ? "Question limit reached" : "Ask me anything..."}
+                maxLength={CHAT_MAX_MESSAGE_CHARS}
+                disabled={loading || turnLimitReached}
                 aria-label="Type your message"
                 style={{ fontSize: "16px" }}
                 className="flex-1 bg-zinc-50 border border-zinc-200 rounded-xl px-3 py-2.5 focus:border-[#6B7C2E] focus:bg-white transition-all duration-200 placeholder:text-zinc-400 disabled:opacity-60"
               />
               <button
                 type="submit"
-                disabled={!input.trim() || loading}
+                disabled={!input.trim() || loading || turnLimitReached}
                 aria-label="Send message"
                 className="w-9 h-9 bg-[#6B7C2E] hover:bg-[#4A5A1E] disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl flex items-center justify-center transition-colors duration-200 flex-shrink-0 focus-visible:ring-2 focus-visible:ring-[#6B7C2E] focus-visible:ring-offset-2"
               >

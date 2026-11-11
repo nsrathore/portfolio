@@ -1,58 +1,82 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
+import { createRateLimiter, getClientIp } from "@/lib/rateLimit";
+import { CHAT_MAX_MESSAGE_CHARS, CHAT_MAX_USER_TURNS } from "@/lib/chatLimits";
+import { personal, projects, skills, timeline } from "@/data/portfolio";
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const SYSTEM_PROMPT = `You are an AI assistant representing Nikhilendra Rathore's personal portfolio website. Your job is to help visitors learn about Nikhil in a friendly, conversational, and honest way. Answer questions as if you know Nikhil personally and have deep context about his work.
+// 10 messages per minute per IP (in-memory stopgap - see src/lib/rateLimit.ts)
+const chatLimiter = createRateLimiter({ limit: 10, windowMs: 60_000 });
 
-## About Nikhil
+const CONTACT_FALLBACK =
+  "You can always reach Nikhil directly at nikhilendra7@gmail.com or on LinkedIn at https://linkedin.com/in/nikhilendrasrathore.";
+
+type ChatMessage = { role: "user" | "assistant"; content: string };
+
+function isChatMessage(m: unknown): m is ChatMessage {
+  if (!m || typeof m !== "object") return false;
+  const { role, content } = m as Record<string, unknown>;
+  return (role === "user" || role === "assistant") && typeof content === "string";
+}
+
+// Factual sections (role, timeline, contact, projects, skills) are generated
+// from src/data/portfolio.ts so the chatbot never drifts from the site.
+// Personality, philosophy, role preferences and tone stay hand-written below.
+function buildKnowledgeSections() {
+  const [current] = timeline;
+  const isPersonal = (p: (typeof projects)[number]) => p.company.startsWith("Personal Project");
+
+  const formatProject = (p: (typeof projects)[number], i: number) => {
+    const links = [
+      "link" in p && p.link ? `Live at ${p.link}` : null,
+      "github" in p && p.github ? `GitHub: ${p.github}` : null,
+    ].filter(Boolean);
+    return [
+      `${i + 1}. **${p.title}** (${p.company}) - Headline metric: ${p.metric.value} ${p.metric.label}.`,
+      `   - Problem: ${p.problem}`,
+      `   - Approach: ${p.approach}`,
+      `   - Result: ${p.result}`,
+      `   - Stack: ${p.tech.join(", ")}`,
+      ...(links.length ? [`   - ${links.join(" | ")}`] : []),
+    ].join("\n");
+  };
+
+  return `## About Nikhil
 
 **Role & Experience:**
-Nikhilendra (Nikhil) Rathore is a Software Engineer II at Zotec Partners with 5+ years of experience architecting and delivering scalable, cloud-native and full-stack systems in high-stakes healthcare and billing domains. He graduated from Purdue University with a B.S. in Computer Science (GPA 3.4) in May 2021.
+${personal.name} (${personal.shortName}) is a ${personal.title} at ${current.place} with ${personal.yearsOfExperience} years of experience. Focus: ${personal.tagline}. In his own words: "${personal.summary}"
 
 **Career Timeline:**
-- Software Engineer II at Zotec Partners: April 2024 – Present
-- Software Engineer I at Zotec Partners: September 2021 – April 2024
-- B.S. Computer Science, Purdue University, West Lafayette, IN: May 2021
+${timeline.map((t) => `- ${t.role} at ${t.place}: ${t.date}`).join("\n")}
 
 **Contact:**
-- Email: nikhilendra7@gmail.com
-- Phone: (765) 775-3273
-- LinkedIn: linkedin.com/in/nikhilendrasrathore
-- GitHub: github.com/nsrathore
-- Location: Chicago, USA
+- Email: ${personal.email}
+- Phone: ${personal.phone}
+- LinkedIn: ${personal.linkedin}
+- GitHub: ${personal.github}
+- Location: ${personal.location}
 
 ## Personal Projects
 
-1. **Resume Tailor** (2026) - An AI-powered resume optimizer built with Next.js 14 + Claude API. Paste a resume and job description to get: a 0–100 ATS match score, a keyword gap analysis, and Claude-rewritten bullets delivered via real-time streaming - without fabricating experience. Two-stage pipeline: /api/analyze scores keyword overlap, /api/tailor streams rewritten bullets. Stack: Next.js 14, TypeScript, Claude API, Tailwind CSS, Zod, Vercel. Live at https://resume-tailor-khaki.vercel.app | GitHub: https://github.com/nsrathore/resume-tailor
+${projects.filter(isPersonal).map(formatProject).join("\n\n")}
 
-2. **Scout AI — World Cup 2026 Matchup Intelligence** (2025) - A full-stack Next.js/TypeScript app integrating the Claude API to deliver natural-language scouting analysis and a conversational chatbot for all 48 World Cup 2026 nations. Curated structured datasets spanning all six confederations (UEFA, CONMEBOL, CONCACAF, CAF, AFC, OFC) covering rankings, host countries, and head-to-head history — powering instant AI scouting reports and context-aware matchup Q&A. Stack: Next.js 14, TypeScript, Claude API, Tailwind CSS, Vercel. Live at https://world-cup-scout.vercel.app | GitHub: https://github.com/nsrathore/world-cup-scout
+## Key Achievements & Professional Projects
 
-## Key Achievements & Projects
-
-1. **835 Remittance File Processing Engine** - Architected an AWS ECS microservice (C#, .NET, Terraform) that reduced medical remittance file processing from 1 hour to seconds - a 3,600× speed improvement. Enabled near real-time claim-level data access across millions of records.
-
-2. **Medical Claims Classification Pipeline** - Enhanced claims categorization in a high-throughput revenue-critical pipeline, improving classification accuracy and directly contributing to $10M+ in annual revenue recovery for healthcare clients.
-
-3. **Insurance Eligibility Verification Service** - Stepped in as Interim Tech Lead to deliver a real-time insurance eligibility verification service (Next.js, AWS, GitHub Actions). Resolved critical API authentication failures and integrated with the patient payment portal, yielding a 200% increase in QE testing efficiency.
-
-4. **PHI Security Hardening Initiative** - Spearheaded a company-wide security initiative implementing response header hardening and reCAPTCHA integrations across patient-facing apps - blocking tens of thousands of cyberattacks and safeguarding Protected Health Information (PHI).
-
-5. **Denial Management Observability Platform** - Implemented Splunk observability and automated CI/CD pipelines, reducing denial resolution time from days to hours across millions of annual claims.
-
-6. **Legacy Medical Coding Migration** - Led a company-wide migration off legacy medical coding infrastructure (AngularJS to modern stack), eliminating critical system debt and enabling faster feature delivery.
+${projects.filter((p) => !isPersonal(p)).map(formatProject).join("\n\n")}
 
 ## Technical Skills
 
-- **Languages:** C#, JavaScript, TypeScript, Java, SQL, C, C++
-- **Frontend:** Angular, AngularJS, React, Next.js, HTML5, CSS3
-- **Backend:** .NET, Node.js, RESTful APIs, Microservices Architecture, Distributed Systems
-- **Cloud & DevOps:** AWS (ECS, Lambda, Secrets Manager), Docker, Terraform, Azure DevOps, GitHub Actions, CI/CD
-- **Observability:** Splunk, Postman
-- **AI & Tools:** Cursor (AI-assisted development), Git/GitHub, SQL Server, ClickUp
-- **Methodologies:** Agile/Scrum, Test-Driven Development, Code Review
+${skills
+  .map((group) => `- **${group.category}:** ${group.items.map((item) => item.name).join(", ")}`)
+  .join("\n")}`;
+}
+
+const SYSTEM_PROMPT = `You are an AI assistant representing Nikhilendra Rathore's personal portfolio website. Your job is to help visitors learn about Nikhil in a friendly, conversational, and honest way. Answer questions as if you know Nikhil personally and have deep context about his work.
+
+${buildKnowledgeSections()}
 
 ## Engineering Philosophy & Approach
 
@@ -97,12 +121,40 @@ export async function POST(req: NextRequest) {
     });
   }
 
+  const limit = chatLimiter(getClientIp(req.headers));
+  if (!limit.ok) {
+    return NextResponse.json(
+      {
+        error: `Whoa, that's a lot of questions at once! Give me about ${limit.retryAfterSeconds} seconds to catch my breath and try again.`,
+      },
+      { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } }
+    );
+  }
+
   try {
     const { messages } = await req.json();
 
-    if (!messages || !Array.isArray(messages)) {
+    if (!Array.isArray(messages) || messages.length === 0 || !messages.every(isChatMessage)) {
       return NextResponse.json(
         { error: "Invalid request: messages array required" },
+        { status: 400 }
+      );
+    }
+
+    if (messages.some((m) => m.role === "user" && m.content.length > CHAT_MAX_MESSAGE_CHARS)) {
+      return NextResponse.json(
+        {
+          error: `That message is a bit long - could you keep it under ${CHAT_MAX_MESSAGE_CHARS} characters?`,
+        },
+        { status: 400 }
+      );
+    }
+
+    if (messages.filter((m) => m.role === "user").length > CHAT_MAX_USER_TURNS) {
+      return NextResponse.json(
+        {
+          error: `We've covered a lot! This chat has reached its ${CHAT_MAX_USER_TURNS}-question limit. ${CONTACT_FALLBACK}`,
+        },
         { status: 400 }
       );
     }
@@ -111,10 +163,7 @@ export async function POST(req: NextRequest) {
       model: "claude-sonnet-4-6",
       max_tokens: 450,
       system: SYSTEM_PROMPT,
-      messages: messages.map((m: { role: string; content: string }) => ({
-        role: m.role as "user" | "assistant",
-        content: m.content,
-      })),
+      messages: messages.map((m) => ({ role: m.role, content: m.content })),
     });
 
     const raw =

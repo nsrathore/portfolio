@@ -9,9 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["Plus Jakarta Sans", "sans-serif"],
-        body: ["DM Sans", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        // CSS variables are set by next/font in src/app/fonts.ts
+        display: ["var(--font-display)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
+        mono: ["var(--font-mono)", "monospace"],
       },
       colors: {
         cream: {

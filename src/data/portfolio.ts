@@ -7,6 +7,7 @@ export const personal = {
   shortName: "Nikhil",
   initials: "NR",
   title: "Software Engineer II",
+  yearsOfExperience: "5+",
   tagline: "Cloud-Native & Full-Stack",
   summary:
     "Engineered for scale. I build cloud-native microservices, real-time data pipelines, and secure healthcare platforms - designing systems that don't just work, but perform under load, scale with demand, and drive meaningful business outcomes when the stakes are highest.",
@@ -211,7 +212,7 @@ export const skills = [
       { name: "Docker", highlight: false },
       { name: "AWS Lambda", highlight: true },
       { name: "AWS Secrets Manager", highlight: false },
-      { name: "Vercel", Highlight: false},
+      { name: "Vercel", highlight: false },
       { name: "CI/CD", highlight: false },
     ],
   },
