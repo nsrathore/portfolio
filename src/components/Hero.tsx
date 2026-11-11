@@ -12,7 +12,8 @@ const fadeUp = (delay = 0) => ({
 });
 
 const gradientStyle = {
-  background: "linear-gradient(135deg, #6B7C2E, #9AAD4E)",
+  // Both stops are >=3:1 on #F9F8F5 (WCAG large-text minimum)
+  background: "linear-gradient(135deg, #3A4A15, #6B7C2E)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",
@@ -94,16 +95,6 @@ export default function Hero() {
           backgroundImage:
             "linear-gradient(rgba(107,124,46,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(107,124,46,0.03) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
-        }}
-      />
-
-      {/* Soft accent blob - desktop only, sits behind headshot */}
-      <div
-        aria-hidden="true"
-        className="absolute top-1/4 right-0 w-[600px] h-[600px] pointer-events-none hidden lg:block"
-        style={{
-          background:
-            "linear-gradient(135deg, #F2F5E8 0%, #F9F8F5 50%, #F9F8F5 100%)",
         }}
       />
 
@@ -296,9 +287,14 @@ export default function Hero() {
             initial={prefersReduced ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={prefersReduced ? { duration: 0 } : { duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="hidden lg:flex flex-shrink-0 items-center justify-center"
+            className="hidden lg:flex flex-shrink-0 items-center justify-center relative"
           >
-            <div className="rounded-full ring-[3px] ring-[#6B7C2E] ring-offset-[6px]">
+            {/* Soft accent glow - lives inside the headshot column so it can never overlap the text */}
+            <div
+              aria-hidden="true"
+              className="absolute -inset-16 rounded-full pointer-events-none blur-3xl bg-[radial-gradient(circle,rgba(200,212,154,0.45)_0%,rgba(242,245,232,0.6)_45%,transparent_70%)]"
+            />
+            <div className="relative rounded-full ring-[3px] ring-[#6B7C2E] ring-offset-[6px]">
               <div className="relative w-72 h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden">
                 <Image
                   src="/images/headshot.jpeg"

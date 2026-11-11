@@ -2,7 +2,7 @@
 
 ## Project Overview
 Personal portfolio site for Nikhilendra Rathore (Software Engineer II).
-Single-page scroll layout. Light/clean aesthetic. Slate blue accent (#3B5BDB).
+Single-page scroll layout. Light/clean aesthetic. Olive accent (#6B7C2E, hover #4A5A1E) on cream (#F9F8F5).
 
 ## Tech Stack
 - Next.js 14 (App Router, TypeScript)
@@ -40,7 +40,6 @@ src/
 - Accent color token: #6B7C2E (hover: #4A5A1E) - do not introduce new brand colors
 - Font classes: font-display (Plus Jakarta Sans), font-body (DM Sans), font-mono (JetBrains Mono)
 - Section structure: section tag → container-wide div → section-label p → h2 → content
-- All body text paragraphs (`<p>`, `<motion.p>`) must include `hyphens-none` to prevent justified text from auto-hyphenating words across line breaks. Apply to any element with multi-line prose content. Skip single-line labels (section-label, font-mono metadata, badges).
 
 ## Images
 - Personal/project images live in public/images/
@@ -80,5 +79,5 @@ npm run lint       # ESLint
 - Do not use bare <img> tags (use next/image)
 - Do not hardcode content in components (use portfolio.ts)
 - Do not introduce new dependencies without checking if Framer Motion or Tailwind already covers it
-- Do not use inline styles for colors - use Tailwind classes or the #3B5BDB token
+- Do not use inline styles for colors - use Tailwind classes or the #6B7C2E olive accent token
 - Do not modify globals.css font imports (breaks typography system)

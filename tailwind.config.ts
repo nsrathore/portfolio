@@ -17,7 +17,7 @@ const config: Config = {
         cream: {
           50: "#FAFAF8",
           100: "#F5F5F0",
-          200: "#EBEBЕ4",
+          200: "#EBEBE4",
         },
         slate: {
           brand: "#6B7C2E",

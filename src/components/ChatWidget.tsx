@@ -86,6 +86,9 @@ export default function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  // On < sm the "Ask me about Nikhil" label overlaps page content, so it
+  // collapses to the icon-only button after its intro (2s delay + ~4s visible).
+  const [labelExpired, setLabelExpired] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const prefersReduced = useReducedMotion();
@@ -95,6 +98,11 @@ export default function ChatWidget() {
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => setLabelExpired(true), 6000);
+    return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
@@ -384,7 +392,13 @@ export default function ChatWidget() {
         </AnimatePresence>
       </motion.button>
 
-      {/* Tooltip (first visit) */}
+      {/* Tooltip (first visit) - always on sm+, auto-hides on mobile after ~4s */}
+      <div
+        aria-hidden="true"
+        className={`transition-opacity duration-500 motion-reduce:transition-none ${
+          labelExpired ? "max-sm:opacity-0 max-sm:invisible" : ""
+        }`}
+      >
       <AnimatePresence>
         {!open && (
           <motion.div
@@ -400,6 +414,7 @@ export default function ChatWidget() {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </>
   );
 }

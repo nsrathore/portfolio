@@ -47,12 +47,6 @@
     @apply bg-[#F2F5E8] text-[#4A5A1E];
   }
 
-  p, li {
-    text-align: justify;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-  }
-
   ::-webkit-scrollbar {
     width: 6px;
   }
